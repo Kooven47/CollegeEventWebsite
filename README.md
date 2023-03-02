@@ -1,12 +1,7 @@
 # College Event Manager
 *COP4710 - Database Systems*
 
-## Contributors
-- [Ethan Adkins](https://github.com/EthanAdkins)
-- [Kevin Alfonso](https://github.com/Kooven47)
-- [Pam Kitsuwan](https://github.com/sspamss)
-
-## Project Description
+## Description
 
 College Event Manager is a web-based application that solves the problems. Any student (user) may register with the application to obtain a user ID and a password. There are three user levels: super  admin  who  creates a profile for a university (name, location, description, number of students, pictures, etc.), admin who owns an RSO and may host events, and student who uses the application to look up information about the various events.
 
@@ -26,9 +21,7 @@ When logged in, Student should be able to view all public events, private events
 - [jQuery](http://jquery.com) - JavaScript library
 
 ## Installation
-
 Install node.js if you don't have it already.
-
 
 For the DB, install XAMPP, then run MySQL and Apache
 - configure db as stated below
@@ -37,4 +30,8 @@ For the DB, install XAMPP, then run MySQL and Apache
 For the node web app, run the following commands
 - npm install
 - npm start
-    
+
+## Contributors
+- [Ethan Adkins](https://github.com/EthanAdkins)
+- [Kevin Alfonso](https://github.com/Kooven47)
+- [Pam Kitsuwan](https://github.com/sspamss)

@@ -24,8 +24,7 @@ When logged in, Student should be able to view all public events, private events
 Install node.js if you don't have it already.
 
 For the DB, install XAMPP, then run MySQL and Apache
-- configure db as stated below
-- import eventDB.sql to phpMyAdmin in a db named mydb
+- Import eventDB.sql to phpMyAdmin as a db named mydb
 
 For the node web app, run the following commands
 - npm install

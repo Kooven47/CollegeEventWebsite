@@ -1,5 +1,5 @@
 # College Event Manager
-<br>*COP4710 - Database Systems*
+*COP4710 - Database Systems*
 
 ## Contributors
 - [Ethan Adkins](https://github.com/EthanAdkins)

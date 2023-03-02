@@ -31,6 +31,6 @@ For the node web app, run the following commands
 - npm start
 
 ## Contributors
-- [Ethan Adkins](https://github.com/EthanAdkins)
+[insert role here] - [Ethan Adkins](https://github.com/EthanAdkins)
 <br> Back-End - [Kevin Alfonso](https://github.com/Kooven47)
 <br> Front-End - [Pam Kitsuwan](https://github.com/sspamss)

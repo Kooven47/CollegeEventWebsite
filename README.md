@@ -12,7 +12,7 @@ When logged in, Student should be able to view all public events, private events
 
 ## Tech Stack
 
-- [EJS](http://embeddedjs.com/) - HTML enhanced for web apps!
+- [EJS](https://ejs.co/) - HTML enhanced for web apps!
 - [Bootstrap](http://github.com/twbs/bootstrap/) - great UI boilerplate for modern web apps
 - [node.js](https://nodejs.org/en/) - event I/O for the backend
 - [XAMPP](https://www.apachefriends.org/) - server for database

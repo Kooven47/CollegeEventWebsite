@@ -76,29 +76,29 @@ app.post('/', function(req, res)
 
   connection.query(queryString, function(err, rows) 
   {
-      if (err)
+    if (err)
+    {
+      console.log("***** DB Error *****");
+      res.render("index",{message: "*** DB Error ***"});
+    } 
+
+    if (rows != "")
+    {
+      if (rows[0].User_ID == currUser.username && rows[0].password == currUser.password)
       {
-        console.log("***** DB Error *****");
-        res.render("index",{message: "*** DB Error ***"});
-      } 
+        req.session.username = req.body.username;
+        req.session.password = req.body.password;
 
-      if (rows != "")
-      {
-        if (rows[0].User_ID == currUser.username && rows[0].password == currUser.password)
-        {
-          req.session.username = req.body.username;
-          req.session.password = req.body.password;
+        console.log("User: " + currUser.username + " logged in");
 
-          console.log("User: " + currUser.username + " logged in");
-
-          res.redirect("events");
-        }
+        res.redirect("events");
       }
-      else
-      {
-        console.log("***** Username and/or Password not found *****");
-        res.render("index",{message: "*** Username and/or Password not found ***"});
-      }
+    }
+    else
+    {
+      console.log("***** Username and/or Password not found *****");
+      res.render("index",{message: "*** Username and/or Password not found ***"});
+    }
   });
 });
 

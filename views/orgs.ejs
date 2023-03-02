@@ -1,0 +1,124 @@
+<html>
+
+<style>
+  input, label,button {
+            width: 40%;
+        }
+
+  .newOrg{
+    width: 40%;
+    height: 425px;
+    min-width: 450px;
+    float: left;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+  }
+  .viewOrgs{    
+    width: 40%;
+    height: 425px;
+    min-width: 450px;
+    float: right;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+
+    overflow: auto;
+  }
+  .container{
+    margin-bottom: 80px;
+  }
+  .aContainer{
+        color: red;
+      }
+</style>
+
+
+<%= include partials/header.ejs %>
+
+ <body>
+  <center><u><h1>Organizations</h1></u><center><br><br>
+
+    <div class = "aContainer" >
+          <h1> <% if (message.length > 1) %>
+                <%=    message   %>
+          </h1>
+    </div>
+
+    <div class = "container">
+
+        <div class = "newOrg">
+
+            <center><h2><u> New Organization </u></h2></center><br>
+
+            <form class="form"  action="/orgs" method="post">              
+                    <div class="form-group">
+                        <LABEL>Organization Name: </LABEL>
+                        <input type="text" name="name" id="name"><br>
+                        <LABEL>Admin email: </LABEL>
+                        <input type="text" name="adminEmail" id="adminEmail"><br>
+                        <LABEL>User 1: </LABEL>
+                        <input type="text" name="usr1Email" id="usr1Email"><br>
+                        <LABEL>User 2: </LABEL>
+                        <input type="text" name="usr2Email" id="usr2Email"><br>
+                        <LABEL>User 3: </LABEL>
+                        <input type="text" name="usr3Email" id="usr3Email"><br>
+                        <LABEL>User 4: </LABEL>
+                        <input type="text" name="usr4Email" id="usr4Email"><br>
+                        <LABEL>User 5: </LABEL>
+                        <input type="text" name="usr5Email" id="usr5Email"><br>
+
+                    </div>
+                    <br><br>
+                    <button type="submit" class="btn btn-success">Create</button>
+                    
+            </form>
+        </div>
+
+        <div class = "viewOrgs">        
+
+            <aside>
+                <h2><u>Posted Organizations</u></h2><br>                
+
+                    <div class = "organizations">
+                        <ul>
+                            <% for(var i=0; i < orgs.length; i++) { %>
+                               <h3>
+                                    <li>Name: <%= orgs[i].Name %></li>
+                               </h3>
+                               <h4>
+                                    <le>Admin: <%= orgs[i].Admin %><br><br></le>
+                               </h4>
+
+                            <input type="button" class = "btn btn-info" name="theButton" value="Details" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'" >
+
+
+                            <% } %>
+                        </ul>
+
+                    </div>
+            </aside>
+
+        </div>
+
+    </div>
+  </body>
+</html>

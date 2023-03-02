@@ -1,0 +1,35 @@
+<html>
+
+<%= include partials/header.ejs %>
+
+
+ <body>
+  <center><u><h1>Org Details</h1></u><center></br>
+
+          <div class = "viewRSO">
+                    
+              <form method = "post" action = " ">
+                    
+              <h3>
+                Name: <%= orgs[0].Name %>
+              </h3>
+              <h5>
+                Admin: <%= orgs[0].Admin %>
+              </h5>
+
+              <% if(joinStatus == 1) { %>
+
+                <input type="submit" name="theButton" value="Join">
+
+              <% } %>   
+              <% if(joinStatus == 0) { %>
+
+                <input type="submit" name="theButton" value="Leave">
+                
+              <% } %> 
+
+              <br> 
+            </form>  
+          </div> 
+  </body>
+</html>

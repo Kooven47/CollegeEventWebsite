@@ -1,0 +1,125 @@
+<html>
+    <header>
+
+      <style>
+
+      div .hero {
+      width: 100%;
+      }
+
+      header .hero {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 40%;
+        background: url('images/banner.jpg');
+        background-repeat: no-repeat;
+        background-position: 80% 15%;
+        background-size: cover;
+      }
+      header .hero .branding {
+        position: absolute;
+        bottom: 0;
+      }
+      input, label{
+        display: block;
+      }
+
+      .lContainer{
+        margin-top: 2%;
+        margin-left: 30%;
+        margin-right: 30%;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        border: 2px;
+        border-style: solid;
+        border-color: #7ec0ee;
+        border-radius: 10px;
+
+        background-color: #d3d3d3;
+      }
+
+      .aContainer{
+        color: red;
+      }
+      </style>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>  
+      
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ"></script> 
+
+
+      <div class="hero">
+        <section class="layout">
+          <div class="branding">
+            <a href="/events">
+              <img src="images/WebLogo.png" alt="Site Logo"/>
+            </a>
+          </div><!-- branding -->
+        </section><!-- layout -->
+      </div><!-- hero -->
+
+        <title>College Events</title>
+        
+    </header>
+
+    <body>
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=301656656914995";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+          <center>        
+
+        <div class = "aContainer" >
+          <h1> <% if (message.length > 1) %>
+                <%=    message   %>
+          </h1>
+        </div>
+
+        <div class = "lContainer">
+
+            <h1><u>Login</u></h1><br>
+
+            <form class="form"  action="/" method="post">              
+                <div class="form-group">
+                    
+
+                    <LABEL>Username: </LABEL>
+                    <input type="text" name="username" id="username">
+                    <LABEL>Password: </LABEL>
+                    <input type="password" name="password" id="password">
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+            </form>
+            
+            <form class= "formbutt" action="/register" method="get">
+
+                <button type="submit" class="btn btn-info btn-large">Register</button>
+
+            </form>
+
+        </div>        
+
+    <h4> Share us on FB </h4>
+
+    <div class="fb-like" data-href="https://www.facebook.com/CollegeEvents-268240593587256/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+        
+      </center>
+    </body>
+
+    
+</html>

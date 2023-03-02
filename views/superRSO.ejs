@@ -1,0 +1,125 @@
+<html>
+
+<style>
+  input, label,button,textarea 
+  {
+    width: 40%;
+  }  
+  .newUni{
+    width: 40%;
+    height: 425px;
+    min-width: 450px;
+    float: left;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+  }
+  .viewUnis{    
+    width: 40%;
+    height: 425px;
+    min-width: 450px;
+    float: right;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+
+    overflow: auto;
+  }
+  .container{
+    margin-bottom: 80px;
+  }
+  .aContainer{
+        color: red;
+      }
+</style>
+
+
+<%= include partials/header.ejs %>
+
+ <body>
+  <center><u><h1>Super Admin Portal</h1></u><center></br></br>
+  <div class = "aContainer" >
+          <h1> <% if (message.length > 1) %>
+                <%=    message   %>
+          </h1>
+  </div>
+  
+    <div class = "container">
+      <div class = "viewUnis">
+        <center><h2> Unapproved Events </h2></center></br>
+          <ul>
+                  <% for(var i=0; i < events.length; i++) { %>
+                    
+                      <h3>
+                        <li>Name: <%= events[i].Name %></li>
+                      </h3>
+
+                      <ul>               
+                        <h4>
+                          <le>Description: <%= events[i].Description %></le>                  
+                          <le>Time: <%= events[i].Time %></le>       
+                          <le>Date: <%= events[i].Date %></le>
+                        <h4>              
+                      </ul>
+
+                      <ul>
+                        <h6>                        
+                          <le>Location: <%= events[i].Location %></le>                                           
+                          <le>Contact Phone: <%= events[i].Phone %></le>                
+                          <le>Contact Email: <%= events[i].Email %></le>   
+                        </h6>
+                      </ul>
+
+                      <input type="button" name="theButton" class = "btn btn-info" value="Approve" onclick="window.location='/superEvent/<%= events[i].Event_ID %>'" >
+
+                      <br>   
+                  <% } %>                    
+              </ul>
+      </div>
+
+      <div class = "viewUnis">
+
+        <aside>
+          <h2>Unapproved RSO</h2>
+            <div class = "organizations">
+                        <ul>
+                            <% for(var i=0; i < orgs.length; i++) { %>
+                               <h3>
+                                    <li>Name: <%= orgs[i].Name %></li>
+                               </h3>
+                               <h4>
+                                    <le>Admin: <%= orgs[i].Admin %><br><br></le>
+                               </h4>
+
+                            <input type="button" class = "btn btn-info" name="theButton" value="Approve" onclick="window.location='/superRSO/<%= orgs[i].RSO_ID %>'" >
+
+
+                            <% } %>
+                        </ul>
+
+                    </div>
+        </aside>
+
+      </div>  
+
+    </div>
+  </body>
+</html>

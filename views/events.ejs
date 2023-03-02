@@ -1,0 +1,375 @@
+<html>
+
+<style>
+  label,button
+  {
+    width: 40%;
+  }
+  .test
+  {
+    min-width: 60px;
+  }
+  .newEvent{
+    width: 40%;
+    height: 675px;
+    min-width: 450px;
+    float: left;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+  }
+  .viewEvents{    
+    width: 40%;
+    height: 675px;
+    min-width: 450px;
+    float: right;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 40px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+    background-color: #d3d3d3;
+
+    overflow: auto;
+  }
+  .container{
+    margin-bottom: 80px;
+  }    
+  .top{
+    float: right;
+    min-width: 100px;
+
+    border: 2px;
+    border-style: solid;
+    border-color: #7ec0ee;
+    border-radius: 10px;
+
+  }
+  .topT{
+    display: block;
+  }
+
+  #map {
+        height: 190px;
+        width: 190px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        margin-right: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+</style>
+
+<%= include partials/header.ejs %>
+
+
+ <body>
+  <center><u><h1>Events</h1></u><center></br></br>
+    
+    <div class = "container">
+
+      <div class = "newEvent">
+        <center><u><h2> New Event </u></h2></center></br>
+          <form class="form"  action="/events" method="post">              
+            <center>
+
+              <div class="form-group">
+                  <LABEL>Name: </LABEL>
+                  <input type="text" name="name" id="name"><br>
+                  <LABEL>Description: </LABEL>
+                  <input type="text" name="description" id="description"><br>
+                  <LABEL>Time: </LABEL>
+                  <input type="text" name="time" id="time"><br>
+                  <LABEL>Date: </LABEL>
+                  <input type="text" name="date" id="date"><br>
+                  <LABEL>Contact Phone: </LABEL>
+                  <input type="text" name="phone" id="phone"><br>
+                  <LABEL>Contact Email: </LABEL>
+                  <input type="text" name="email" id="email"><br>
+                  <LABEL>Permission: </LABEL>
+                  <select name = "type">
+                        <option value = "pub"> Public </option>
+                        <option value = "priv"> Private </option>
+                        <option value = "org"> RSO </option>
+                    </select><br>
+                    <LABEL>Host RSO: </LABEL>
+                 <select name = "RSO">
+                    <%for(var i =0; i < RSO.length;i++){%>
+
+                        <option name = "rsoName" value= "<%=RSO[i].Name%>"><%=RSO[i].Name%>
+                      
+
+                      <% } %>
+                        
+                  </select><br>
+
+                  <% if(uni) { %> 
+                  <LABEL>University: &nbsp;</LABEL> 
+                    <select name = "uni">
+                      <option value = "<%= uni %>"> <%= uni %> </option>
+                    </select>
+                  <% } %><br>
+
+                  <LABEL><u>Location</u></LABEL><br>
+                  <input id="latitude" name="latitude" type="text" placeholder="Latitude"><br>
+                  <input id="longitude" name="longitude" type="text" placeholder="Longitude"><br>
+                  <input id="pac-input" class="controls" name = "location" type="text" placeholder="Enter place...">
+                  <div id="map"></div>
+              </div>
+
+              <button type="submit" class="btn btn-success">Create</button>
+          </center>
+        </form>
+    </div>
+
+    <div class="top" >
+      <h5><u>Filters</u></h5>
+      <center>
+
+          <label class = "topT">
+            <form method = "get" action = " ">
+              <input class="test" type="submit" value= "Public"name="selection">
+            </form>
+          </label>
+
+          <label class = "topT">
+            <form method = "get" action = " ">
+              <input class="test" type="submit" value= "Private" name="selection">
+            </form>
+          </label>
+
+          <label class = "topT">
+            <form <form method = "get" action = " ">
+              <input class="test" type="submit" value= "RSO" name="selection">
+            </form>
+          </label>
+
+      </center>
+    </div>
+            
+          <div class = "viewEvents">
+            <h2><u>Posted Events</u></h2><br>
+            
+              <ul>
+                  <% for(var i=0; i < events.length; i++) { %>
+                    
+                      <h3>
+                        <li>Name: <%= events[i].Name %></li>
+                      </h3>
+
+                      <ul>               
+                        <h4>
+                          <le>Description: <%= events[i].Description %></le>                  
+                          <le>Time: <%= events[i].Time %></le>       
+                          <le>Date: <%= events[i].Date %></le>
+                        <h4>              
+                      </ul>
+
+                      <ul>
+                        <h6>                        
+                          <le>Location: <%= events[i].Location %></le>                                           
+                          <le>Contact Phone: <%= events[i].Phone %></le>                
+                          <le>Contact Email: <%= events[i].Email %></le>   
+                        </h6>
+                      </ul>
+
+                      <input type="button" name="theButton" class = "btn btn-info" value="Details" onclick="window.location='/events/<%= events[i].Event_ID %>'" >
+
+                      <br>   
+                  <% } %>                    
+              </ul>
+            </div> 
+
+    </div>     
+
+  </body>
+
+  <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 28.612, lng: -81.201},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function()
+         {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        //To capture click event.
+       google.maps.event.addListener(map, 'click', function (e) 
+       {
+         document.getElementById("latitude").value = e.latLng.lat();
+         document.getElementById("longitude").value = e.latLng.lng();
+         placeMarker(e.latLng,map);
+       });
+
+        var markers = [];
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() 
+        {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          var lat;
+          var lng;
+
+          places.forEach(function(place) 
+          {
+            if (!place.geometry) 
+            {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = 
+            {
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location,
+              lat: place.geometry.location.latitude,
+              lng: place.geometry.location.longitude       
+            }));
+
+            if (place.geometry.viewport) 
+            {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else 
+            {
+              bounds.extend(place.geometry.location);
+            }
+
+            document.getElementById("latitude").value =  place.geometry.location.lng();;
+            document.getElementById("longitude").value =  place.geometry.location.lat();;
+
+          });
+
+          
+          
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ&libraries=places&callback=initAutocomplete"
+         async defer></script>
+</html>

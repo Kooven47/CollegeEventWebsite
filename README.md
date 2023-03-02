@@ -32,5 +32,5 @@ For the node web app, run the following commands
 
 ## Contributors
 - [Ethan Adkins](https://github.com/EthanAdkins)
-- [Kevin Alfonso](https://github.com/Kooven47)
-- [Pam Kitsuwan](https://github.com/sspamss)
+<br> Back-End - [Kevin Alfonso](https://github.com/Kooven47)
+<br> Front-End - [Pam Kitsuwan](https://github.com/sspamss)

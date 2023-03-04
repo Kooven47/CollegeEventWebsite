@@ -19,8 +19,10 @@ var superA = require('./routes/super');
 var mysql = require('mysql');
 var connection = require("express-myconnection");
 
+// Express
 var app = express();
  
+// DB connection
 var connection = mysql.createConnection(
   {
     host     : 'localhost',
@@ -30,6 +32,7 @@ var connection = mysql.createConnection(
   }
 );
 
+// Session
 app.use(session({
   secret: "hello TA",
   saveUninitialized: true,
@@ -65,21 +68,21 @@ app.use('/universities', universities);
 app.use('/super', superA);
 
 // Home page
-app.post('/', function(req, res) 
+app.post('/', function(req, res, next) 
 {
-  var queryString = "SELECT * FROM user WHERE User_ID ='" + req.body.username +"'";
+  var queryString = "SELECT * FROM user WHERE User_ID = '" + req.body.username + "'";
   var currUser = 
   {
     username: req.body.username,
     password: req.body.password
   };
 
-  connection.query(queryString, function(err, rows) 
+  connection.query(queryString, function(err, rows, fields) 
   {
     if (err)
     {
       console.log("***** DB Error *****");
-      res.render("index",{message: "*** DB Error ***"});
+      res.render("index", {message: "*** DB Error ***"});
     } 
 
     if (rows != "")
@@ -97,13 +100,13 @@ app.post('/', function(req, res)
     else
     {
       console.log("***** Username and/or Password not found *****");
-      res.render("index",{message: "*** Username and/or Password not found ***"});
+      res.render("index", {message: "*** Username and/or Password not found ***"});
     }
   });
 });
 
 // Register page
-app.post('/register', function(req, res) 
+app.post('/register', function(req, res, next) 
 {
   var newUser = 
   {
@@ -111,26 +114,26 @@ app.post('/register', function(req, res)
     username: req.body.username,
     password: req.body.password,
     type: req.body.type,
-    level:0,
+    level: 0,
     email: req.body.email
   };
 
-  if (newUser.type=="Student")
+  if (newUser.type == "Student")
   {
     newUser.level = 0;
   }
-  else if (newUser.type=="superAdmin")
+  else if (newUser.type == "superAdmin")
   {
     newUser.level = 2;
   }
 
-  var checkquery = "SELECT COUNT(*) AS User_ID FROM user WHERE User_ID='" + req.body.username + "' OR email='" + req.body.email + "';";
+  var checkquery = "SELECT COUNT(*) AS User_ID FROM user WHERE User_ID = '" + req.body.username + "' OR email = '" + req.body.email + "';";
   var regins1 = "INSERT INTO User (User_ID, name, password, level, email) VALUES ('" + newUser.username + "','" + newUser.name + "','" + newUser.password + "','" + newUser.level + "','" + newUser.email + "');";
   var regins2 = "INSERT INTO Student (User_ID) VALUES ('" + newUser.username + "');";
   var regins3 = "INSERT INTO Super_Admin (User_ID) VALUES ('" + newUser.username + "');";
   var enrollquery = "INSERT INTO enrolled (User_ID, University_Name) VALUES ('" + req.body.username + "','" + req.body.uni + "');";
 
-  connection.query(checkquery, function(err, rows) 
+  connection.query(checkquery, function(err, rows, fields) 
   {
     if (err) 
     {
@@ -141,7 +144,7 @@ app.post('/register', function(req, res)
     {
       if (rows[0].User_ID == 0)
       {
-        connection.query(regins1, function(err) 
+        connection.query(regins1, function(err, rows, fields) 
         {
           if (err) 
           {
@@ -151,7 +154,7 @@ app.post('/register', function(req, res)
 
         if (newUser.level == 0)
         {
-          connection.query(regins2, function(err) 
+          connection.query(regins2, function(err, rows, fields) 
           {
             if (err) 
             {
@@ -166,7 +169,10 @@ app.post('/register', function(req, res)
           
           connection.query(enrollquery,function(err,rows,fields)
           {
-            if(err) throw err;
+            if(err) 
+            {
+              throw err;
+            }
           });
 
           console.log("New user added");
@@ -178,18 +184,18 @@ app.post('/register', function(req, res)
         }
         else if (newUser.level == 2)
         {
-          connection.query(regins3, function(err) 
+          connection.query(regins3, function(err, rows, fields) 
           {
             if (err) 
             {
               throw err;
             }
-            connection.query(enrollquery,function(err)
+            connection.query(enrollquery,function(err, rows, fields)
             {
-                if (err) 
-                {
-                  throw err;
-                }
+              if (err) 
+              {
+                throw err;
+              }
             });
           });
 
@@ -209,14 +215,14 @@ app.post('/register', function(req, res)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "***** Username " + newUser.username + " already exists OR e-mail is already in use *****",uni : rows});  
+          res.render("register", {message: "***** Username " + newUser.username + " already exists OR e-mail is already in use *****", uni: rows});  
         });
       }
     }
   });
 });
 
-app.post('/events', function(req, res) 
+app.post('/events', function(req, res, next) 
 {
   var perm;
 
@@ -231,7 +237,7 @@ app.post('/events', function(req, res)
   {
     console.log("Perm: private");
     perm = 1;
-    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "',0,'" + req.body.uni + "');";
+    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
   }
     
   else if (req.body.type == "org")
@@ -242,17 +248,17 @@ app.post('/events', function(req, res)
   }
   
   var checkadmin = "SELECT COUNT (*) AS TOTAL FROM admin WHERE User_ID ='" + req.session.username + "';";
-  var getRSO = "SELECT * FROM rso WHERE admin ='" + req.session.username + "' AND Name = '" + req.body.RSO + "';";
+  var getRSO = "SELECT * FROM rso WHERE admin = '" + req.session.username + "' AND Name = '" + req.body.RSO + "';";
 
   var lastEvent = "SELECT LAST_INSERT_ID() AS LE;";
   
   var LID;
 
-  connection.query(checkadmin, function(rows) 
+  connection.query(checkadmin, function(err, rows, fields) 
   {
-      if(rows[0].TOTAL>0)
+      if(rows[0].TOTAL > 0)
       {
-        connection.query(addEvent1, function(err) 
+        connection.query(addEvent1, function(err, rows, fields) 
         {
           if (err) 
           {
@@ -260,12 +266,12 @@ app.post('/events', function(req, res)
             return;
           }
 
-          connection.query(lastEvent, function(rows)
+          connection.query(lastEvent, function(err, rows, fields)
           {
             LID = rows[0].LE;
             console.log(LID);
         
-            connection.query(getRSO, function(rsorows)
+            connection.query(getRSO, function(err, rsorows, fields)
             {
               var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID,Event_ID) VALUES('" + rsorows[0].RSO_ID + "','" + LID + "')";
 
@@ -283,9 +289,9 @@ app.post('/events', function(req, res)
         if (perm == 0)
         {
           console.log("****************public");
-          var addEvent0 = "INSERT INTO event (Name , Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "',0);";
+          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0);";
         
-          connection.query(addEvent0, function(err) 
+          connection.query(addEvent0, function(err, rows, fields) 
           {
             if (err) 
             {
@@ -297,9 +303,9 @@ app.post('/events', function(req, res)
         else if (perm == 1)
         {
           console.log("*******************uni: " + req.body.uni);
-          var addEvent0 = "INSERT INTO event (Name,Description,Time,Date,Location,Latitude,Longitude,Phone,Email,Level,approved,University_Name) VALUES ('"+req.body.name+"','"+req.body.description+"','"+req.body.time+"','"+req.body.date+"','"+req.body.location+"','"+req.body.latitude+"','"+req.body.longitude+"','"+req.body.phone+"','"+req.body.email+"','"+perm+"',0,'"+ req.body.uni+"');";
+          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
         
-          connection.query(addEvent0, function(err) 
+          connection.query(addEvent0, function(err, rows, fields) 
           {
             if (err) 
             {
@@ -310,9 +316,9 @@ app.post('/events', function(req, res)
         }
         else if (perm == 2)
         {
-          var addEvent0 = "INSERT INTO event (Name,Description,Time,Date,Location,Latitude,Longitude,Phone,Email,Level,approved,University_Name) VALUES ('"+req.body.name+"','"+req.body.description+"','"+req.body.time+"','"+req.body.date+"','"+req.body.location+"','"+req.body.latitude+"','"+req.body.longitude+"','"+req.body.phone+"','"+req.body.email+"','"+perm+"',0,'"+ req.body.uni+"');";
+          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
 
-          connection.query(addEvent0, function(err) 
+          connection.query(addEvent0, function(err, rows, fields) 
           {
             if (err) 
             {
@@ -330,7 +336,7 @@ app.post('/events', function(req, res)
 });
 
 /* GET users listing. */
-app.post('/events/:eventid', function(req, res) 
+app.post('/events/:eventid', function(req, res, next) 
 {
   console.log(req.url);
 
@@ -370,22 +376,23 @@ app.post('/events/:eventid', function(req, res)
   var addEventComment = "INSERT INTO comments (Event_ID, owner, commentString, rating) VALUES ('" + eventid + "', '" + req.session.username + "','" + req.body.comments + "','" + rating + "');";
   var comment_id;
   var lastComment = "SELECT LAST_INSERT_ID() AS Last;"
-  connection.query(addEventComment, function(err) 
+  connection.query(addEventComment, function(err, rows, fields) 
   {
     if (err) 
     {
       console.error(err);
       return;
     }
-    console.log(req.session.username+" is currently adding comm");
-    connection.query(lastComment, function(lastrows)
+    console.log(req.session.username + " is currently adding comm");
+    connection.query(lastComment, function(err, lastrows, fields)
     {
       comment_id = lastrows[0].Last;
 
       var addHasComment = "INSERT INTO event_has_comments (Event_Event_ID, comments_id) VALUES ('" + eventid + "', '" + comment_id + "');"
-      connection.query(addHasComment, function(err)
+      connection.query(addHasComment, function(err, comrows, fields)
       {
-        if(err){
+        if(err)
+        {
           console.error(err);
           return;
         }
@@ -397,7 +404,7 @@ app.post('/events/:eventid', function(req, res)
 });
 
 /* GET users listing. */
-app.post('/deletecomment/:id', function(req, res) 
+app.post('/deletecomment/:id', function(req, res, next) 
 {
   console.log("********* START **********");
 
@@ -415,15 +422,15 @@ app.post('/deletecomment/:id', function(req, res)
 
   console.log("********* END **********");
 
-  var delEventComment = "DELETE FROM comments WHERE id =" + eventid+";";
-  var checkowner = "SELECT * FROM comments WHERE id = "+eventid+";"
+  var delEventComment = "DELETE FROM comments WHERE id =" + eventid + ";";
+  var checkowner = "SELECT * FROM comments WHERE id = " + eventid + ";"
 
-  connection.query(checkowner,function(rows)
+  connection.query(checkowner,function(err, rows, fields)
   {
     if (req.session.username == rows[0].owner)
     {
       console.log("deleting comm");
-      connection.query(delEventComment, function(err) 
+      connection.query(delEventComment, function(err, rows, fields) 
       {
         if (err) 
         {
@@ -448,9 +455,9 @@ app.post('/orgs', function(req, res, next)
   var usr5Email = req.body.usr5Email;
 
   var adminUserID;
-  var findadmin = "SELECT * FROM user WHERE email = '"+ req.body.adminEmail + "';"
+  var findadmin = "SELECT * FROM user WHERE email = '" + req.body.adminEmail + "';"
 
-  connection.query(findadmin, function(err, rows) 
+  connection.query(findadmin, function(err, rows, fields) 
   {
     if (err) 
     {
@@ -459,8 +466,8 @@ app.post('/orgs', function(req, res, next)
     }
     adminUserID = rows[0].User_ID;
 
-    console.log("admin is "+adminUserID);
-    var addOrg = "INSERT INTO rso (Name,Admin,Approved) VALUES ('"+req.body.name+"','"+adminUserID+"',0);";
+    console.log("admin is " + adminUserID);
+    var addOrg = "INSERT INTO rso (Name, Admin, Approved) VALUES ('" + req.body.name + "','" + adminUserID + "', 0);";
 
     adminEmail = adminEmail.replace(/.*@/, "");
     usr1Email = usr1Email.replace(/.*@/, "");
@@ -476,7 +483,7 @@ app.post('/orgs', function(req, res, next)
 
     var queryString = "SELECT * FROM rso";
 
-    connection.query(queryString, function(err, rows) 
+    connection.query(queryString, function(err, rows, fields) 
     {
       if (err) 
       {       
@@ -487,17 +494,17 @@ app.post('/orgs', function(req, res, next)
         if ((adminEmail == usr1Email) && (adminEmail == usr2Email) && (adminEmail == usr3Email) && (adminEmail == usr4Email) && (adminEmail == usr5Email))
         {
           console.log("emails match");
-          res.render('orgs',{orgs: rows,message:""});
+          res.render('orgs', {orgs: rows,message:""});
         }    
         else
         {
           console.log("emails don't match");
-          res.render('orgs',{orgs: rows,message:"email domain doesn't match or don't exist"});
+          res.render('orgs', {orgs: rows, message:"email domain doesn't match or don't exist"});
         }
       }         
     });
 
-    connection.query(addOrg, function(err) 
+    connection.query(addOrg, function(err, rows, fields) 
     {
       if (err) 
       {
@@ -507,17 +514,17 @@ app.post('/orgs', function(req, res, next)
 
       var lastOrg="SELECT LAST_INSERT_ID() AS LOR;";
       var LORG;
-      connection.query(lastOrg,function(rows)
+      connection.query(lastOrg, function(err, rows, fields)
       {
-        LORG=rows[0].LOR;
+        LORG = rows[0].LOR;
         
         console.log(LORG);
         
-        var uniorg = "SELECT * FROM enrolled WHERE User_ID ='"+adminUserID+"';";
+        var uniorg = "SELECT * FROM enrolled WHERE User_ID ='" + adminUserID + "';";
 
-        connection.query(uniorg,function(err,rows,fields)
+        connection.query(uniorg, function(err,rows,fields)
         {
-            var insorguni = "INSERT INTO University_has_RSO (University_University_Name,RSO_RSO_ID) VALUES('"+rows[0].University_Name+"','"+LORG+"');";
+            var insorguni = "INSERT INTO University_has_RSO (University_University_Name, RSO_RSO_ID) VALUES('" + rows[0].University_Name + "','" + LORG + "');";
             connection.query(insorguni,function(err,rows,fields)
             {
 
@@ -538,36 +545,36 @@ app.post('/orgs', function(req, res, next)
           else
           {
             console.log("rows returned " + rows[0].User_ID)
-            member=rows[0].User_ID;                              
+            member = rows[0].User_ID;                              
       
-            addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('" + LORG + "','" + member + "');";
+            addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
 
-            connection.query(addmember, function(err,rows,fields)
+            connection.query(addmember, function(err, rows, fields)
             {
             
             });
           }  
         });
 
-        finduser = "SELECT * FROM user WHERE email = '"+req.body.usr2Email+"';"
-        connection.query(finduser,function(err,rows,fields)
+        finduser = "SELECT * FROM user WHERE email = '" + req.body.usr2Email + "';"
+        connection.query(finduser, function(err, rows, fields)
         {
-          member=rows[0].User_ID;
+          member = rows[0].User_ID;
         
-          addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('"+LORG+"','"+member+"');";
+          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
 
-          connection.query(addmember,function(err,rows,fields)
+          connection.query(addmember, function(err, rows, fields)
           {
               
           });
         });
 
         finduser = "SELECT * FROM user WHERE email = '" + req.body.usr3Email + "';"
-        connection.query(finduser,function(rows)
+        connection.query(finduser,function(err, rows, fields)
         {
           member = rows[0].User_ID;
 
-          addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('"+LORG+"','"+member+"');";
+          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
 
           connection.query(addmember, function(err,rows,fields)
           {
@@ -576,26 +583,26 @@ app.post('/orgs', function(req, res, next)
         });
 
         finduser = "SELECT * FROM user WHERE email = '" + req.body.usr4Email + "';"
-        connection.query(finduser,function(rows)
+        connection.query(finduser,function(err, rows, fields)
         {
           member = rows[0].User_ID;
         
           addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('" + LORG + "','" + member + "');";
 
-          connection.query(addmember, function(err,rows,fields)
+          connection.query(addmember, function(err, rows, fields)
           {
               console.log("inserting.........");
           });
         });
 
         finduser = "SELECT * FROM user WHERE email = '"+req.body.usr5Email+"';"
-        connection.query(finduser,function(err,rows,fields)
+        connection.query(finduser,function(err, rows, fields)
         {
-          member=rows[0].User_ID;
+          member = rows[0].User_ID;
 
-          addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('" + LORG + "','" + member + "');";
+          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
           console.log(" lorg is "+LORG);
-          connection.query(addmember,function(err,rows,fields)
+          connection.query(addmember, function(err, rows, fields)
           {
               
           });
@@ -625,7 +632,7 @@ app.post('/orgs/:orgid', function(req, res, next)
 
   var queryMember = "SELECT * FROM member_of WHERE RSO_ID='" + rsoID + "'";
 
-  connection.query(queryMember, function(err, rows) 
+  connection.query(queryMember, function(err, rows, fields) 
   {
     console.log(rows);
     if (err) 
@@ -654,7 +661,7 @@ app.post('/orgs/:orgid', function(req, res, next)
   {
     if (joinStatus == 1)
     {
-      connection.query(joinOrg, function(err) 
+      connection.query(joinOrg, function(err, rows, fields) 
       {
         if (err) 
         {
@@ -668,7 +675,7 @@ app.post('/orgs/:orgid', function(req, res, next)
 
           var queryString = "SELECT * FROM rso WHERE RSO_ID='" + rsoID + "'";
           
-          connection.query(queryString, function(err, rows) 
+          connection.query(queryString, function(err, rows, fields) 
           {
             console.log(rows);
             if (err) 
@@ -678,7 +685,7 @@ app.post('/orgs/:orgid', function(req, res, next)
               
             else
             {
-              res.render('viewRSO',{orgs: rows, joinStatus:joinStatus});
+              res.render('viewRSO', {orgs: rows, joinStatus: joinStatus});
             }          
           });
         }
@@ -686,7 +693,7 @@ app.post('/orgs/:orgid', function(req, res, next)
     }
     else
     {
-      connection.query(leaveOrg, function(err) 
+      connection.query(leaveOrg, function(err, rows, fields) 
       {
         if (err) 
         {
@@ -700,7 +707,7 @@ app.post('/orgs/:orgid', function(req, res, next)
 
           var queryString = "SELECT * FROM rso WHERE RSO_ID='" + rsoID + "'";
 
-          connection.query(queryString, function(err, rows) 
+          connection.query(queryString, function(err, rows, fields) 
           {
             console.log(rows);
             if (err) 
@@ -709,13 +716,13 @@ app.post('/orgs/:orgid', function(req, res, next)
             }
             else
             {
-              res.render('viewRSO',{orgs: rows, joinStatus: joinStatus}); 
+              res.render('viewRSO', {orgs: rows, joinStatus: joinStatus}); 
             }          
           });
         }
       });
     }
-  },200);
+  }, 200);
 });
 
 app.post('/universities', function(req, res, next) 
@@ -731,9 +738,9 @@ app.post('/universities', function(req, res, next)
       console.log("error");
     } 
 
-    if (rows[0].User_ID>0)
+    if (rows[0].User_ID > 0)
     {
-      connection.query(addUni, function(err) 
+      connection.query(addUni, function(err, rows, fields) 
       {
         if (err) 
         {
@@ -743,7 +750,7 @@ app.post('/universities', function(req, res, next)
       });
 
       console.log(req.body);
-      connection.query(queryString, function(err, rows) 
+      connection.query(queryString, function(err, rows, fields) 
       {
         if (err) 
         {       
@@ -766,7 +773,7 @@ app.post('/universities', function(req, res, next)
         }
         else
         {
-          res.render("universities",{message: "***** You require Super Admin Privileges to create a new University *****",unis: rows});
+          res.render("universities",{message: "***** You require Super Admin Privileges to create a new University *****", unis: rows});
         }         
       });       
     }

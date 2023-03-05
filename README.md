@@ -27,8 +27,8 @@ For the DB, install XAMPP, then run MySQL and Apache
 - Import eventDB.sql to phpMyAdmin as a db named mydb
 
 For the node web app, run the following commands
-- npm install
-- npm start
+- sudo npm install
+- sudo npm start
 
 ## Contributors
 [insert role here] - [Ethan Adkins](https://github.com/EthanAdkins)

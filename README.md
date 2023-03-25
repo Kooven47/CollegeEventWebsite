@@ -30,10 +30,13 @@ Update Node
 - sudo npm install -g n
 - sudo n stable
 
-Install SQL-
-
 Install XAMPP
-- Link to Website: [XAMPP](https://sourceforge.net/projects/xampp/)
+- Link to Website: [XAMPP](https://www.apachefriends.org/download.html)
+https://sourceforge.net/projects/xampp/
+
+
+For the DB, install XAMPP, then run MySQL and Apache
+- Import eventDB.sql to phpMyAdmin as a db named mydb
 
 Download "CollegeEventWebsite" Project
 - *Recommended to save on desktop*

@@ -33,18 +33,21 @@ Update Node
 Install XAMPP
 - Link to Website: [XAMPP](https://sourceforge.net/projects/xampp/)
 
-For the DB, install XAMPP, then run MySQL and Apache
-- Import eventDB.sql to phpMyAdmin as a db named mydb
+Download "eventDB.sql" file from "CollegeEventWebsite" folder
+- *Recommended to save on desktop*
 
-Download "CollegeEventWebsite" Project
+Download "CollegeEventWebsite" Project Folder
 - *Recommended to save on desktop*
 
 Run "CollegeEventWebsite" Project
+- Open XAMPP
+- Go to "Manage Servers" tab
+- Click "Start" on "MySQL Database" and "Apache Web Server"
+- Go back to "Welcome" tab
+- Click "Open Application Folder"
+- Upload "eventDB.sql" file to "phpMyAdmin"
 - *Open Ubuntu (Linux) / Terminal (MacOS)*
 - cd [YourFileDirectory]
-- sudo npm start
-- *Open another Ubuntu (Linux) / Terminal (MacOS)*
-- cd [YourFileDirectory]/frontend or cd [YourFileDirectory]\frontend
 - sudo npm install
 - sudo npm start
 - Go to "http://localhost:3000/" on Google Chrome

@@ -31,9 +31,7 @@ Update Node
 - sudo n stable
 
 Install XAMPP
-- Link to Website: [XAMPP](https://www.apachefriends.org/download.html)
-https://sourceforge.net/projects/xampp/
-
+- Link to Website: [XAMPP](https://sourceforge.net/projects/xampp/)
 
 For the DB, install XAMPP, then run MySQL and Apache
 - Import eventDB.sql to phpMyAdmin as a db named mydb
@@ -52,6 +50,6 @@ Run "CollegeEventWebsite" Project
 - Go to "http://localhost:3000/" on Google Chrome
 
 ## Contributors
-<br> Front-End - [Ethan Adkins](https://github.com/EthanAdkins)
+Front-End - [Ethan Adkins](https://github.com/EthanAdkins)
 <br> Back-End - [Kevin Alfonso](https://github.com/Kooven47)
 <br> Front-End - [Pam Kitsuwan](https://github.com/sspamss)

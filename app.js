@@ -86,7 +86,7 @@ app.post('/', function(req, res, next)
     }
 
     // Check for any empty fields
-    if (!req.body.username && !req.body.password)
+    if (!req.body.username || !req.body.password)
     {
       console.log("* Please enter your username and password *");
       res.render("index", {message: "* Please enter your username and password *"});

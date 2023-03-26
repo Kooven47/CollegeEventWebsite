@@ -81,11 +81,28 @@ app.post('/', function(req, res, next)
   {
     if (err)
     {
-      console.log("***** DB Error *****");
-      res.render("index", {message: "*** DB Error ***"});
-    } 
+      console.log("* database error *");
+      res.render("index", {message: "* database error *"});
+    }
 
-    if (rows != "")
+    // Check for any empty fields
+    if (!req.body.username && !req.body.password)
+    {
+      console.log("* Please enter your username and password *");
+      res.render("index", {message: "* Please enter your username and password *"});
+    }
+    else if (!req.body.username)
+    {
+      console.log("* Please enter your username *");
+      res.render("index", {message: "* Please enter your username *"});
+    }
+    else if (!req.body.password)
+    {
+      console.log("* Please enter your password *");
+      res.render("index", {message: "* Please enter your password *"});
+    }
+    // Check if username and password match
+    else if (rows != "")
     {
       if (rows[0].User_ID == currUser.username && rows[0].password == currUser.password)
       {
@@ -93,14 +110,14 @@ app.post('/', function(req, res, next)
         req.session.password = req.body.password;
 
         console.log("User: " + currUser.username + " logged in");
-
         res.redirect("events");
       }
     }
+    // Username and password do not match
     else
     {
-      console.log("***** Username and/or Password not found *****");
-      res.render("index", {message: "*** Username and/or Password not found ***"});
+      console.log("* Username or password is incorrect *");
+      res.render("index", {message: "* Username or password is incorrect *"});
     }
   });
 });
@@ -215,7 +232,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "***** Username " + newUser.username + " already exists OR e-mail is already in use *****", uni: rows});  
+          res.render("register", {message: "* Username " + newUser.username + " already exists OR e-mail is already in use *", uni: rows});  
         });
       }
     }
@@ -773,7 +790,7 @@ app.post('/universities', function(req, res, next)
         }
         else
         {
-          res.render("universities",{message: "***** You require Super Admin Privileges to create a new University *****", unis: rows});
+          res.render("universities",{message: "* You require Super Admin Privileges to create a new University *", unis: rows});
         }         
       });       
     }

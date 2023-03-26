@@ -14,8 +14,9 @@ College Event Manager is a website that aims to solve the challenges of keeping 
 - [jQuery](http://jquery.com) - JavaScript library for DOM manipulation
 
 ## Installation
-Install Google Chrome
+Install Google Chrome and XAMPP
 - Link to Website: [Google Chrome](https://www.google.com/chrome/dr/download/)
+- Link to Website: [XAMPP](https://sourceforge.net/projects/xampp/)
 
 Install Node
 - sudo apt-get update
@@ -30,9 +31,6 @@ Update Node
 - sudo npm install -g n
 - sudo n stable
 
-Install XAMPP
-- Link to Website: [XAMPP](https://sourceforge.net/projects/xampp/)
-
 Download "eventDB.sql" file from "CollegeEventWebsite" folder
 - *Recommended to save on desktop*
 
@@ -45,7 +43,9 @@ Run "CollegeEventWebsite" Project
 - Click "Start" on "MySQL Database" and "Apache Web Server"
 - Go back to "Welcome" tab
 - Click "Open Application Folder"
-- Upload "eventDB.sql" file to "phpMyAdmin"
+- Upload "eventDB.sql" file to "phpMyAdmin" folder
+- Go to "http://localhost/phpmyadmin/index.php?route=/import"
+- Upload "eventDB.sql" file under "File to import:"
 - *Open Ubuntu (Linux) / Terminal (MacOS)*
 - cd [YourFileDirectory]
 - sudo npm install

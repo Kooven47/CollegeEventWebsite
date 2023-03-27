@@ -67,39 +67,23 @@ app.use('/orgs', orgs);
 app.use('/universities', universities);
 app.use('/super', superA);
 
-// Home page
+// Homepage: sign in and sign up
 app.post('/', function(req, res, next) 
 {
+  // Check for any empty fields
+  if (!req.body.username || !req.body.password) {res.render("index", {message: "* Please enter your username and password *"}); return;}
+  if (!req.body.username) {res.render("index", {message: "* Please enter your username *"}); return;}
+  if (!req.body.password) {res.render("index", {message: "* Please enter your password *"}); return;}
+
   var queryString = "SELECT * FROM user WHERE User_ID = '" + req.body.username + "'";
-  var currUser = 
-  {
-    username: req.body.username,
-    password: req.body.password
-  };
+  var currUser = {username: req.body.username, password: req.body.password};
 
   connection.query(queryString, function(err, rows, fields) 
   {
+    // Check if there is a database error
     if (err)
     {
-      console.log("* database error *");
-      res.render("index", {message: "* database error *"});
-    }
-
-    // Check for any empty fields
-    if (!req.body.username || !req.body.password)
-    {
-      console.log("* Please enter your username and password *");
-      res.render("index", {message: "* Please enter your username and password *"});
-    }
-    else if (!req.body.username)
-    {
-      console.log("* Please enter your username *");
-      res.render("index", {message: "* Please enter your username *"});
-    }
-    else if (!req.body.password)
-    {
-      console.log("* Please enter your password *");
-      res.render("index", {message: "* Please enter your password *"});
+      res.render("index", {message: "* database error *"}); return;
     }
     // Check if username and password match
     else if (rows != "")
@@ -109,14 +93,12 @@ app.post('/', function(req, res, next)
         req.session.username = req.body.username;
         req.session.password = req.body.password;
 
-        console.log("User: " + currUser.username + " logged in");
         res.redirect("events");
       }
     }
     // Username and password do not match
     else
     {
-      console.log("* Username or password is incorrect *");
       res.render("index", {message: "* Username or password is incorrect *"});
     }
   });

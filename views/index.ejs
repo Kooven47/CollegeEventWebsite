@@ -1,7 +1,19 @@
 <html>
-<header>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+    <!-- AngularJS and its route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ"></script>
+    
   <style>
-    input, label {display: block;}
 
     /* Setting dimensions and styling the signin background */
     #signinBackground {
@@ -22,120 +34,59 @@
     }
 
     /* Setting and styling the background of the toggle bar */
-    #toggleSlider {
+    #collegeEventManager {
       align-items: center;
-      background-color: #FFFFFF;
-      border-radius: 12px;
+      background-color: #F1E6AD;
+      border-radius: 10px;
       display: flex;
-      font-family: 'Fredoka One', sans-serif;
-      justify-content: space-between;
-      margin-top: 2em;
-      margin-bottom: 1em;
-      position: relative;
+      font-size: 14pt;
+      font-weight: bold;
+      justify-content: center;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
       transform: translateX(-50%, -50%);
 
       height: 50px;
       width: 299px;
     }
     
-    /* Setting and stying the black (not active) "SIGN IN" text */
-    #toggleSignin {
-      background-color: transparent;
-      border: none;
-      border-radius: 12px;
+    /* Setting and styling the username and password field */
+    #usernameField label, #passwordField label {
       color: #000000;
-      cursor: pointer;
-      font-size: 18pt;
-      margin-left: auto;
-      margin-right: auto;
-      outline: none;
-      font-family: 'Fredoka One', sans-serif;
-
-      height: 50px;
+      display: inline-block;
+      text-align: left;
+      width: 100px;
     }
-
-    /* Setting and styling the black (not active) "SIGN UP" text */
-    #toggleSignup {
-      background-color: transparent;
-      border: none;
-      border-radius: 12px;
-      color: #000000;
-      cursor: pointer;
-      font-family: 'Fredoka One', sans-serif;
-      font-size: 18pt;
-      margin-left: auto;
-      margin-right: auto;
-      outline: none;
-
-      height: 50px;
-    }
-
-    /* Setting and styling the white (active) "SIGN IN" text */
-    #toggleCurrent {
-      background-color: #FEF3B3;
-      border: none;
-      border-radius: 12px;
-      color: #000000;
-      font-family: 'Fredoka One', sans-serif;
-      font-size: 18pt;
-      margin-left: auto;
-      margin-right: auto;
-      position: absolute;
-      outline: none;
-      transition: all 0.2s ease-in-out;
-
-      height: 50px;
-      width: 148px;
-    }
-
-    /* Setting and styling the username field */
-    #usernameField text{
-      font-size: 12pt;
-    }
-    #username {
+    #username, #password {
       align-items: center;
       color: #6C6C6C;
       background-color: #FBFBFB;
       border: none;
-      border-radius: 10px;
-      text-align: center;
+      border-radius: 8px;
       margin-bottom: 0.5em;
+      text-align: center;
 
       height: 30px;
-      width: 299px;
+      width: 212px;
     }
-    /* Removing the "focus ring" when the username field is clicked */
-    #username:focus {
+    /* Removing the "focus ring" when the username and password field is clicked */
+    #username:focus, #password:focus {
       outline: none;
     }
 
-    /* Setting and styling the "CREATE PASSWORD" field */
-    #passwordField text{
-      font-size: 12pt;
-    }
-    #password {
-      color: #6C6C6C;
-      background-color: #FBFBFB;
-      border: none;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 0.5em;
-
-      height: 30px;
-      width: 299px;
-    }
-    /* Removing the "focus ring" when the "CREATE PASSWORD" field is clicked */
-    #password:focus {
-      outline: none;
+    /* Setting and styling the "NO ACCOUNT?" text */
+    #noAccount {
+      color: #000000;
+      font-size: 10pt;
+      text-align: left;
     }
     
     /* Setting and styling the dancing photo */
     #dancingPhoto img {
       text-align: center;
-      margin-bottom: 0em;
+      margin-bottom: 0.5em;
 
-      height: 24%;
-      width: auto;
+      height: 180px;
     }
 
     /* Styling the error message (if there is one) */
@@ -152,11 +103,9 @@
       border-radius: 12px;
       color: #000000;
       cursor: pointer;
+      font-size: 18pt;
       margin-top: 0.5em;
       text-align: center;
-
-      font-family: 'Fredoka One', sans-serif;
-      font-size: 18pt;
 
       height: 37px;
       width: 299px;
@@ -170,91 +119,36 @@
     #signinButton:hover {
       background-color: #F1E6AD ;
     }
-
-    /* Setting and styling the "SIGN IN" button */
-    #signupButton {
-      background-color: #FEF3B3;
-      border: none;
-      border-radius: 12px;
-      color: #000000;
-      cursor: pointer;
-      margin-top: 0.5em;
-      text-align: center;
-
-      font-family: 'Fredoka One', sans-serif;
-      font-size: 18pt;
-
-      height: 37px;
-      width: 299px;
-
-      position: absolute;
-      top: 500px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    /* Changing the "SIGN IN" button color when hovered over */
-    #signupButton:hover {
-      background-color: #F1E6AD ;
-    }
   </style>
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- AngularJS and its route -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ"></script>
-
   <title>College Event Manager</title>
-</header>
+</head>
 
 <body>
   <center>
     <div id="signinBackground">
-      <div id="toggleSlider">
-        <button
-          id="toggleSignin">
-          SIGN IN
-        </button>
-        <button
-          id="toggleSignup">
-          SIGN UP
-        </button>
-        <button
-          id="toggleCurrent">
-          SIGN IN
-        </button>
-      </div>
-
+      <text id="collegeEventManager">COLLEGE EVENT MANAGER</text>
       <form id="signinForm" class="form" action="/" method="post">
         <div id="usernameField">
-          <text>USERNAME</text>
-          <input id="username" name="username" placeholder="USERNAME" type="text">
+          <text>     USERNAME: <input id="username" autocomplete="off" placeholder="USERNAME"></text>
         </div>
         <div id="passwordField">
-          <text>PASSWORD</text>
-          <input id="password" name="password" placeholder="PASSWORD" type="password">
+          <text>PASSWORD: <input id="password" autocomplete="off" placeholder="PASSWORD"></text>
+        </div>
+        <div id="noAccount">
+          <p>Don't have an account? <a href="/register">Sign up</a></p>
         </div>
         <div id="dancingPhoto">
           <img src="images/DancingPhoto.png" alt="SigninPhoto">
         </div>
         <div id="errorMessage">
-          <text><% if (message.length > 1) { %> <%= message %> <% } %>
-          </text>
+          <text><% if (message.length > 1) { %> <%= message %> <% } %></text>        
         </div>
         <button id="signinButton" type="submit">SIGN IN</button>
       </form>
-
-      <form action="/register" method="get">
-        <button id="signupButton" type="submit" class="btn btn-info btn-large">SIGN UP</button>
       </form>
     </div>
   </center>
 </body>
+
 </html>

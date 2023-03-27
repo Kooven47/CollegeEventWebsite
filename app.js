@@ -71,7 +71,7 @@ app.use('/super', superA);
 app.post('/', function(req, res, next) 
 {
   // Check for any empty fields
-  if (!req.body.username || !req.body.password) {res.render("index", {message: "* Please enter your username and password *"}); return;}
+  if (!req.body.username && !req.body.password) {res.render("index", {message: "* Please enter your username and password *"}); return;}
   if (!req.body.username) {res.render("index", {message: "* Please enter your username *"}); return;}
   if (!req.body.password) {res.render("index", {message: "* Please enter your password *"}); return;}
 

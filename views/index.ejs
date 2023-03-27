@@ -136,6 +136,15 @@
         <div id="passwordField">
           <text> PASSWORD: </text>
           <input type="password" name="password" id="password" autocomplete="off" placeholder="PASSWORD">
+          <input type="checkbox" onclick="showPassword()"> 
+          <script>
+            function showPassword() 
+            {
+              var x = document.getElementById("password");
+              if (x.type === "password") x.type = "text";
+              else x.type = "password";
+            }
+          </script>
         </div>
         <div id="noAccount">
           <p>Don't have an account? <a href="/register">Sign up</a></p>

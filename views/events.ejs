@@ -1,22 +1,28 @@
 <html>
 
 <style>
+  input[type="text"], input[type="date"], input[type="time"] {
+    width: 45%;
+    box-sizing: border-box;
+  }
   label,button
   {
     width: 40%;
   }
+  
   .test
   {
     min-width: 60px;
   }
   .newEvent{
-    width: 40%;
+    width: 42%;
     height: 675px;
     min-width: 450px;
     float: left;
 
     padding-top: 10px;
     padding-bottom: 10px;
+    
     margin-top: 5px;
     margin-left: 40px;
 
@@ -28,16 +34,17 @@
     background-color: #d3d3d3;
   }
   .viewEvents{    
-    width: 40%;
+    width: 42%;
     height: 675px;
     min-width: 450px;
     float: right;
 
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-right: 15px;
     margin-top: 5px;
-    margin-right: 40px;
-
+    margin-right: 20px;
+    
     border: 2px;
     border-style: solid;
     border-color: #7ec0ee;
@@ -62,6 +69,8 @@
   }
   .topT{
     display: block;
+    margin: 0 auto !important;
+    width: 100%; /* add wanted width */
   }
 
   #map {
@@ -160,10 +169,20 @@
                   <input type="text" name="name" id="name"><br>
                   <LABEL>Description: </LABEL>
                   <input type="text" name="description" id="description"><br>
+                  
                   <LABEL>Time: </LABEL>
+                  <!--Adding Time Selector
                   <input type="text" name="time" id="time"><br>
+                  -->
+                  <input type="time" id="time" name="time" required><br>
+                  
                   <LABEL>Date: </LABEL>
+                  <!--
                   <input type="text" name="date" id="date"><br>
+                  -->
+                  <input type="date" id="date" name="date" value="2023-03-26">
+                  
+
                   <LABEL>Contact Phone: </LABEL>
                   <input type="text" name="phone" id="phone"><br>
                   <LABEL>Contact Email: </LABEL>
@@ -207,7 +226,7 @@
     <div class="top" >
       <h5><u>Filters</u></h5>
       <center>
-
+        
           <label class = "topT">
             <form method = "get" action = " ">
               <input class="test" type="submit" value= "Public"name="selection">
@@ -225,7 +244,7 @@
               <input class="test" type="submit" value= "RSO" name="selection">
             </form>
           </label>
-
+          
       </center>
     </div>
             
@@ -234,27 +253,22 @@
             
               <ul>
                   <% for(var i=0; i < events.length; i++) { %>
-                    
+                    <div style="text-align:left;">
                       <h3>
-                        <li>Name: <%= events[i].Name %></li>
+                        <li><b>Name:</b> <%= events[i].Name %></li>
                       </h3>
 
                       <ul>               
                         <h4>
-                          <le>Description: <%= events[i].Description %></le>                  
-                          <le>Time: <%= events[i].Time %></le>       
-                          <le>Date: <%= events[i].Date %></le>
-                        <h4>              
+                          <le><b>Description:</b> <%= events[i].Description %></le><br>                  
+                          <le><b>Time:</b> <%= events[i].Time %></le><br>
+                          <le><b>Date:</b> <%= events[i].Date.toDateString() %></le><br>                                   
+                          <le><b>Location:</b> <%= events[i].Location %></le><br>                                           
+                          <le><b>Contact Phone:</b> <%= events[i].Phone %></le><br>                
+                          <le><b>Contact Email:</b> <%= events[i].Email %></le>   
+                        </h4>
                       </ul>
-
-                      <ul>
-                        <h6>                        
-                          <le>Location: <%= events[i].Location %></le>                                           
-                          <le>Contact Phone: <%= events[i].Phone %></le>                
-                          <le>Contact Email: <%= events[i].Email %></le>   
-                        </h6>
-                      </ul>
-
+                    </div>
                       <input type="button" name="theButton" class = "btn btn-info" value="Details" onclick="window.location='/events/<%= events[i].Event_ID %>'" >
 
                       <br>   
@@ -274,7 +288,7 @@
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
+      
       function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 28.612, lng: -81.201},
@@ -370,6 +384,6 @@
       }
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete"
          async defer></script>
 </html>

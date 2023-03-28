@@ -107,6 +107,11 @@ app.post('/', function(req, res, next)
 // Register page
 app.post('/register', function(req, res, next) 
 {
+
+  // Check for password requirements with regex
+  // One lowercase, one uppercase, one digit, one special character, 6-128 characters
+  var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&-+=()!?_ "]).{6,128}$/;
+
   var newUser = 
   {
     name: req.body.name,
@@ -141,7 +146,23 @@ app.post('/register', function(req, res, next)
     }
     else
     {
-      if (rows[0].User_ID == 0)
+      if (req.body.name == "" || req.body.username == "" || req.body.password == "" || req.body.email == "")
+      {
+        var queryString = "SELECT * FROM university";
+        connection.query(queryString, function(err, rows, fields) 
+        {
+          res.render("register", {message: "* Please fill out all fields *", uni: rows});  
+        });
+      }
+      else if (!regex.test(req.body.password))
+      {
+        var queryString = "SELECT * FROM university";
+        connection.query(queryString, function(err, rows, fields) 
+        {
+          res.render("register", {message: "* Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character *", uni: rows});  
+        });
+      }
+      else if (rows[0].User_ID == 0)
       {
         connection.query(regins1, function(err, rows, fields) 
         {

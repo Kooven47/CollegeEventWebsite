@@ -56,7 +56,11 @@
       
       <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ"></script> 
 
-
+      <head>
+        <meta property="og:title" content="I just registered for College Events!" />
+        <meta property="og:site_name" content="CollegeEventWebsite" />
+        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
+      </head>
       <div class="hero">
         <section class="layout">
           <div class="branding">
@@ -74,8 +78,10 @@
     <center>
 
         <div class = "aContainer" >
-            <h1> <% if (message.length > 1) %>
+            <h1> 
+              <% if (message.length > 0) %>
                   <%=    message   %>
+                  
             </h1>
           </div>
 
@@ -94,21 +100,17 @@
                     <input type="text" name="username" id="username"><br>
                     <LABEL>Password: </LABEL>
                     <input type="password" name="password" id="password"><br><br>
-                    
                     <LABEL>University: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LABEL>
                     <select name = "uni">
-                        <%for(var i =0; i < uni.length;i++){%>
-
+                        <%for (var i = 0; i < uni.length; i++){%>
                             <option value= "<%=uni[i].University_Name%>"><%=uni[i].University_Name%>
-                          
-
                           <% } %>
                         
                     </select>
 
                 </div>
                 <button type="submit" class="btn btn-success">Register</button>
-                
+                <div class="sharethis-inline-share-buttons"></div>
             </form>
         </div>
 

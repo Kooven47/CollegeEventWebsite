@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var md5 = require('blueimp-md5');
 
 // Routes
 var index = require('./routes/index');
@@ -76,7 +77,7 @@ app.post('/', function(req, res, next)
   if (!req.body.password) {res.render("index", {message: "* Please enter your password *"}); return;}
 
   var queryString = "SELECT * FROM user WHERE User_ID = '" + req.body.username + "'";
-  var currUser = {username: req.body.username, password: req.body.password};
+  var currUser = {username: req.body.username, password: md5(req.body.password)};
 
   connection.query(queryString, function(err, rows, fields) 
   {
@@ -94,6 +95,11 @@ app.post('/', function(req, res, next)
         req.session.password = req.body.password;
 
         res.redirect("events");
+      }
+      // Username and password do not match
+      else
+      {
+        res.render("index", {message: "* Username or password is incorrect *"});
       }
     }
     // Username and password do not match
@@ -116,7 +122,7 @@ app.post('/register', function(req, res, next)
   {
     name: req.body.name,
     username: req.body.username,
-    password: req.body.password,
+    password: md5(req.body.password),
     type: req.body.type,
     level: 0,
     email: req.body.email

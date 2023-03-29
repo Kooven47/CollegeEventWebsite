@@ -120,7 +120,11 @@
 
 <%= include partials/header.ejs %>
 
-
+<head>
+  <meta property="og:title" content="I just left a comment for an event on College Event Manager!"/>
+  <meta property="og:site_name" content="College Event Manager"/>
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
+</head>
     <body>
        <center><u><h1>Event Details</h1></u><center></br>
 
@@ -165,7 +169,8 @@
                   <textarea name="comments" cols="30" rows="3" class="html-text-box" placeholder = "Comment here..."></textarea>
                   <br><br>
                   <input type="submit" value="Submit" class="btn btn-success">
-                  <input type="reset" value="Reset" class="btn btn-danger">            
+                  <input type="reset" value="Reset" class="btn btn-danger">
+                  <div class="sharethis-inline-share-buttons"></div>            
                 </form>
 
               </div>

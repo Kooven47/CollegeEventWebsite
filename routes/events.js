@@ -140,7 +140,7 @@ router.get('/:eventid', function(req, res, next)
         }   
         else
         {
-          res.render('viewEvent', {events: rows,comments: coms});          
+          res.render('viewEvent', {events: rows,comments: coms, currentUser: req.session.username});          
         }          
       });
     }, 200);

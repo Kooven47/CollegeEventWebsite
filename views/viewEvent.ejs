@@ -169,7 +169,7 @@
                   <textarea name="comments" cols="30" rows="3" class="html-text-box" placeholder = "Comment here..."></textarea>
                   <br><br>
                   <input type="submit" value="Submit" class="btn btn-success">
-                  <input type="reset" value="Reset" class="btn btn-danger">
+                  <input type="reset" value="Clear" class="btn btn-danger">
                   <div class="sharethis-inline-share-buttons"></div>            
                 </form>
 
@@ -180,8 +180,8 @@
                 <center><u><h1>Reviews</h1></u><center></br>
 
                 <ul>
-                  <% for(var i=0; i < comments.length; i++) { %>
-                    <form method = "post" action = "/deletecomment/<%= comments[i].id %>">  
+                  <% for (var i = 0; i < comments.length; i++) { %>
+                    <form method = "post" action = "/deletecomment/<%= comments[i].id %>">
                       <input type="submit" class="btn btn-danger" value="X" style = "float: left;">
                          <h3>
                               <le>Username: <%= comments[i].owner %></le>
@@ -193,7 +193,30 @@
                               <le>Comment: <%= comments[i].commentString %><br><br></le>
                          </h4>
                     </form>
-
+                    <!-- <button type="button" class="btn btn-danger" value="M" style = "float: left;"> -->
+                      <% if (comments[i].owner == currentUser) { %>
+                        <input type="button" value = "Modify" class="btn" data-comment-id="<%= comments[i].id %>" onclick="showEdit(this)">
+                      <% } %>
+                      <script>
+                        function showEdit(button) {
+                          var commentId = button.getAttribute("data-comment-id");
+                          var div = document.getElementById("edit-form-" + commentId);
+                          // editForm.style.display = "block";
+                          if (div.style.display === "none") {
+                            div.style.display = "block";
+                          } else {
+                            div.style.display = "none";
+                          }
+                        }
+                      </script>
+                    <form method = "post" action = "/modifycomment/<%= comments[i].id %>">
+                      <div id='edit-form-<%= comments[i].id %>' style = "display: none;">
+                      <textarea name="comments" cols="30" rows="3" class="html-text-box" placeholder="Comment here..."><%= comments[i].commentString %></textarea>
+                      <br><br>
+                      <input type="submit" value="Save" class="btn btn-success">
+                      <input type="reset" value="Clear" class="btn btn-danger">
+                      </div>
+                    </form>
                   <% } %>
                 </ul>
                 

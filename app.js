@@ -469,6 +469,45 @@ app.post('/deletecomment/:id', function(req, res, next)
 	});
 });
 
+app.post('/modifycomment/:id', function(req, res, next) 
+{
+  console.log("********* START **********");
+
+  console.log(req.url);
+
+  var str = req.url
+
+  var eventid = str.replace("/modifycomment/","");
+
+  console.log(eventid);
+
+  console.log(req.session.username);
+
+  console.log(req.body);
+
+  console.log("********* END **********");
+
+  var modEventComment = "UPDATE comments SET commentString = '" + req.body.comments + "' WHERE id = " + eventid + ";";
+  var checkowner = "SELECT * FROM comments WHERE id = " + eventid + ";"
+
+  connection.query(checkowner,function(err, rows, fields)
+  {
+    if (req.session.username == rows[0].owner)
+    {
+      connection.query(modEventComment, function(err, rows, fields) 
+      {
+        if (err) 
+        {
+          console.error(err);
+          return;
+        }
+      });
+    }
+    console.log("here2");
+    res.redirect(req.get('referer'));
+	});
+});
+
 app.post('/orgs', function(req, res, next) 
 {
   console.log("******  START ORG  ******");

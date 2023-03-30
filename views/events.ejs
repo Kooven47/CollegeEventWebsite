@@ -9,14 +9,17 @@
   {
     width: 40%;
   }
-  
+  .height
+  {
+    padding-bottom: 10px;
+  }
   .test
   {
     min-width: 60px;
   }
   .newEvent{
     width: 42%;
-    height: 675px;
+    height: 740px;
     min-width: 450px;
     float: left;
 
@@ -35,7 +38,7 @@
   }
   .viewEvents{    
     width: 42%;
-    height: 675px;
+    height: 740px;
     min-width: 450px;
     float: right;
 
@@ -74,8 +77,8 @@
   }
 
   #map {
-        height: 190px;
-        width: 190px;
+        height: 200px;
+        width: 400px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -217,12 +220,12 @@
 
                   <LABEL><u>Location</u></LABEL><br>
                   <input id="latitude" name="latitude" type="text" placeholder="Latitude"><br>
-                  <input id="longitude" name="longitude" type="text" placeholder="Longitude"><br>
+                  <input id="longitude" name="longitude" type="text" placeholder="Longitude"><br><br>
                   <input id="pac-input" class="controls" name = "location" type="text" placeholder="Enter place...">
                   <div id="map"></div>
               </div>
 
-              <button type="submit" class="btn btn-success">Create</button>
+              <button type="submit" class="btn btn-success" style="margin-bottom:8px">Create</button>
               <div class="sharethis-inline-share-buttons"></div>
 
           </center>
@@ -299,6 +302,8 @@
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 28.612, lng: -81.201},
           zoom: 13,
+          disableDefaultUI: true,
+          zoomControl: true,
           mapTypeId: 'roadmap'
         });
 

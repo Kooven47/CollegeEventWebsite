@@ -513,7 +513,6 @@ app.post('/orgs', function(req, res, next)
   console.log("******  START ORG  ******");
 
   var adminEmail = req.body.adminEmail;
-  var usr1Email = req.body.usr1Email;
   var usr2Email = req.body.usr2Email;
   var usr3Email = req.body.usr3Email;
   var usr4Email = req.body.usr4Email;
@@ -529,19 +528,31 @@ app.post('/orgs', function(req, res, next)
       console.error(err);
       return;
     }
-    adminUserID = rows[0].User_ID;
+
+    if (rows.length == 0)
+    {
+      console.log("admin email not found");
+      return res.render('orgs', {orgs: rows, message:"admin email not found"});
+    }
+    else
+    {
+      adminUserID = rows[0].User_ID;
+    }
 
     console.log("admin is " + adminUserID);
     var addOrg = "INSERT INTO rso (Name, Admin, Approved) VALUES ('" + req.body.name + "','" + adminUserID + "', 0);";
 
     adminEmail = adminEmail.replace(/.*@/, "");
-    usr1Email = usr1Email.replace(/.*@/, "");
     usr2Email = usr2Email.replace(/.*@/, "");
     usr3Email = usr3Email.replace(/.*@/, "");
     usr4Email = usr4Email.replace(/.*@/, "");
     usr5Email = usr5Email.replace(/.*@/, "");
-
     console.log(adminEmail);
+    console.log(usr2Email);
+    console.log(usr3Email);
+    console.log(usr4Email);
+    console.log(usr5Email);
+
 
     console.log("******  END ORG  ******");
     console.log(req.body);
@@ -556,10 +567,10 @@ app.post('/orgs', function(req, res, next)
       }
       else
       {
-        if ((adminEmail == usr1Email) && (adminEmail == usr2Email) && (adminEmail == usr3Email) && (adminEmail == usr4Email) && (adminEmail == usr5Email))
+        if ((adminEmail == usr2Email) && (adminEmail == usr3Email) && (adminEmail == usr4Email) && (adminEmail == usr5Email))
         {
           console.log("emails match");
-          res.render('orgs', {orgs: rows,message:""});
+          res.render('orgs', {orgs: rows, message:""});
         }    
         else
         {
@@ -600,77 +611,84 @@ app.post('/orgs', function(req, res, next)
         var addmember; 
 
         var finduser;
-        finduser = "SELECT * FROM user WHERE email = '"+ req.body.usr1Email + "';"
-        connection.query(finduser,function(err,rows,fields)
-        {     
+        finduser = "SELECT * FROM user WHERE email = '" + req.body.usr2Email + "';"
+        connection.query(finduser, function(err, rows, fields)
+        {
           if(err)
           {
             console.log(err);
           }
           else
           {
-            console.log("rows returned " + rows[0].User_ID)
-            member = rows[0].User_ID;                              
-      
+            member = rows[0].User_ID;
+          
             addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
 
             connection.query(addmember, function(err, rows, fields)
             {
-            
+                
             });
-          }  
-        });
-
-        finduser = "SELECT * FROM user WHERE email = '" + req.body.usr2Email + "';"
-        connection.query(finduser, function(err, rows, fields)
-        {
-          member = rows[0].User_ID;
-        
-          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
-
-          connection.query(addmember, function(err, rows, fields)
-          {
-              
-          });
+          }
         });
 
         finduser = "SELECT * FROM user WHERE email = '" + req.body.usr3Email + "';"
         connection.query(finduser,function(err, rows, fields)
         {
-          member = rows[0].User_ID;
-
-          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
-
-          connection.query(addmember, function(err,rows,fields)
+          if(err)
           {
-              
-          });
+            console.log(err);
+          }
+          else
+          {
+            member = rows[0].User_ID;
+          
+            addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
+
+            connection.query(addmember, function(err, rows, fields)
+            {
+                
+            });
+          }
         });
 
         finduser = "SELECT * FROM user WHERE email = '" + req.body.usr4Email + "';"
         connection.query(finduser,function(err, rows, fields)
         {
-          member = rows[0].User_ID;
-        
-          addmember = "INSERT INTO member_of (RSO_ID,User_ID) VALUES('" + LORG + "','" + member + "');";
-
-          connection.query(addmember, function(err, rows, fields)
+          if(err)
           {
-              console.log("inserting.........");
-          });
+            console.log(err);
+          }
+          else
+          {
+            member = rows[0].User_ID;
+          
+            addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
+
+            connection.query(addmember, function(err, rows, fields)
+            {
+                
+            });
+          }
         });
 
         finduser = "SELECT * FROM user WHERE email = '"+req.body.usr5Email+"';"
         connection.query(finduser,function(err, rows, fields)
         {
-          member = rows[0].User_ID;
-
-          addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
-          console.log(" lorg is "+LORG);
-          connection.query(addmember, function(err, rows, fields)
+          if(err)
           {
-              
-          });
+            console.log(err);
+          }
+          else
+          {
+            member = rows[0].User_ID;
+          
+            addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES('" + LORG + "','" + member + "');";
+
+            connection.query(addmember, function(err, rows, fields)
+            {
+                
+            });
+          }
         });
       });
     });

@@ -508,6 +508,7 @@ app.post('/modifycomment/:id', function(req, res, next)
 	});
 });
 
+/*
 app.post('/orgs', function(req, res, next) 
 {
   console.log("******  START ORG  ******");
@@ -694,6 +695,161 @@ app.post('/orgs', function(req, res, next)
     });
   });
 
+  res.redirect("orgs");
+});
+*/
+
+app.post('/orgs', function(req, res, next) 
+{
+  console.log("******  START ORG  ******");
+
+  var adminEmail = req.body.adminEmail;
+  var user2Email = req.body.user2Email;
+  var user3Email = req.body.user3Email;
+  var user4Email = req.body.user4Email;
+  var user5Email = req.body.user5Email;
+
+  var adminUserID;
+  var findadmin = "SELECT * FROM user WHERE email = '" + req.body.adminEmail + "';"
+
+  connection.query(findadmin, function(err, rows, fields) 
+  {
+    if (err) 
+    {
+      console.error(err);
+      return;
+    }
+
+    if (rows.length == 0)
+    {
+      console.log("admin email not found");
+      res.render('orgs', {orgs: rows, message:"admin email not found"});
+    }
+    else
+    {
+      adminUserID = rows[0].User_ID;
+      console.log("admin is " + adminUserID);
+
+      adminEmailDomain = adminEmail.replace(/.*@/, "");
+      user2EmailDomain = user2Email.replace(/.*@/, "");
+      user3EmailDomain = user3Email.replace(/.*@/, "");
+      user4EmailDomain = user4Email.replace(/.*@/, "");
+      user5EmailDomain = user5Email.replace(/.*@/, "");
+      console.log(adminEmailDomain);
+      console.log(user2EmailDomain);
+      console.log(user3EmailDomain);
+      console.log(user4EmailDomain);
+      console.log(user5EmailDomain);
+    
+      console.log("******  END ORG  ******");
+      console.log(req.body);
+    
+      var queryString = "SELECT * FROM rso";
+    
+      connection.query(queryString, function(err, rows, fields) 
+      {
+        if (err) 
+        {       
+          throw err;
+        }
+        else
+        {
+          if (!((adminEmailDomain == user2EmailDomain) && (adminEmailDomain == user3EmailDomain) && (adminEmailDomain == user4EmailDomain) && (adminEmailDomain == user5EmailDomain)))
+          {
+            console.log("emails don't match");
+            res.render('orgs', {orgs: rows, message:"email domain doesn't match or don't exist"});
+          }    
+          else
+          {
+            console.log("emails match");
+            res.render('orgs', {orgs: rows, message:""});
+            
+            var isbad = false;
+            [user2Email, user3Email, user4Email, user5Email].forEach(function(email)
+            {
+              var queryString = "SELECT * FROM user WHERE email = '" + email + "';";
+              connection.query(queryString, function(err, rows, fields) 
+              {
+                if (err) 
+                {
+                  console.error(err);
+                  return;
+                }
+          
+                if (rows.length == 0)
+                {
+                  isbad = true;
+                  console.log("email not found");
+                  res.render('orgs', {orgs: rows, message:"email not found"});
+                }
+              });
+            });
+
+            var addOrg = "INSERT INTO rso (Name, Admin, Approved) VALUES ('" + req.body.name + "','" + adminUserID + "', 0);";
+            
+            if (!isbad)
+            {
+              connection.query(addOrg, function(err, rows, fields) 
+              {
+                if (err) 
+                {
+                  console.error(err);
+                  return;
+                }
+            
+                var lastOrg="SELECT LAST_INSERT_ID() AS LOR;";
+                var LORG;
+                connection.query(lastOrg, function(err, rows, fields)
+                {
+                  LORG = rows[0].LOR;
+                  
+                  console.log(LORG);
+                  
+                  var uniorg = "SELECT * FROM enrolled WHERE User_ID = '" + adminUserID + "';";
+            
+                  connection.query(uniorg, function(err, rows, fields)
+                  {
+                    var insorguni = "INSERT INTO University_has_RSO (University_University_Name, RSO_RSO_ID) VALUES ('" + rows[0].University_Name + "','" + LORG + "');";
+                    connection.query(insorguni,function(err, rows, fields)
+                    {
+            
+                    });
+                  });
+            
+                  var member;
+                  var addmember; 
+                  var finduser;
+                  [adminEmail, user2Email, user3Email, user4Email, user5Email].forEach(function(email)
+                  {
+                    finduser = "SELECT * FROM user WHERE email = '" + email + "';"
+                    connection.query(finduser, function(err, rows, fields)
+                    {
+                      if(err)
+                      {
+                        console.log(err);
+                      }
+                      else
+                      {
+                        member = rows[0].User_ID;
+                      
+                        addmember = "INSERT INTO member_of (RSO_ID, User_ID) VALUES ('" + LORG + "', '" + member + "');";
+              
+                        connection.query(addmember, function(err, rows, fields)
+                        {
+                            
+                        });
+                      }
+                    });
+                  });
+                });
+              });
+            }
+          }
+        }         
+      });
+    }
+  });
+  
   res.redirect("orgs");
 });
 

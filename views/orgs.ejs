@@ -5,7 +5,7 @@
             width: 40%;
         }
 
-  .newOrg{
+  .newOrg {
     width: 40%;
     height: 425px;
     min-width: 450px;
@@ -23,7 +23,7 @@
 
     background-color: #d3d3d3;
   }
-  .viewOrgs{    
+  .viewOrgs {    
     width: 40%;
     height: 425px;
     min-width: 450px;
@@ -43,12 +43,14 @@
 
     overflow: auto;
   }
-  .container{
+  .container {
     margin-bottom: 80px;
   }
-  .aContainer{
-        color: red;
-      }
+  .aContainer {
+    color: red;
+    font-size: 10pt;
+    white-space: nowrap;
+  }
 </style>
 
 
@@ -62,19 +64,14 @@
 
  <body>
   <center><u><h1>Organizations</h1></u><center><br><br>
-
     <div class = "aContainer" >
-          <h1> <% if (message.length > 1) %>
+          <text> <% if (message && message.length > 1) %>
                 <%=    message   %>
-          </h1>
+          </text>
     </div>
-
     <div class = "container">
-
         <div class = "newOrg">
-
             <center><h2><u> New Organization </u></h2></center><br>
-
             <form class="form"  action="/orgs" method="post">              
                     <div class="form-group">
                         <LABEL>Organization Name: </LABEL>
@@ -89,21 +86,15 @@
                         <input type="text" name="user4Email" id="user4Email"><br>
                         <LABEL>User 5: </LABEL>
                         <input type="text" name="user5Email" id="user5Email"><br>
-
                     </div>
                     <br><br>
                     <button type="submit" class="btn btn-success">Create</button>
-                    <div class="sharethis-inline-share-buttons"></div>
-
-                    
+                    <div class="sharethis-inline-share-buttons"></div>               
             </form>
         </div>
-
         <div class = "viewOrgs">        
-
             <aside>
                 <h2><u>Posted Organizations</u></h2><br>                
-
                     <div class = "organizations">
                         <ul>
                             <% for(var i=0; i < orgs.length; i++) { %>
@@ -113,18 +104,12 @@
                                <h4>
                                     <le>Admin: <%= orgs[i].Admin %><br><br></le>
                                </h4>
-
                             <input type="button" class = "btn btn-info" name="theButton" value="Details" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'" >
-
-
                             <% } %>
                         </ul>
-
                     </div>
             </aside>
-
         </div>
-
     </div>
   </body>
 </html>

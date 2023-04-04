@@ -171,8 +171,8 @@
           <i id="eyeIcon" class="fa fa-eye show-password"></i>
        </div>
         <LABEL>University: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</LABEL>
-        <select name = "uni"> <%for (var i = 0; i < uni.length; i++){%> <option value= "<%=uni[i].University_Name%>"> <%=uni[i].University_Name%> <% } %></select>
-        <div id="errorMessage" class = "aContainer">
+        <select name="uni"> <%for (var i = 0; i < uni.length; i++){%> <option value= "<%=uni[i].University_Name%>"> <%=uni[i].University_Name%> <% } %> </select>
+        <div id="errorMessage" class="aContainer">
           <text> <% if (message.length > 0) %> <%= message %></text>
         </div>
         <button id="signupButton" type="submit" class="btn btn-success">SIGN UP</button>

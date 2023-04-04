@@ -34,7 +34,9 @@ router.get('/', function(req, res, next)
         }       	
         else
         {
-          res.render('orgs', {orgs: rows,message: ""});
+          console.log("happening here?");
+          res.render('orgs', {orgs: rows, message: "default msg"});
+          console.log("hello!");
         }        	
       });
     }, 200);

@@ -35,13 +35,13 @@ var connection = mysql.createConnection(
 
 // Session
 app.use(session({
-  secret: "hello TA",
-  saveUninitialized: true,
-  resave: true,
-  name: "",
-  username: "",
-  password: "",
-  type: ""
+  secret            : "hello TA",
+  saveUninitialized : true,
+  resave            : true,
+  name              : "",
+  username          : "",
+  password          : "",
+  type              : ""
 }));
 
 // View engine setup
@@ -68,7 +68,7 @@ app.use('/orgs', orgs);
 app.use('/universities', universities);
 app.use('/super', superA);
 
-// Homepage: sign in and sign up
+// Homepage: sign in
 app.post('/', function(req, res, next) 
 {
   // Check for any empty fields
@@ -110,32 +110,27 @@ app.post('/', function(req, res, next)
   });
 });
 
-// Register page
+// Sign up page
 app.post('/register', function(req, res, next) 
 {
-
   // Check for password requirements with regex
   // One lowercase, one uppercase, one digit, one special character, 6-128 characters
   var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&-+=()!?_ "]).{6,128}$/;
 
+  // Create new user object
   var newUser = 
   {
-    name: req.body.name,
-    username: req.body.username,
-    password: md5(req.body.password),
-    type: req.body.type,
-    level: 0,
-    email: req.body.email
+    name     : req.body.name,
+    username : req.body.username,
+    password : md5(req.body.password),
+    type     : req.body.type,
+    level    : 0,
+    email    : req.body.email
   };
 
-  if (newUser.type == "Student")
-  {
-    newUser.level = 0;
-  }
-  else if (newUser.type == "superAdmin")
-  {
-    newUser.level = 2;
-  }
+  // Set user level
+  if (newUser.type == "Student") {newUser.level = 0;}
+  else if (newUser.type == "superAdmin") {newUser.level = 2;}
 
   var checkquery = "SELECT COUNT(*) AS User_ID FROM user WHERE User_ID = '" + req.body.username + "' OR email = '" + req.body.email + "';";
   var regins1 = "INSERT INTO User (User_ID, name, password, level, email) VALUES ('" + newUser.username + "','" + newUser.name + "','" + newUser.password + "','" + newUser.level + "','" + newUser.email + "');";
@@ -152,20 +147,32 @@ app.post('/register', function(req, res, next)
     }
     else
     {
+      // Check for empty fields
       if (req.body.name == "" || req.body.username == "" || req.body.password == "" || req.body.email == "")
       {
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Please fill out all fields *", uni: rows});  
+          res.render("register", {message: "* Please fill out all the fields *", uni: rows});  
         });
       }
+      // Check that a university is selected
+      else if (req.body.uni == "UNIVERSITY") 
+      {
+        var queryString = "SELECT * FROM university";
+        connection.query(queryString, function(err, rows, fields) 
+        {
+          res.render("register", {message: "* Please select a university *", uni: rows});  
+        });
+        return;
+      }
+      // Check if password meets requirements
       else if (!regex.test(req.body.password))
       {
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character *", uni: rows});  
+          res.render("register", {message: "* Password must be at least 6 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character *", uni: rows});  
         });
       }
       else if (rows[0].User_ID == 0)
@@ -237,11 +244,11 @@ app.post('/register', function(req, res, next)
       }
       else
       {
-        console.log("***** Username " + newUser.username + " already exists *****"); 
+        console.log("* This username is taken *"); 
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Username " + newUser.username + " already exists OR e-mail is already in use *", uni: rows});  
+          res.render("register", {message: "* This username or email is taken *", uni: rows});  
         });
       }
     }

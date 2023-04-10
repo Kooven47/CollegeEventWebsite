@@ -21,30 +21,36 @@
   <script>
     $(document).ready(function()
     {
-      $(".show-password").click(function()
+      $(".hide-password").click(function()
       {
         var passwordField = $("#password");
-        var icon = $(".show-password");
-
+        var icon = $(".hide-password");
+    
         if (passwordField.attr("type") === "password")
         {
           passwordField.attr("type", "text");
-          icon.removeClass("fa-eye").addClass("fa-eye-slash");
+          icon.removeClass("fa-eye-slash").addClass("fa-eye");
         }
         else
         {
           passwordField.attr("type", "password");
-          icon.removeClass("fa-eye-slash").addClass("fa-eye");
+          icon.removeClass("fa-eye").addClass("fa-eye-slash");
         }
       });
     });
+    
   </script>
 
   <style>
+    body {
+      background-image: url("../images/WebsiteBackground.jpg");
+      background-size: cover;
+    }
     /* Setting dimensions and styling the signin background */
     #signinBackground {
       align-items: center;
       background-color: #C5C7C8;
+      border: 3px solid #FEF3B3;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -183,7 +189,7 @@
         <div id="passwordField">
           <text>PASSWORD:</text>
           <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
-          <i id="eyeIcon" class="fa fa-eye show-password"></i>
+          <i id="eyeIcon" class="fas fa-eye-slash hide-password"></i>
        </div>
         <div id="noAccount">
           <p>Don't have an account? <a href="/register"><u>Sign up</u></a></p>

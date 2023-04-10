@@ -41,10 +41,17 @@
   </script>
     
   <style>
-    /* Setting dimensions and styling the signin background */
+    /* Setting the signin background */
+    body {
+      background-image: url("../images/WebsiteBackground.jpg");
+      background-size: cover;
+    }
+
+    /* Setting and styling the signin background */
     #signupBackground {
       align-items: center;
       background-color: #C5C7C8;
+      border: 3px solid #FEF3B3;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -218,8 +225,7 @@
         </div>
         <div id="universityDropdown">
           <text>UNIVERSITY:</text>
-          <select name="university">
-            <option value="" selected disabled hidden>UNIVERSITY</option>
+          <select name="uni">
             <% for (var i = 0; i < uni.length; i++) { %>
               <option value="<%= uni[i].University_Name %>"><%= uni[i].University_Name %></option><%}
             %>

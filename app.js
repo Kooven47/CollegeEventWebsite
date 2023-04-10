@@ -385,26 +385,7 @@ app.post('/events/:eventid', function(req, res, next)
 
   var rating;
 
-  if(req.body.rating1)
-  {
-    rating = 1;
-  }
-  else if(req.body.rating2)
-  {
-    rating = 2;
-  }
-  else if(req.body.rating3)
-  {
-    rating = 3;
-  }
-  else if(req.body.rating4)
-  { 
-  rating = 4;
-  }
-  else
-  {
-    rating = 5;
-  }
+  rating = req.body.rating;
 
   var addEventComment = "INSERT INTO comments (Event_ID, owner, commentString, rating) VALUES ('" + eventid + "', '" + req.session.username + "','" + req.body.comments + "','" + rating + "');";
   var comment_id;

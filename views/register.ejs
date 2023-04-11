@@ -160,21 +160,6 @@
       background-color: #1a98e6;
     }
 
-    /* Styling the "Share on Facebook" text */
-    #facebookButton {
-      background-color: #4267B2;
-      outline: none;
-      position: absolute;
-      top: 360px;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-left: 74px;
-    }
-    /* Changing the "Share on Facebook" text color when hovered over */
-    #facebookButton:hover {
-      background-color: #385897;
-    }
-
     /* Setting and styling the "SIGN UP" button */
     #signupButton {
       background-color: #FEF3B3;
@@ -237,11 +222,7 @@
         <a href="#"
           onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
           <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i> Post on Twitter</button>
-        </a>
-        <a href="#"
-          onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('http://localhost:3000/register'), 'facebook-share-dialog', 'width=626,height=436'); return false;">
-          <button id="facebookButton" class="btn btn-primary"><i class="fa fa-facebook"></i> Post on Facebook</button>
-        </a>    
+        </a> 
         <button id="signupButton" type="submit">SIGN UP</button>
       </form>
     </div>

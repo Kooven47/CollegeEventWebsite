@@ -1,9 +1,26 @@
 <html>
-
 <style>
-  input, label,button {
-            width: 40%;
-        }
+  /* Setting and styling the background of the title bar */
+  #createEvent {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 14pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 50px;
+    width: 299px;
+  }
+
+  input, label, button {
+    width: 40%;
+  }
 
   .newOrg {
     width: 40%;
@@ -53,7 +70,6 @@
   }
 </style>
 
-
 <%= include partials/header.ejs %>
 
 <head>
@@ -64,52 +80,43 @@
 
  <body>
   <center><u><h1>Organizations</h1></u><center><br><br>
-    <div class = "aContainer" >
-          <text> <% if (message && message.length > 1) %>
-                <%=    message   %>
-          </text>
-    </div>
-    <div class = "container">
-        <div class = "newOrg">
-            <center><h2><u> New Organization </u></h2></center><br>
-            <form class="form"  action="/orgs" method="post">              
-                    <div class="form-group">
-                        <LABEL>Organization Name: </LABEL>
-                        <input type="text" name="name" id="name"><br>
-                        <LABEL>User 1 (Admin): </LABEL>
-                        <input type="text" name="adminEmail" id="adminEmail"><br>
-                        <LABEL>User 2: </LABEL>
-                        <input type="text" name="user2Email" id="user2Email"><br>
-                        <LABEL>User 3: </LABEL>
-                        <input type="text" name="user3Email" id="user3Email"><br>
-                        <LABEL>User 4: </LABEL>
-                        <input type="text" name="user4Email" id="user4Email"><br>
-                        <LABEL>User 5: </LABEL>
-                        <input type="text" name="user5Email" id="user5Email"><br>
-                    </div>
-                    <br><br>
-                    <button type="submit" class="btn btn-success">Create</button>
-                    <div class="sharethis-inline-share-buttons"></div>               
-            </form>
-        </div>
-        <div class = "viewOrgs">        
-            <aside>
-                <h2><u>Posted Organizations</u></h2><br>                
-                    <div class = "organizations">
-                        <ul>
-                            <% for(var i=0; i < orgs.length; i++) { %>
-                               <h3>
-                                    <li>Name: <%= orgs[i].Name %></li>
-                               </h3>
-                               <h4>
-                                    <le>Admin: <%= orgs[i].Admin %><br><br></le>
-                               </h4>
-                            <input type="button" class = "btn btn-info" name="theButton" value="Details" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'" >
-                            <% } %>
-                        </ul>
-                    </div>
-            </aside>
-        </div>
+  <div class = "aContainer" >
+    <text> <% if (message && message.length > 1)%><%=message%></text>
+  </div>
+  <div class = "container">
+    <div class = "newOrg">
+      <center><h2><u> New Organization </u></h2></center><br>
+        <form class="form"  action="/orgs" method="post">              
+          <div class="form-group">
+            <LABEL>Organization Name: </LABEL>
+            <input type="text" name="name" id="name"><br>
+            <LABEL>User 1 (Admin): </LABEL>
+            <input type="text" name="adminEmail" id="adminEmail"><br>
+            <LABEL>User 2: </LABEL>
+            <input type="text" name="user2Email" id="user2Email"><br>
+            <LABEL>User 3: </LABEL>
+            <input type="text" name="user3Email" id="user3Email"><br>
+            <LABEL>User 4: </LABEL>
+            <input type="text" name="user4Email" id="user4Email"><br>
+            <LABEL>User 5: </LABEL>
+            <input type="text" name="user5Email" id="user5Email"><br>
+          </div><br><br>
+          <button type="submit" class="btn btn-success">Create</button>
+          <div class="sharethis-inline-share-buttons"></div>               
+        </form>
+      </div>
+      <div class="viewOrgs">        
+        <aside>
+          <h2><u>Posted Organizations</u></h2><br>                
+            <div class = "organizations">
+              <ul><% for(var i=0; i < orgs.length; i++) { %>
+                <h3><li>Name: <%= orgs[i].Name %></li></h3>
+                <h4><le>Admin: <%= orgs[i].Admin %><br><br></le></h4>
+                <input type="button" class="btn btn-info" name="theButton" value="Details" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'"><%}%>
+              </ul>
+            </div>
+        </aside>
+      </div>
     </div>
   </body>
 </html>

@@ -19,7 +19,7 @@
     background-size: cover;
   }
 
-  /* Setting dimensions and styling the signin background */
+  /* Setting dimensions and styling the create background */
   #createEventsBackground {
     align-items: center;
     background-color: #C5C7C8;
@@ -31,11 +31,13 @@
     text-align: center;
     transform: translate(-115%, -50%);
 
-    height: 800px;
+    height: 500px;
     width: 354px;
 
     left: 50%;
     top: 50%;
+
+    overflow: auto;
   }
 
   /* Setting and styling the background of the toggle bar */
@@ -74,7 +76,7 @@
     white-space: nowrap;
   }
   #name, #time, #date, #phoneNumber, #emailAddress,
-  #permissionLevel, #hostRSO, #universityField, #description, #latitude, #longitude {
+  #permissionLevel, #hostRSO, #university, #description, #latitude, #longitude {
     color: #656565;
     border: none;
     border-radius: 4px;
@@ -126,6 +128,8 @@
     border-radius: 10px;
 
     background-color: #d3d3d3;
+
+    overflow: auto;
   }
   .viewEvents {    
     width: 42%;
@@ -272,7 +276,7 @@
     text-align: center;
     transform: translate(5%, -50%);
 
-    height: 800px;
+    height: 500px;
     width: 354px;
 
     left: 50%;
@@ -307,7 +311,7 @@
     <form class="form" action="/events" method="post">
       <div id="permissionLevelField">
         <text>PERMISSION:</text>
-        <select name="type">
+        <select id="permissionLevel" name="type">
           <option value="priv">PRIVATE</option>
           <option value="pub">PUBLIC</option>
           <option value="org">RSO</option>
@@ -326,7 +330,7 @@
         <input id="date" type="date" name="date" required>
       </div>
       <div id="phoneNumberField">
-        <text>PHONE#:</text>
+        <text>PHONE #:</text>
         <input id="phoneNumber" type="text" name="phone" placeholder="PHONE#">
       </div>
       <div id="emailAddressField">
@@ -337,9 +341,9 @@
         <text>HOST RSO:</text>
         <select id="hostRSO" name="RSO"><%for (var i = 0; i < RSO.length; i++){%><option name="rsoName" value="<%=RSO[i].Name%>"> <%=RSO[i].Name%> <%}%></select>
       </div>
-      <div id="universityId"
+      <div id="universityField">
         <text>UNIVERSITY:</text>
-        <% if(uni) {%><select name = "uni"><option value = "<%= uni %>"> <%= uni %> </option> </select><%}%>
+        <% if(uni) {%><select id="university" name="uni"><option value = "<%= uni %>"> <%= uni %> </option> </select><%}%>
       </div>
       <div id="descriptionField">
         <text>DESCRIPTION:</text>
@@ -363,6 +367,7 @@
     </form>
   </div>
 
+  <!-- Code for "FILTER EVENTS" -->
   <div id="filterBackground">
     <form method="get" action=" ">
       <input class="test" type="submit" value="Public"name="selection">

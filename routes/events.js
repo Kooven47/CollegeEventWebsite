@@ -40,11 +40,11 @@ router.get('/', function(req, res, next)
       }          
 
       console.log("User: " + req.session.username + " logged in");
-      var queryString = "SELECT DISTINCT  * FROM event AS E1 WHERE approved = 1 AND Level = 0 OR (University_Name = '" + university.University_Name + "' AND Level = 1) OR ((SELECT RSO_RSO_ID FROM hosts WHERE E1.Event_ID = Event_ID) = ANY(SELECT RSO_ID FROM member_of WHERE User_ID = '" + req.session.username + "'));";               // check later
+      var queryString = "SELECT DISTINCT * FROM event AS E1 WHERE approved = 1 AND Level = 0 OR (University_Name = '" + university.University_Name + "' AND Level = 1) OR (Level = 2 AND ((SELECT RSO_RSO_ID FROM hosts WHERE E1.Event_ID = Event_ID) = ANY(SELECT RSO_ID FROM member_of WHERE User_ID = '" + req.session.username + "')));";               // check later
       
       console.log(queryString);
 
-      var RSOString = "SELECT * FROM rso WHERE Admin = '"+ req.session.username + "';";
+      var RSOString = "SELECT * FROM rso WHERE Admin = '" + req.session.username + "';";
       setTimeout(function()
       {
         console.log(university.University_Name);
@@ -64,7 +64,7 @@ router.get('/', function(req, res, next)
           queryString = "SELECT * FROM event WHERE approved = 1 AND Level = 0";
           console.log("filter:public");
         }
-        console.log(queryString+" right before connection");
+        console.log(queryString + " right before connection");
         connection.query(queryString, function(err, erows, fields) 
         {
           console.log(queryString);
@@ -76,7 +76,7 @@ router.get('/', function(req, res, next)
           {
             connection.query(RSOString, function(err, rows, fields) 
             {
-              res.render("events", {events: erows,RSO : rows,uni: university.University_Name});  
+              res.render("events", {events: erows, RSO:rows, uni: university.University_Name});  
             });             
           }          
         });

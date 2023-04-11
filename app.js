@@ -263,21 +263,21 @@ app.post('/events', function(req, res, next)
   {
     console.log("Perm: public");
     perm = 0;
-    var addEvent1 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','"+req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm+"', 1);";
+    var addEvent1 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','"+req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm+"', 0);";
   }
     
   else if (req.body.type == "priv")
   {
     console.log("Perm: private");
     perm = 1;
-    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
+    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
   }
     
   else if (req.body.type == "org")
   {
     console.log("Perm: rso");
     perm = 2;
-    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "',0,'" + req.body.uni + "');";
+    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
   }
   
   var checkadmin = "SELECT COUNT (*) AS TOTAL FROM admin WHERE User_ID ='" + req.session.username + "';";
@@ -306,7 +306,7 @@ app.post('/events', function(req, res, next)
         
             connection.query(getRSO, function(err, rsorows, fields)
             {
-              var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID,Event_ID) VALUES('" + rsorows[0].RSO_ID + "','" + LID + "')";
+              var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
 
               connection.query(rsoHosts,function(err,rows,fields)
               {
@@ -331,12 +331,27 @@ app.post('/events', function(req, res, next)
               console.error(err);
               return;
             }
+            connection.query(lastEvent, function(err, rows, fields)
+            {
+              LID = rows[0].LE;
+              console.log(LID);
+          
+              connection.query(getRSO, function(err, rsorows, fields)
+              {
+                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+  
+                connection.query(rsoHosts,function(err,rows,fields)
+                {
+  
+                });
+              });
+            });
           });
         }
         else if (perm == 1)
         {
           console.log("*******************uni: " + req.body.uni);
-          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
+          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
         
           connection.query(addEvent0, function(err, rows, fields) 
           {
@@ -345,11 +360,26 @@ app.post('/events', function(req, res, next)
               console.error(err);
               return;
             }
+            connection.query(lastEvent, function(err, rows, fields)
+            {
+              LID = rows[0].LE;
+              console.log(LID);
+          
+              connection.query(getRSO, function(err, rsorows, fields)
+              {
+                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+  
+                connection.query(rsoHosts,function(err,rows,fields)
+                {
+  
+                });
+              });
+            });
           });
         }
         else if (perm == 2)
         {
-          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0,'" + req.body.uni + "');";
+          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
 
           connection.query(addEvent0, function(err, rows, fields) 
           {
@@ -358,6 +388,21 @@ app.post('/events', function(req, res, next)
               console.error(err);
               return;
             }
+            connection.query(lastEvent, function(err, rows, fields)
+            {
+              LID = rows[0].LE;
+              console.log(LID);
+          
+              connection.query(getRSO, function(err, rsorows, fields)
+              {
+                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+  
+                connection.query(rsoHosts,function(err,rows,fields)
+                {
+  
+                });
+              });
+            });
           });
           console.log("rso");
         }

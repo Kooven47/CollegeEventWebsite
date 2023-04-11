@@ -1,23 +1,114 @@
 <html>
+<title>CEM: Create Events</title>
+<head>
+  <!-- Using the show and hide eye for password -->
+  <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
+</head>
+
+<head>
+  <meta property="og:title" content="I just made an event for College Event Manager!"/>
+  <meta property="og:site_name" content="College Event Manager"/>
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
+</head>
 
 <style>
+
+  /* Setting the events background */
+  body {
+    background-image: url("../images/EventsBackground.jpg");
+    background-size: cover;
+  }
+
+  /* Setting dimensions and styling the signin background */
+  #createEventsBackground {
+    align-items: center;
+    background-color: #C5C7C8;
+    border: 3px solid #FEF3B3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    transform: translate(-115%, -50%);
+
+    height: 800px;
+    width: 354px;
+
+    left: 50%;
+    top: 50%;
+  }
+
+  /* Setting and styling the background of the toggle bar */
+  #createEvents {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 14pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 50px;
+    width: 380px;
+  }
+
+  #title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+  }
+
+  /* Setting and styling the fields of "CREATE EVENTS" */
+  #nameField text, #timeField text, #dateField text, #phoneNumberField text, #emailAddressField text,
+  #permissionLevelField text, #hostRSOField text, #universityField text, #descriptionField text, #latitudeField text, #longitudeField text {
+    color: #000000;
+    display: inline-block;
+    text-align: right;
+    width: 100px;
+    white-space: nowrap;
+  }
+  #name, #time, #date, #phoneNumber, #emailAddress,
+  #permissionLevel, #hostRSO, #universityField, #description, #latitude, #longitude {
+    color: #656565;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 0.5em;
+    margin-right: 1em;
+    text-align: left;
+    text-indent: 6px;
+
+    height: 30px;
+    width: 290px;
+  }
+  /* Removing the "focus ring" when the fields of "CREATE EVENTS" is clicked */
+  #name:focus, #time:focus, #date:focus, #phoneNumber:focus, #emailAddress:focus,
+  #permissionLevel:focus, #hostRSO:focus, #universityField:focus, #description:focus, #latitude:focus, #longitude:focus {
+    outline: none;
+  }
+  /* Setting and styling inside the "CREATE EVENTS" field*/
+  #name::placeholder, #time::placeholder, #date::placeholder, #phoneNumber::placeholder, #emailAddress::placeholder,
+  #permissionLevel::placeholder, #hostRSO::placeholder, #universityField::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
+    color: #656565;
+    background-color: #FBFBFB;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 0.5em;
+    margin-right: 1em;
+    text-align: left;
+  }
+
   input[type="text"], input[type="date"], input[type="time"] {
     width: 45%;
     box-sizing: border-box;
   }
-  label,button
-  {
-    width: 40%;
-  }
-  .height
-  {
-    padding-bottom: 10px;
-  }
-  .test
-  {
-    min-width: 60px;
-  }
-  .newEvent{
+
+  .newEvent {
     width: 42%;
     height: 740px;
     min-width: 450px;
@@ -36,7 +127,7 @@
 
     background-color: #d3d3d3;
   }
-  .viewEvents{    
+  .viewEvents {    
     width: 42%;
     height: 740px;
     min-width: 450px;
@@ -57,345 +148,361 @@
 
     overflow: auto;
   }
-  .container{
-    margin-bottom: 80px;
-  }    
-  .top{
-    float: right;
-    min-width: 100px;
 
-    border: 2px;
-    border-style: solid;
-    border-color: #7ec0ee;
-    border-radius: 10px;
-
-  }
-  .topT{
-    display: block;
-    margin: 0 auto !important;
-    width: 100%; /* add wanted width */
-  }
 
   #map {
-        height: 200px;
-        width: 400px;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    height: 200px;
+    width: 300px;
+  }
 
-      #infowindow-content .title {
-        font-weight: bold;
-      }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-      #infowindow-content {
-        display: none;
-      }
+  #infowindow-content .title {
+    font-weight: bold;
+  }
 
-      #map #infowindow-content {
-        display: inline;
-      }
+  #infowindow-content {
+    display: none;
+  }
 
-      .pac-card {
-        margin: 10px 10px 0 0;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        background-color: #fff;
-        font-family: Roboto;
-      }
+  #map #infowindow-content {
+    display: inline;
+  }
 
-      #pac-container {
-        padding-bottom: 12px;
-        margin-right: 12px;
-      }
+  .pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+  }
 
-      .pac-controls {
-        display: inline-block;
-        padding: 5px 11px;
-      }
+  #pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
 
-      .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
+  .pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+  }
 
-      #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        margin-right: 12px;
-        margin-top: 5px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 94%;
-      }
+  .pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
 
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 5px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 94%;
+  }
 
-      #title {
-        color: #fff;
-        background-color: #4d90fe;
-        font-size: 25px;
-        font-weight: 500;
-        padding: 6px 12px;
-      }
-      #target {
-        width: 345px;
-      }
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  #target {
+    width: 345px;
+  }
+
+  /* Styling the "Share on Twitter" text */
+  #twitterButton {
+    background-color: #1DA1F2;
+    outline: none;
+    position: absolute;
+    top: 680px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  /* Changing the "Share on Twitter" text color when hovered over */
+  #twitterButton:hover {
+    background-color: #1a98e6;
+  }
+
+  /* Setting and styling the "SIGN IN" button */
+  #createButton {
+    background-color: #FEF3B3;
+    border: none;
+    border-radius: 8px;
+    color: #000000;
+    cursor: pointer;
+    font-size: 18pt;
+    margin-top: 0.5em;
+    text-align: center;
+
+    height: 37px;
+    width: 380px;
+
+    position: absolute;
+    top: 710px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  /* Changing the "SIGN IN" button color when hovered over */
+  #createButton:hover {
+    background-color: #F1E6AD ;
+  }
+
+  /* Setting dimensions and styling the "CURRENT EVENTS" background */
+  #currentEventsBackground {
+    align-items: center;
+    background-color: #C5C7C8;
+    border: 3px solid #FEF3B3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    transform: translate(5%, -50%);
+
+    height: 800px;
+    width: 354px;
+
+    left: 50%;
+    top: 50%;
+  }
+
+  /* Setting and styling the background of the "CURRENT EVENTS" bar */
+  #currentEvents {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 14pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 50px;
+    width: 380px;
+  }
 </style>
 
 <%= include partials/header.ejs %>
 
-<head>
-  <meta property="og:title" content="I just made an event for College Event Manager!"/>
-  <meta property="og:site_name" content="College Event Manager"/>
-  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
-</head>
- <body>
-  <center><u><h1>Events</h1></u><center></br></br>
+<body>
+  <!-- Code for "CREATE EVENTS" -->
+  <div id="createEventsBackground" class="newEvent">
+    <text id="createEvents">📆 CREATE EVENTS 📆</text>
+    <form class="form" action="/events" method="post">
+      <div id="permissionLevelField">
+        <text>PERMISSION:</text>
+        <select name="type">
+          <option value="priv">PRIVATE</option>
+          <option value="pub">PUBLIC</option>
+          <option value="org">RSO</option>
+        </select>
+      </div>
+      <div id="nameField">
+        <text>NAME:</text>
+        <input id="name" type="text" name="name" placeholder="EVENT NAME">
+      </div>
+      <div id="timeField">
+        <text>TIME:</text>
+        <input id="time" type="time" name="time" required>
+      </div>
+      <div id="dateField">
+        <text>DATE:</text>
+        <input id="date" type="date" name="date" required>
+      </div>
+      <div id="phoneNumberField">
+        <text>PHONE#:</text>
+        <input id="phoneNumber" type="text" name="phone" placeholder="PHONE#">
+      </div>
+      <div id="emailAddressField">
+        <text>EMAIL:</text>
+        <input id="emailAddress" type="text" name="email" placeholder="EMAIL">
+      </div>
+      <div id="hostRSOField">
+        <text>HOST RSO:</text>
+        <select id="hostRSO" name="RSO"><%for (var i = 0; i < RSO.length; i++){%><option name="rsoName" value="<%=RSO[i].Name%>"> <%=RSO[i].Name%> <%}%></select>
+      </div>
+      <div id="universityId"
+        <text>UNIVERSITY:</text>
+        <% if(uni) {%><select name = "uni"><option value = "<%= uni %>"> <%= uni %> </option> </select><%}%>
+      </div>
+      <div id="descriptionField">
+        <text>DESCRIPTION:</text>
+        <input id="description" type="text" name="description" placeholder="DESCRIPTION">
+      </div>
+      <div id="latitudeField">
+        <text>LATITUDE:</text>
+        <input id="latitude" type="text" name="latitude" placeholder="LATITUDE">
+      </div>
+      <div id="longitudeField">
+        <text>LONGITUDE:</text>
+        <input id="longitude" type="text" name="longitude" placeholder="LONGITUDE">
+      </div>
+      <input id="pac-input" class="controls" name = "location" type="text" placeholder="SEARCH EVENTS">
+      <div id="map"></div>
+      <a href="#"
+        onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
+        <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i> Post on Twitter</button>
+      </a> 
+      <button id="createButton" type="submit">CREATE</button>
+    </form>
+  </div>
+
+  <div id="filterBackground">
+    <form method="get" action=" ">
+      <input class="test" type="submit" value="Public"name="selection">
+    </form>
+    <form method="get" action=" ">
+      <input class="test" type="submit" value="Private" name="selection">
+    </form>
+    <form <form method="get" action=" ">
+      <input class="test" type="submit" value= "RSO" name="selection">
+    </form>
+  </div>
+
+  <!-- Code for "CURRENT EVENTS" -->
+  <div id="currentEventsBackground" class="viewEvents">
+    <text id="currentEvents">CURRENT EVENTS</text>
+    <ul><% for(var i = 0; i < events.length; i++) { %>
+      <div style="text-align:left;">
+        <h3><li><b>Name:</b> <%= events[i].Name %></li></h3>
+        <ul><h4>
+          <le><b>Description:</b> <%= events[i].Description %></le><br>                  
+          <le><b>Time:</b> <%= events[i].Time %></le><br>
+          <le><b>Date:</b> <%= events[i].Date.toDateString() %></le><br>                                   
+          <le><b>Location:</b> <%= events[i].Location %></le><br>                                           
+          <le><b>Contact Phone:</b> <%= events[i].Phone %></le><br>                
+          <le><b>Contact Email:</b> <%= events[i].Email %></le>
+        </h4></ul>
+      </div>
+      <input type="button" name="theButton" class="btn btn-info" value="Details" onclick="window.location='/events/<%= events[i].Event_ID %>'" ><br><%}%>                    
+    </ul>
+  </div>
+
+</body>
+
+<script>
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
+
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
     
-    <div class = "container">
+    function initAutocomplete() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 28.612, lng: -81.201},
+        zoom: 13,
+        disableDefaultUI: true,
+        zoomControl: true,
+        mapTypeId: 'roadmap'
+      });
 
-      <div class = "newEvent">
-        <center><u><h2> New Event </u></h2></center></br>
-          <form class="form"  action="/events" method="post">              
-            <center>
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-              <div class="form-group">
-                  <LABEL>Name: </LABEL>
-                  <input type="text" name="name" id="name"><br>
-                  <LABEL>Description: </LABEL>
-                  <input type="text" name="description" id="description"><br>
-                  
-                  <LABEL>Time: </LABEL>
-                  <!--Adding Time Selector
-                  <input type="text" name="time" id="time"><br>
-                  -->
-                  <input type="time" id="time" name="time" required><br>
-                  
-                  <LABEL>Date: </LABEL>
-                  <!--
-                  <input type="text" name="date" id="date"><br>
-                  -->
-                  <input type="date" id="date" name="date" value="2023-03-26">
-                  
-
-                  <LABEL>Contact Phone: </LABEL>
-                  <input type="text" name="phone" id="phone"><br>
-                  <LABEL>Contact Email: </LABEL>
-                  <input type="text" name="email" id="email"><br>
-                  <LABEL>Permission: </LABEL>
-                  <select name = "type">
-                        <option value = "pub"> Public </option>
-                        <option value = "priv"> Private </option>
-                        <option value = "org"> RSO </option>
-                    </select><br>
-                    <LABEL>Host RSO: </LABEL>
-                 <select name = "RSO">
-                    <%for(var i =0; i < RSO.length;i++){%>
-
-                        <option name = "rsoName" value= "<%=RSO[i].Name%>"><%=RSO[i].Name%>
-                      
-
-                      <% } %>
-                        
-                  </select><br>
-
-                  <% if(uni) { %> 
-                  <LABEL>University: &nbsp;</LABEL> 
-                    <select name = "uni">
-                      <option value = "<%= uni %>"> <%= uni %> </option>
-                    </select>
-                  <% } %><br>
-
-                  <LABEL><u>Location</u></LABEL><br>
-                  <input id="latitude" name="latitude" type="text" placeholder="Latitude"><br>
-                  <input id="longitude" name="longitude" type="text" placeholder="Longitude"><br><br>
-                  <input id="pac-input" class="controls" name = "location" type="text" placeholder="Enter place...">
-                  <div id="map"></div>
-              </div>
-
-              <button type="submit" class="btn btn-success" style="margin-bottom:8px">Create</button>
-              <div class="sharethis-inline-share-buttons"></div>
-
-          </center>
-        </form>
-    </div>
-
-    <div class="top" >
-      <h5><u>Filters</u></h5>
-      <center>
-        
-          <label class = "topT">
-            <form method = "get" action = " ">
-              <input class="test" type="submit" value= "Public"name="selection">
-            </form>
-          </label>
-
-          <label class = "topT">
-            <form method = "get" action = " ">
-              <input class="test" type="submit" value= "Private" name="selection">
-            </form>
-          </label>
-
-          <label class = "topT">
-            <form <form method = "get" action = " ">
-              <input class="test" type="submit" value= "RSO" name="selection">
-            </form>
-          </label>
-          
-      </center>
-    </div>
-            
-          <div class = "viewEvents">
-            <h2><u>Posted Events</u></h2><br>
-            
-              <ul>
-                  <% for(var i=0; i < events.length; i++) { %>
-                    <div style="text-align:left;">
-                      <h3>
-                        <li><b>Name:</b> <%= events[i].Name %></li>
-                      </h3>
-
-                      <ul>               
-                        <h4>
-                          <le><b>Description:</b> <%= events[i].Description %></le><br>                  
-                          <le><b>Time:</b> <%= events[i].Time %></le><br>
-                          <le><b>Date:</b> <%= events[i].Date.toDateString() %></le><br>                                   
-                          <le><b>Location:</b> <%= events[i].Location %></le><br>                                           
-                          <le><b>Contact Phone:</b> <%= events[i].Phone %></le><br>                
-                          <le><b>Contact Email:</b> <%= events[i].Email %></le>   
-                        </h4>
-                      </ul>
-                    </div>
-                      <input type="button" name="theButton" class = "btn btn-info" value="Details" onclick="window.location='/events/<%= events[i].Event_ID %>'" >
-
-                      <br>   
-                  <% } %>                    
-              </ul>
-            </div> 
-
-    </div>     
-
-  </body>
-
-  <script>
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-      
-      function initAutocomplete() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 28.612, lng: -81.201},
-          zoom: 13,
-          disableDefaultUI: true,
-          zoomControl: true,
-          mapTypeId: 'roadmap'
-        });
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function()
-         {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        //To capture click event.
-       google.maps.event.addListener(map, 'click', function (e) 
-       {
-         document.getElementById("latitude").value = e.latLng.lat();
-         document.getElementById("longitude").value = e.latLng.lng();
-         placeMarker(e.latLng,map);
-       });
-
-        var markers = [];
-
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() 
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener('bounds_changed', function()
         {
-          var places = searchBox.getPlaces();
+        searchBox.setBounds(map.getBounds());
+      });
 
-          if (places.length == 0) {
+      //To capture click event.
+      google.maps.event.addListener(map, 'click', function (e) 
+      {
+        document.getElementById("latitude").value = e.latLng.lat();
+        document.getElementById("longitude").value = e.latLng.lng();
+        placeMarker(e.latLng,map);
+      });
+
+      var markers = [];
+
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      searchBox.addListener('places_changed', function() 
+      {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        var lat;
+        var lng;
+
+        places.forEach(function(place) 
+        {
+          if (!place.geometry) 
+          {
+            console.log("Returned place contains no geometry");
             return;
           }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          var lat;
-          var lng;
-
-          places.forEach(function(place) 
+          var icon = 
           {
-            if (!place.geometry) 
-            {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = 
-            {
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
 
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location,
-              lat: place.geometry.location.latitude,
-              lng: place.geometry.location.longitude       
-            }));
+          // Create a marker for each place.
+          markers.push(new google.maps.Marker({
+            map: map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location,
+            lat: place.geometry.location.latitude,
+            lng: place.geometry.location.longitude       
+          }));
 
-            if (place.geometry.viewport) 
-            {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else 
-            {
-              bounds.extend(place.geometry.location);
-            }
+          if (place.geometry.viewport) 
+          {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else 
+          {
+            bounds.extend(place.geometry.location);
+          }
 
-            document.getElementById("latitude").value =  place.geometry.location.lng();;
-            document.getElementById("longitude").value =  place.geometry.location.lat();;
+          document.getElementById("latitude").value =  place.geometry.location.lng();;
+          document.getElementById("longitude").value =  place.geometry.location.lat();;
 
-          });
-
-          
-          
-          map.fitBounds(bounds);
         });
-      }
 
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7fOmX1MiB8AbdOPJHossdycSGXsP-wQ&libraries=places&callback=initAutocomplete"
-         async defer></script>
+        
+        
+        map.fitBounds(bounds);
+      });
+    }
+
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7fOmX1MiB8AbdOPJHossdycSGXsP-wQ&libraries=places&callback=initAutocomplete"
+        async defer>
+</script>
 </html>

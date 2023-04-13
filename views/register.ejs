@@ -21,23 +21,23 @@
   <script>
     $(document).ready(function()
     {
-      $(".show-password").click(function()
+      $(".hide-password").click(function()
       {
         var passwordField = $("#password");
-        var icon = $(".show-password");
-
+        var icon = $(".hide-password");
+    
         if (passwordField.attr("type") === "password")
         {
           passwordField.attr("type", "text");
-          icon.removeClass("fa-eye").addClass("fa-eye-slash");
+          icon.removeClass("fa-eye-slash").addClass("fa-eye");
         }
         else
         {
           passwordField.attr("type", "password");
-          icon.removeClass("fa-eye-slash").addClass("fa-eye");
+          icon.removeClass("fa-eye").addClass("fa-eye-slash");
         }
       });
-    });
+    });    
   </script>
     
   <style>
@@ -84,14 +84,15 @@
     }
 
     /* Setting and styling the name, email, username, and password field */
-    #nameField text, #emailField text, #usernameField text, #passwordField text {
+    #nameField text, #emailField text, #usernameField text, #passwordField text, #universityDropdown text{
       color: #000000;
       display: inline-block;
       margin-left: 1em;
       margin-right: 0em;
+      text-align: right;
       width: 85px;
     }
-    #name, #email, #username, #password {
+    #name, #email, #username, #password, #university {
       color: #656565;
       background-color: #FBFBFB;
       border: none;
@@ -105,11 +106,11 @@
       width: 210px;
     }
     /* Removing the "focus ring" when the name, email, username and password field is clicked */
-    #name:focus, #email:focus, #username:focus, #password:focus {
+    #name:focus, #email:focus, #username:focus, #password:focus, #university:focus {
       outline: none;
     }
     /* Setting and styling inside the name, email, username, and password field */
-    #name::placeholder, #email::placeholder, #username::placeholder, #password::placeholder {
+    #name::placeholder, #email::placeholder, #username::placeholder, #password::placeholder, #university::placeholder {
       color: #656565;
       background-color: #FBFBFB;
       border: none;
@@ -122,41 +123,72 @@
     #eyeIcon {
       color: #656565;
       margin-top: 1.15em;
-      right: 2.5em;
+      right: 1.7em;
       position: absolute;
       transform: translateY(-50%);
       cursor: pointer;
     }
+    
+    /* Setting and styling the "PASSWORD REQUIREMENTS" box */
+    #passwordRequirementsBox {
+      position: relative;
+    }
+    #passwordRequirementsBox:hover #passwordRequirementsText {
+      display: block;
+    }
+    
+    /* Setting and styling the contents inside the password requirements box */
+    #passwordRequirementsText {
+      background-color: #FFFFFF;
+      border: #FEF3B3 3px solid;
+      border-radius: 6px;
+      display: none;
+      left: 50%;
+      line-height: 1.5;
+      position: absolute;
+      transform: translateX(-50%);
+      z-index: 1;
+      
+      height: 138px;
+      width: 300px;
+    }
 
-    /* Setting and styling the dropdown menu */
-    #universityDropdown {
-      color: #000000;
-      margin-bottom: 0.5em;
-      margin-left: 1em;
-      margin-right: 1em;
+    /* Setting and styling the "PASSWORD REQUIREMENTS" title */
+    #passwordRequirementsTitle {
+      font-size: 16px;
+      margin-top: 0.5em;
+      margin-bottom: 0em;
+    }
+
+    /* Setting and styling the password requirements list */
+    #passwordRequirementsList {
+      font-size: 12px;
+      margin-left: 1.35em;
       text-align: left;
+      white-space: nowrap;
+    }
+
+    /* Setting and styling the "Already have an account? Sign in" */
+    #alreadyHaveAccount {
+      color: #000000;
+      margin-bottom: 0.2em;
+      margin-left: 1em;
+      text-align: left;
+    }
+
+    /* Setting and styling the sign up photo */
+    #ComeTogetherHands img {
+      margin-bottom: 0.3em;
+
+      height: 80px;
     }
 
     /* Styling the error message (if there is one) */
     #errorMessage {
       color: rgb(255, 0, 0);
       font-size: 10pt;
+      position: center;
       white-space: nowrap;
-    }
-
-    /* Styling the "Share on Twitter" text */
-    #twitterButton {
-      background-color: #1DA1F2;
-      outline: none;
-      position: absolute;
-      top: 360px;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-left: -81px;
-    }
-    /* Changing the "Share on Twitter" text color when hovered over */
-    #twitterButton:hover {
-      background-color: #1a98e6;
     }
 
     /* Setting and styling the "SIGN UP" button */
@@ -168,19 +200,39 @@
       cursor: pointer;
       font-size: 18pt;
       margin-top: 0.5em;
-      text-align: center;
-
-      height: 37px;
-      width: 299px;
-
       position: absolute;
-      top: 390px;
-      left: 50%;
+      text-align: center;
       transform: translateX(-50%);
+
+      left: 149px;
+      top: 390px;
+
+      height: 35px;
+      width: 250px;
     }
     /* Changing the "SIGN UP" button color when hovered over */
     #signupButton:hover {
       background-color: #F1E6AD;
+    }
+
+    /* Styling the "Share on Twitter" text */
+    #twitterButton {
+      background-color: #1DA1F2;
+      border-radius: 8px;
+      font-size: 14pt;
+      margin-top: 0.5em;
+      outline: none;
+      position: absolute;
+      transform: translateX(-50%);
+
+      left: 302px;
+      top: 391px;
+
+      height: 37px;
+    }
+    /* Changing the "Share on Twitter" text color when hovered over */
+    #twitterButton:hover {
+      background-color: #1a98e6;
     }
   </style>
 </head>
@@ -203,26 +255,43 @@
           <input id="username" name="username" type="text" placeholder="USERNAME">
         </div>
         <div id="passwordField">
-          <text>PASSWORD:</text>
-          <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
-          <i id="eyeIcon" class="fa fa-eye show-password"></i>
+          <div id="passwordRequirementsBox" className="password-input-container">
+            <text>PASSWORD:</text>
+            <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
+            <i id="eyeIcon" class="fas fa-eye-slash hide-password"></i>
+            <div id="passwordRequirementsText" className="tooltip">
+              <p id="passwordRequirementsTitle">PASSWORD REQUIREMENTS:</p>
+              <div id="passwordRequirementsList">
+                <text>• Must be between 6 and 128 characters</text><br/>
+                <text>• Must contain at least one number</text><br/>
+                <text>• Must contain at least one uppercase letter</text><br/>
+                <text>• Must contain at least one lowercase letter</text><br/>
+                <text>• Must contain at least one special character</text><br/>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="universityDropdown">
           <text>UNIVERSITY:</text>
-          <select name="uni">
-            <% for (var i = 0; i < uni.length; i++) { %>
-              <option value="<%= uni[i].University_Name %>"><%= uni[i].University_Name %></option><%}
-            %>
+          <select id="university" name="uni">
+            <% for (var i = 0; i < uni.length; i++)
+              { %><option value="<%= uni[i].University_Name %>"><%= uni[i].University_Name %></option><%}%>
           </select>
-        </div>        
+        </div>
+        <div id="alreadyHaveAccount">
+          <text>Already have an account? <a href="/"><u>Sign in</u></a></text>
+        </div>
+        <div id="ComeTogetherHands">
+          <img src="images/ComeTogetherHands.png" alt="SigninPhoto">
+        </div>
         <div id="errorMessage" class="aContainer">
           <text><% if (message.length > 0) %><%= message%></text>
         </div>
+        <button id="signupButton" type="submit">SIGN UP</button>
         <a href="#"
           onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
-          <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i> Post on Twitter</button>
-        </a> 
-        <button id="signupButton" type="submit">SIGN UP</button>
+          <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+        </a>
       </form>
     </div>
   </center>

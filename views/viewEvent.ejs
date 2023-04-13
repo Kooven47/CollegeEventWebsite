@@ -1,11 +1,15 @@
 <html>
 
 <style>
+  body {
+    background-image: url("../images/EventDetailsBackground.jpg");
+    background-size: cover;
+  }
   textarea.html-text-box 
   {
     width: 90%;
-  height: 40%;
-  resize: none;
+    height: 40%;
+    resize: none;
     background-color:#ffffff;
     background-repeat:no-repeat;
     background-attachment:fixed;
@@ -108,12 +112,12 @@
     margin-top: 5px;
     margin-left: 30px;
 
-    border: 2px;
+    border: 3px;
     border-style: solid;
-    border-color: #7ec0ee;
+    border-color: #FEF3B3;
     border-radius: 10px;
 
-    background-color: #d3d3d3;
+    background-color: #C5C7C8;
 
     overflow: auto;
   }
@@ -130,12 +134,12 @@
     margin-top: 5px;
     
 
-    border: 2px;
+    border: 3px;
     border-style: solid;
-    border-color: #7ec0ee;
+    border-color: #FEF3B3;
     border-radius: 10px;
 
-    background-color: #d3d3d3;
+    background-color: #C5C7C8;
   }
   .right{    
     width: 32%;
@@ -150,13 +154,12 @@
 
 
 
-    border: 2px;
+    border: 3px;
     border-style: solid;
-    border-color: #7ec0ee;
+    border-color: #FEF3B3;
     border-radius: 10px;
 
-    background-color: #d3d3d3;
-
+    background-color: #C5C7C8;
   
   }
   .rating-container {
@@ -164,6 +167,64 @@
     justify-content: center;
     padding-bottom: 30px;
   }
+  .star {
+  color: gold;
+  font-size: 25;
+  -webkit-text-stroke: .5px black;
+}
+#titleFormat{
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 20pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 50px;
+    width: 80%;
+  }
+#EventFormat{
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 20pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 50px;
+    width: 80%;
+  }
+  #EventDetailsFormat{
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 40pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 70px;
+    width: 20%;
+    border: 2px solid #C5C7C8;
+    white-space: nowrap;
+    overflow: hidden;
+
+  }
+
 </style>
 
 <%= include partials/header.ejs %>
@@ -173,7 +234,7 @@
   <meta property="og:site_name" content="College Event Manager"/>
 </head>
     <body>
-       <center><u><h1>Event Details</h1></u><center></br>
+       <center><h1><text id="EventDetailsFormat">Event Details</text></h1><center></br>
 
           <div class = "viewEvent">
 
@@ -182,25 +243,34 @@
             </div>
 
               <div class="left">
-                <center><u><h1>Reviews</h1></u><center></br>
+                
+                <center><h1><text id="titleFormat">Reviews</text></h1><center></br>
 
                   <ul>
                     <% for (var i = 0; i < comments.length; i++) { %>
+                      <% if (comments[i].owner == currentUser) { %>
                       <form method = "post" action = "/deletecomment/<%= comments[i].id %>">
                         <input type="submit" class="btn btn-danger" value="X" style = "float: left;">
+                        <% } %>
                            <h3>
                                 <le>Username: <%= comments[i].owner %></le>
                            </h3>
                            <h4>
-                                <le>Stars: <%= comments[i].rating %></le>
+                            <le>Rating:</le>
+                            <% for (let j = 0; j < comments[i].rating; j++) { %>
+                              <span class="star">&#9733;</span>
+                            <% } %>
                            </h4>
                            <h4>
-                                <le>Comment: <%= comments[i].commentString %><br><br></le>
+                                <le>Comment: <%= comments[i].commentString %><br></le>
                            </h4>
                       </form>
                       <!-- <button type="button" class="btn btn-danger" value="M" style = "float: left;"> -->
                         <% if (comments[i].owner == currentUser) { %>
-                          <input type="button" value = "Modify" class="btn" data-comment-id="<%= comments[i].id %>" onclick="showEdit(this)">
+                          <input type="button" value = "Modify" class="btn" data-comment-id="<%= comments[i].id %>" onclick="showEdit(this)"><br><br>
+                        <% } else{%>
+                        
+                          <br>
                         <% } %>
                         <script>
                           function showEdit(button) {
@@ -227,7 +297,7 @@
               </div>
                 
               <div class="right">
-                <center><u><h1>Add Review</h1></u><center></br>
+                <center><h1><text id="titleFormat">Add Review</text></h1><center></br>
                 
                   <form method="post" action=" " onsubmit="return validateForm()">
                     <div class="rating-container">
@@ -285,7 +355,7 @@
               <div class="center">
                 <div style="text-align:left;">
                   <h3>
-                    <center> <b>Name:</b> <%= events[0].Name %><center></center><br> 
+                    <center> <text id="eventFormat"><b>Name:</b>&nbsp;&nbsp;<%= events[0].Name %></text><center></center><br> 
                   </h3>
 
                   <ul>               
@@ -295,7 +365,7 @@
                       <le><b>Date:</b> <%= events[0].Date.toDateString() %></le><br><br>                                    
                       <le><b>Location:</b> <%= events[0].Location %></le><br><br>                                            
                       <le><b>Contact Phone:</b> <%= events[0].Phone %></le><br><br>                 
-                      <le><b>Contact Email:</b> <%= events[0].Email %></le>   
+                      <le><b>Contact Email:</b> <%= events[0].Email %></le><br><br><br>   
                     </h4>
                   </ul>
                 </div>

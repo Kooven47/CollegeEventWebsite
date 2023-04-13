@@ -172,7 +172,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Password must be at least 6 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character *", uni: rows});  
+          res.render("register", {message: "* Password does not meet requirements *", uni: rows});  
         });
       }
       else if (rows[0].User_ID == 0)

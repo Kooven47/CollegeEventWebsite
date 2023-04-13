@@ -274,8 +274,8 @@
         <div id="universityDropdown">
           <text>UNIVERSITY:</text>
           <select id="university" name="uni">
-            <% for (var i = 0; i < uni.length; i++)
-              { %><option value="<%= uni[i].University_Name %>"><%= uni[i].University_Name %></option><%}%>
+            <%for (var i = 0; i < uni.length; i++)
+              {%><option value="<%= uni[i].University_Name %>"><%=uni[i].University_Name%></option><%}%>
           </select>
         </div>
         <div id="alreadyHaveAccount">
@@ -285,7 +285,7 @@
           <img src="images/ComeTogetherHands.png" alt="SigninPhoto">
         </div>
         <div id="errorMessage" class="aContainer">
-          <text><% if (message.length > 0) %><%= message%></text>
+          <text><% if (message.length > 0) %><%=message%></text>
         </div>
         <button id="signupButton" type="submit">SIGN UP</button>
         <a href="#"

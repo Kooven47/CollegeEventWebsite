@@ -31,7 +31,7 @@ Update Node
 - sudo npm install -g n
 - sudo n stable
 
-Download "eventDB.sql" file from "CollegeEventWebsite" folder
+Download "CEWDB.sql" file from "CollegeEventWebsite" folder
 - *Recommended to save on desktop*
 
 Download "CollegeEventWebsite" Project Folder
@@ -43,9 +43,9 @@ Run "CollegeEventWebsite" Project
 - Click "Start" on "MySQL Database" and "Apache Web Server"
 - Go back to "Welcome" tab
 - Click "Open Application Folder"
-- Upload "eventDB.sql" file to "phpMyAdmin" folder
+- Upload "CEWDB.sql" file to "phpMyAdmin" folder
 - Go to "http://localhost/phpmyadmin/index.php?route=/import"
-- Upload "eventDB.sql" file under "File to import:"
+- Upload "CEWDB.sql" file under "File to import:"
 - *Open Ubuntu (Linux) / Terminal (MacOS)*
 - cd [YourFileDirectory]
 - sudo npm install

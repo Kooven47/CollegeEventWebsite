@@ -1,5 +1,5 @@
 <html>
-<title>CEM: Create Events</title>
+<title>CEM: Events</title>
 
 <!-- Using the show and hide eye for password -->
 <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
@@ -49,11 +49,13 @@
     border-radius: 6px;
     color: #000000;
     display: flex;
-    font-size: 14pt;
+    font-size: 18pt;
     font-weight: bold;
     justify-content: center;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 
     height: 50px;
     width: 380px;
@@ -85,12 +87,12 @@
   }
   /* Removing the "focus ring" when the fields of "CREATE EVENTS" is clicked */
   #name:focus, #time:focus, #date:focus, #phoneNumber:focus, #emailAddress:focus,
-  #permissionLevel:focus, #hostRSO:focus, #universityField:focus, #description:focus, #latitude:focus, #longitude:focus {
+  #permissionLevel:focus, #hostRSO:focus, #university:focus, #description:focus, #latitude:focus, #longitude:focus {
     outline: none;
   }
   /* Setting and styling inside the "CREATE EVENTS" field*/
   #name::placeholder, #time::placeholder, #date::placeholder, #phoneNumber::placeholder, #emailAddress::placeholder,
-  #permissionLevel::placeholder, #hostRSO::placeholder, #universityField::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
+  #permissionLevel::placeholder, #hostRSO::placeholder, #university::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -105,8 +107,32 @@
     box-sizing: border-box;
   }
 
+  .pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+  }
+  #pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+  }
+  .pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+  }
+  .pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+  }
+
   /* Setting and styling the "SEARCH LOCATIONS" search bar */
-  #searchLocations {
+  #pac-input {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -119,7 +145,7 @@
     width: 380px;
   }
   /* Removing the "focus ring" when the "SEARCH LOCATIONS" search bar is clicked */
-  #searchLocations:focus {
+  #pac-input:focus {
     outline: none;
   }
 
@@ -146,7 +172,6 @@
     border: none;
     border-radius: 8px;
     color: #FFFFFF;
-    cursor: pointer;
     font-size: 18pt;
     margin-bottom: 1.5em;
     margin-top: 0.5em;
@@ -155,7 +180,7 @@
     transform: translateX(-50%);
 
     left: 196px;
-    top: 705px;
+    top: 740px;
 
     height: 35px;
     width: 330px;
@@ -165,7 +190,7 @@
     background-color: #51a151 ;
   }
 
-  /* Styling the "Share on Twitter" text */
+  /* Setting and Styling the Twitter button */
   #twitterButton {
     background-color: #1DA1F2;
     border-radius: 8px;
@@ -176,11 +201,11 @@
     transform: translateX(-50%);
 
     left: 390px;
-    top: 707px;
+    top: 742px;
 
     height: 37px;
   }
-  /* Changing the "Share on Twitter" text color when hovered over */
+  /* Changing the Twitter button color when hovered over */
   #twitterButton:hover {
     background-color: #1a98e6;
   }
@@ -193,6 +218,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 2em;
     position: absolute;
     text-align: center;
     transform: translate(3%, -46%);
@@ -206,55 +232,91 @@
     overflow: auto;
   }
 
-  /* Styling the individual events */
-  #individualEventOutline {
-    border: 3px solid #FEF3B3;
-    border-radius: 6px;
+  /* Styling the filter background */
+  #filterBackground {
     color: #000000;
-    margin-bottom: 5em;
-    text-align: left;
+    display: flex;
+    text-align: center;
 
-    height: 230px;
     width: 380px;
   }
 
-  /* Styling the individual events title */
+  /* Styling the filter buttons */
+  #filter {
+    background-color: #48a0cd;
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 10pt;
+    margin-right: 1em;
+    text-align: center;
+    text-transform: uppercase;
+
+    height: 30px;
+    width: 85px;
+  }
+  /* Changing the filter button color when hovered over */
+  #filter:hover {
+    background-color: #1e90c9;
+  }
+
+  /* Styling the individual events title in the "CURRENT EVENTS" */
   #postedName {
     color: #000000;
-    font-size: 14pt;
+    background-color: #FEF3B3;
+    display: block;
+    font-size: 12pt;
     font-weight: bold;
     margin-bottom: 0.5em;
-    margin-top: 0.2em;
     text-align: center;
     text-transform: uppercase;
   }
 
-  #lineupDate, #lineupTime {
-    margin: left;
+  /* Styling the individual events in the "CURRENT EVENTS" */
+  #individualEventOutline {
+    border: 3px solid #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    margin-bottom: 0.5em;
+    text-align: left;
+
+    width: 380px;
   }
 
-  /* Styling the individual events */
-  #individualEventOutline text{
-    text-align: left;
+  /* Adding spaces in between individual events in the "CURRENT EVENTS" */
+  #grid-container {
+    display: grid;
+    grid-template-columns: 142px auto;
+  }
+
+  /* Styling the "CURRENT EVENTS" fields */
+  #grid-item-fields {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left: 1.5em;
   }
 
   /* Styling the "DETAILS" button */
-  #detailsButton {
+  #reviewButton {
     background-color: #5cb85c;
     border: none;
     border-radius: 4px;
     color: #FFFFFF;
-    cursor: pointer;
     line-height: 0px;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.8em;
+    margin-top: 0.5em;
     text-align: center;
 
     height: 30px;
-    width: 100px;
+    width: 90px;
   }
-  #detailsButton:hover {
+  #reviewButton:hover {
     background-color: #51a151;
   }
+  #reviewButton:focus {
+    outline: none;
+  }
+
 </style>
 
 <%= include partials/header.ejs %>
@@ -287,7 +349,7 @@
         </div>
         <div id="phoneNumberField">
           <text>PHONE #:</text>
-          <input id="phoneNumber" type="text" name="phone" placeholder="PHONE#" required>
+          <input id="phoneNumber" type="text" name="phone" placeholder="PHONE #" required>
         </div>
         <div id="emailAddressField">
           <text>EMAIL:</text>
@@ -313,7 +375,7 @@
           <text>LONGITUDE:</text>
           <input id="longitude" type="text" name="longitude" placeholder="LONGITUDE">
         </div>
-        <input id="searchLocations" class="controls" name = "location" type="text" placeholder="SEARCH LOCATIONS">
+        <input id="pac-input" class="controls" name = "location" type="text" placeholder="SEARCH LOCATIONS">
         <div id="map"></div>
         <button id="createButton" type="submit">CREATE</button>
         <a href="#"
@@ -321,45 +383,42 @@
           <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
         </a>
         <!-- DO NOT DELETE: A cheating way to make more room at the bottom -->
-        <div style="height: 50px;"></div>
+        <div style="height: 60px;"></div>
       </form>
     </div>
 
     <!-- Code for "CURRENT EVENTS" -->
     <div id="currentEventsBackground">
       <text id="eventsTitle">CURRENT EVENTS</text>
+      <!-- Code for "FILTER EVENTS" -->
+      <div id="filterBackground">
+        <form method="get" action=" "><input id="filter" class="test" type="submit" value="Public" name="selection"> </form>
+        <form method="get" action=" "><input id="filter" class="test" type="submit" value="Private" name="selection"></form>
+        <form method="get" action=" "><input id="filter" class="test" type="submit" value="RSO" name="selection"></form>
+        <form method="get" action=" "><input id="filter" class="test" type="submit" value= "All" name="selection"></form>
+      </div>
       <% for (var i = 0; i < events.length; i++) { %>
         <div id="individualEventOutline">
           <div id="postedName"><%= events[i].Name %></div>
-          <text>DATE: </text>
-            <div id="lineupDate"><%= events[i].Date.toDateString()%></div></br>
-          <text>TIME: </text>
-            <div id="lineupTime"><%= events[i].Time %></div></br>
-          <text>LOCATION: </text>
-            <%= events[i].Location %></br>
-          <text>EMAIL :</text>
-            <%= events[i].Email %></br>
-          <text>PHONE #: </text>
-            <%= events[i].Phone %></br>
-          <text id="postedDescription">DESCRIPTION: </text>
-            <%= events[i].Description%></br>
-          <input id="detailsButton" type="button" name="theButton" class="btn btn-info" value="REVIEWS" onclick="window.location='/events/<%= events[i].Event_ID %>'"></br>
+          <div id="grid-container">
+            <div id="grid-item-fields">DATE:</div>
+            <div><%= events[i].Date.toDateString()%></div>
+            <div id="grid-item-fields">TIME:</div>
+            <div><%= events[i].Time %></div>
+            <div id="grid-item-fields">LOCATION:</div>
+            <div><%= events[i].Location %></div>
+            <div id="grid-item-fields">EMAIL :</div>
+            <div><%= events[i].Email %></div>
+            <div id="grid-item-fields">PHONE #:</div>
+            <div><%= events[i].Phone %></div>
+            <div id="grid-item-fields">DESCRIPTION: </div>
+            <div><%= events[i].Description%></div>
+          </div>
+          <div style="display:flex; justify-content:center;"><input id="reviewButton" type="button" class="btn btn-info" value="REVIEWS" onclick="window.location='/events/<%= events[i].Event_ID %>'"></div>
         </div>
       <%}%>
+    <div id="fakeSpace"></div>
     </div>
-  </div>
-
-  <!-- Code for "FILTER EVENTS" -->
-  <div id="filterBackground">
-    <form method="get" action=" ">
-      <input class="test" type="submit" value="Public"name="selection">
-    </form>
-    <form method="get" action=" ">
-      <input class="test" type="submit" value="Private" name="selection">
-    </form>
-    <form <form method="get" action=" ">
-      <input class="test" type="submit" value= "RSO" name="selection">
-    </form>
   </div>
 
 </body>
@@ -367,8 +426,7 @@
 <script>
   function initAutocomplete()
   {
-    var map = new google.maps.Map(document.getElementById('map'),
-    {
+    var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 28.612, lng: -81.201},
       zoom: 13,
       disableDefaultUI: true,
@@ -384,19 +442,17 @@
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {searchBox.setBounds(map.getBounds());});
 
-    //To capture click event.
-    google.maps.event.addListener(map, 'click', function (e)
-    {
+    // Use to capture event
+    google.maps.event.addListener(map, 'click', function (e) {
       document.getElementById("latitude").value = e.latLng.lat();
       document.getElementById("longitude").value = e.latLng.lng();
-      placeMarker(e.latLng,map);
+      placeMarker(e.latLng, map);
     });
 
     var markers = [];
 
     // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
-    searchBox.addListener('places_changed', function() 
-    {
+    searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
       if (places.length == 0) {return;}
 
@@ -406,20 +462,17 @@
       // For each place, get the icon, name and location
       var bounds = new google.maps.LatLngBounds(), lat, lng;
 
-      places.forEach(function(place) 
-      {
-        if (!place.geometry) {console.log("Returned place contains no geometry"); return;}
-        var icon =
-        {
-          size: new google.maps.Size(50, 50),
+      places.forEach(function(place) {
+        if (!place.geometry) {console.log("* Returned place contains no geometry *"); return;}
+        var icon = {
+          size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
           scaledSize: new google.maps.Size(25, 25)
         };
 
         // Create a marker for each place.
-        markers.push(new google.maps.Marker(
-        {
+        markers.push(new google.maps.Marker({
           map: map,
           icon: icon,
           title: place.name,
@@ -432,10 +485,11 @@
         if (place.geometry.viewport) {bounds.union(place.geometry.viewport);}
         else {bounds.extend(place.geometry.location);}
 
-        document.getElementById("latitude").value =  place.geometry.location.lng();;
-        document.getElementById("longitude").value =  place.geometry.location.lat();;
+        document.getElementById("latitude").value = place.geometry.location.lng();;
+        document.getElementById("longitude").value = place.geometry.location.lat();;
+      });
+      map.fitBounds(bounds);
     });
-    map.fitBounds(bounds);
-  });}
+  }
 </script>
 </html>

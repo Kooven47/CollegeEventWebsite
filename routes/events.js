@@ -12,7 +12,7 @@ var connection = mysql.createConnection(
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'mydb',
+    database : 'CEWDB',
   }
 );
 
@@ -56,13 +56,18 @@ router.get('/', function(req, res, next)
         }    
         else if (req.url == "/?selection=RSO")
         {
-          queryString = "SELECT DISTINCT * FROM event AS E1 WHERE ((SELECT RSO_RSO_ID FROM hosts WHERE E1.Event_ID = Event_ID) = ANY(SELECT RSO_ID FROM member_of WHERE User_ID = '" + req.session.username + "'));";
+          queryString = "SELECT DISTINCT * FROM event AS E1 WHERE ((SELECT RSO_RSO_ID FROM hosts WHERE E1.Event_ID = Event_ID) = ANY(SELECT RSO_ID FROM member_of WHERE User_ID = '" + req.session.username + "')) AND LEVEL = 2;";
           console.log("filter:rso");
         }    
         else if (req.url == "/?selection=Public")
         {
           queryString = "SELECT * FROM event WHERE approved = 1 AND Level = 0";
           console.log("filter:public");
+        }
+        else if (req.url == "/?selection=All")
+        {
+          queryString = "SELECT DISTINCT * FROM event AS E1 WHERE approved = 1 AND Level = 0 OR (University_Name = '" + university.University_Name + "' AND Level = 1) OR (Level = 2 AND ((SELECT RSO_RSO_ID FROM hosts WHERE E1.Event_ID = Event_ID) = ANY(SELECT RSO_ID FROM member_of WHERE User_ID = '" + req.session.username + "')));";
+          console.log("filter:all");
         }
         console.log(queryString + " right before connection");
         connection.query(queryString, function(err, erows, fields) 

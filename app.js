@@ -29,7 +29,7 @@ var connection = mysql.createConnection(
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'mydb',
+    database : 'CEWDB',
   }
 );
 
@@ -263,21 +263,21 @@ app.post('/events', function(req, res, next)
   {
     console.log("Perm: public");
     perm = 0;
-    var addEvent1 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','"+req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm+"', 0);";
+    var addEvent1 = "INSERT INTO event (Name, Description, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','"+req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm+"', 0);";
   }
     
   else if (req.body.type == "priv")
   {
     console.log("Perm: private");
     perm = 1;
-    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+    var addEvent1 ="INSERT INTO event (Name, Description, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
   }
     
   else if (req.body.type == "org")
   {
     console.log("Perm: rso");
     perm = 2;
-    var addEvent1 ="INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+    var addEvent1 ="INSERT INTO event (Name, Description, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
   }
   
   var checkadmin = "SELECT COUNT (*) AS TOTAL FROM admin WHERE User_ID ='" + req.session.username + "';";
@@ -287,9 +287,10 @@ app.post('/events', function(req, res, next)
   
   var LID;
 
+  
   connection.query(checkadmin, function(err, rows, fields) 
   {
-      if(rows[0].TOTAL > 0)
+      if (rows[0].TOTAL > 0)
       {
         connection.query(addEvent1, function(err, rows, fields) 
         {
@@ -322,7 +323,7 @@ app.post('/events', function(req, res, next)
         if (perm == 0)
         {
           console.log("****************public");
-          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0);";
+          var addEvent0 = "INSERT INTO event (Name, Description, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0);";
         
           connection.query(addEvent0, function(err, rows, fields) 
           {
@@ -351,7 +352,7 @@ app.post('/events', function(req, res, next)
         else if (perm == 1)
         {
           console.log("*******************uni: " + req.body.uni);
-          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+          var addEvent0 = "INSERT INTO event (Name, Description, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
         
           connection.query(addEvent0, function(err, rows, fields) 
           {
@@ -379,7 +380,7 @@ app.post('/events', function(req, res, next)
         }
         else if (perm == 2)
         {
-          var addEvent0 = "INSERT INTO event (Name, Description, Time, Date, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.time + "','" + req.body.date + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+          var addEvent0 = "INSERT INTO event (Name, Description, startTIme, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
 
           connection.query(addEvent0, function(err, rows, fields) 
           {

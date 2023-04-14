@@ -4,7 +4,7 @@
 <!-- Using the show and hide eye for password -->
 <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
 <!-- Google maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7fOmX1MiB8AbdOPJHossdycSGXsP-wQ&libraries=places&callback=initAutocomplete"async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7fOmX1MiB8AbdOPJHossdycSGXsP-wQ&libraries=places&callback=initAutocomplete" async defer></script>
 
 <head>
   <meta property="og:title" content="I just made an event for College Event Manager!"/>
@@ -62,7 +62,7 @@
   }
 
   /* Setting and styling the fields of "CREATE EVENTS" */
-  #nameField text, #timeField text, #dateField text, #phoneNumberField text, #emailAddressField text,
+  #nameField text, #startField text, #endField text, #phoneNumberField text, #emailAddressField text,
   #permissionLevelField text, #hostRSOField text, #universityField text, #descriptionField text, #latitudeField text, #longitudeField text {
     color: #000000;
     display: inline-block;
@@ -72,7 +72,7 @@
     width: 100px;
     white-space: nowrap;
   }
-  #name, #time, #date, #phoneNumber, #emailAddress,
+  #name, #startTime, #endTime, #phoneNumber, #emailAddress,
   #permissionLevel, #hostRSO, #university, #description, #latitude, #longitude {
     color: #656565;
     border: none;
@@ -86,13 +86,13 @@
     width: 280px;
   }
   /* Removing the "focus ring" when the fields of "CREATE EVENTS" is clicked */
-  #name:focus, #time:focus, #date:focus, #phoneNumber:focus, #emailAddress:focus,
-  #permissionLevel:focus, #hostRSO:focus, #university:focus, #description:focus, #latitude:focus, #longitude:focus {
+  #name:focus, #startTime:focus, #endTime:focus, #phoneNumber:focus, #emailAddress:focus,
+  #permissionLevel:focus, #hostRSO:focus, #universityField:focus, #description:focus, #latitude:focus, #longitude:focus {
     outline: none;
   }
   /* Setting and styling inside the "CREATE EVENTS" field*/
-  #name::placeholder, #time::placeholder, #date::placeholder, #phoneNumber::placeholder, #emailAddress::placeholder,
-  #permissionLevel::placeholder, #hostRSO::placeholder, #university::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
+  #name::placeholder, #startTime::placeholder, #endTime::placeholder, #phoneNumber::placeholder, #emailAddress::placeholder,
+  #permissionLevel::placeholder, #hostRSO::placeholder, #universityField::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -272,6 +272,10 @@
     text-transform: uppercase;
   }
 
+  #startTime, #endTime {
+    margin: left;
+  }
+
   /* Styling the individual events in the "CURRENT EVENTS" */
   #individualEventOutline {
     border: 3px solid #FEF3B3;
@@ -322,6 +326,11 @@
 <%= include partials/header.ejs %>
 
 <body>
+  <div>
+    <h1> <% if (locals.message && locals.message.length > 1) %>
+          <%=    locals.message   %>
+    </h1>
+</div>
   <div id="wrappingBackground">
     <!-- Code for "CREATE EVENTS" -->
     <div id="createEventsBackground">
@@ -339,13 +348,13 @@
           <text>NAME:</text>
           <input id="name" type="text" name="name" placeholder="EVENT NAME" required>
         </div>
-        <div id="timeField">
-          <text>TIME:</text>
-          <input id="time" type="time" name="time" required>
+        <div id="startField">
+          <text>START TIME:</text>
+          <input id="startTime" type="datetime-local" name="startTime" required>
         </div>
-        <div id="dateField">
-          <text>DATE:</text>
-          <input id="date" type="date" name="date" required>
+        <div id="endField">
+          <text>END TIME:</text>
+          <input id="endTime" type="datetime-local" name="endTime" required>
         </div>
         <div id="phoneNumberField">
           <text>PHONE #:</text>
@@ -402,12 +411,12 @@
           <div id="postedName"><%= events[i].Name %></div>
           <div id="grid-container">
             <div id="grid-item-fields">DATE:</div>
-            <div><%= events[i].Date.toDateString()%></div>
+            <div><%= events[i].startTime.toLocaleString() %></div>
             <div id="grid-item-fields">TIME:</div>
-            <div><%= events[i].Time %></div>
+            <div><%= events[i].endTime.toLocaleString() %></div>
             <div id="grid-item-fields">LOCATION:</div>
             <div><%= events[i].Location %></div>
-            <div id="grid-item-fields">EMAIL :</div>
+            <div id="grid-item-fields">EMAIL:</div>
             <div><%= events[i].Email %></div>
             <div id="grid-item-fields">PHONE #:</div>
             <div><%= events[i].Phone %></div>
@@ -419,6 +428,19 @@
       <%}%>
     <div id="fakeSpace"></div>
     </div>
+  </div>
+
+  <!-- Code for "FILTER EVENTS" -->
+  <div id="filterBackground">
+    <form method="get" action=" ">
+      <input class="test" type="submit" value="Public" name="selection">
+    </form>
+    <form method="get" action=" ">
+      <input class="test" type="submit" value="Private" name="selection">
+    </form>
+    <form method="get" action=" ">
+      <input class="test" type="submit" value= "RSO" name="selection">
+    </form>
   </div>
 
 </body>

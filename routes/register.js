@@ -14,7 +14,7 @@ router.get('/', function(req, res, next)
       host     : 'localhost',
       user     : 'root',
       password : '',
-      database : 'mydb',
+      database : 'CEWDB',
     }
   );
 

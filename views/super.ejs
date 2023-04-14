@@ -114,8 +114,8 @@
                       <h3><li><b>Name:</b> <%= events[i].Name %></li></h3>
                       <ul><h4>
                         <le><b>Description:</b> <%= events[i].Description %></le><br>                  
-                        <le><b>Time:</b> <%= events[i].Time %></le><br>
-                        <le><b>Date:</b> <%= events[i].Date.toDateString() %></le><br>                                   
+                        <le><b>Start:</b> <%= events[i].startTime.toLocaleString() %></le><br>
+                        <le><b>End:</b> <%= events[i].endTime.toLocaleString() %></le><br>                                   
                         <le><b>Location:</b> <%= events[i].Location %></le><br>                                           
                         <le><b>Contact Phone:</b> <%= events[i].Phone %></le><br>                
                         <le><b>Contact Email:</b> <%= events[i].Email %></le>

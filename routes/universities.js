@@ -12,7 +12,7 @@ var connection = mysql.createConnection(
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'mydb',
+    database : 'CEWDB',
   }
 );
 

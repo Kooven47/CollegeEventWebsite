@@ -11,7 +11,7 @@
     width: 40%;
   }  
   
-  .newUni{
+  .newUni {
     width: 45%;
     height: 450px;
     min-width: 450px;
@@ -29,7 +29,7 @@
 
     background-color: #C5C7C8;
   }
-  .viewUnis{    
+  .viewUnis {    
     width: 45%;
     height: 450px;
     min-width: 450px;
@@ -54,7 +54,7 @@
   }
   .aContainer{
         color: red;
-      }
+  }
   #titleFormat{
     align-items: center;
     background-color: #FEF3B3;
@@ -71,7 +71,7 @@
     height: 50px;
     width: 80%;
   }
-  #maintitleFormat{
+  #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
@@ -89,16 +89,15 @@
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
-    
   }
-  #nameField text, #locationField text, #descriptionField text, #populationField text{
+  #nameField text, #locationField text, #descriptionField text, #populationField text {
     color: #000000;
     display: inline-block;
     text-align: right;
     width: 25%;
     white-space: nowrap;
   }        
-  #name, #location, #description, #population{
+  #name, #location, #description, #population {
     color: #656565;
     border: none;
     border-radius: 4px;
@@ -110,7 +109,7 @@
     height: 30px;
     width: 290px;
   }
-  #name:focus, #location:focus, #description:focus, #population:focus{
+  #name:focus, #location:focus, #description:focus, #population:focus {
     outline: none;
   }
   #name::placeholder, #location::placeholder, #description::placeholder, #population::placeholder{
@@ -123,23 +122,22 @@
     text-align: left;
   }
   #createButton {
-      background-color: #FEF3B3;
-      border: none;
-      border-radius: 8px;
-      color: #000000;
-      cursor: pointer;
-      font-size: 18pt;
-      margin-top: 1.5em;
-      text-align: center;
+    background-color: #FEF3B3;
+    border: none;
+    border-radius: 8px;
+    color: #000000;
+    cursor: pointer;
+    font-size: 18pt;
+    margin-top: 1.5em;
+    text-align: center;
 
-      height: 37px;
-      width: 299px;
-      
-    }
-    /* Changing the "SIGN IN" button color when hovered over */
-    #createButton:hover {
-      background-color: #F1E6AD ;
-    }
+    height: 37px;
+    width: 299px; 
+  }
+  /* Changing the "SIGN IN" button color when hovered over */
+  #createButton:hover {
+    background-color: #F1E6AD ;
+  }
 </style>
 
 
@@ -156,7 +154,7 @@
     <div class = "container">
       <div class = "newUni">
         <center><h1><text id="titleFormat">New University</text></h1><center></br>
-          <form class="form"  action="/universities" method="post">              
+          <form class="form" action="/universities" method="post">              
               <div class="form-group">
                   <div id="nameField">
                     <text>University Name:</text>
@@ -175,15 +173,10 @@
                     <input id="population" type="text" name="population" placeholder="POPULATION COUNT">
                   </div>
               </div>
-              
-              
               <button id="createButton" type="submit">CREATE</button>
-              
           </form> 
       </div>
-
-      <div class = "viewUnis">
-
+      <div class="viewUnis">
         <aside>
           <center>
             <h1 style="margin-bottom: 30px;"><text id="titleFormat">Posted Universities</text></h1>
@@ -205,9 +198,7 @@
             </ul>
           </div>
         </aside>
-
       </div>  
-
     </div>
   </body>
 </html>

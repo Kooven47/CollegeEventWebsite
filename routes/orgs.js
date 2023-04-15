@@ -19,6 +19,8 @@ var connection = mysql.createConnection(
 /* GET users listing. */
 router.get('/', function(req, res, next) 
 {
+  var siteError = req.app.locals.site.error
+  req.app.locals = { site: { error: '' } }
   if (req.session.username)
   {
     console.log("User: " + req.session.username + " logged in");
@@ -35,7 +37,7 @@ router.get('/', function(req, res, next)
         else
         {
           console.log("happening here?");
-          res.render('orgs', {orgs: rows, message: "default msg"});
+          res.render('orgs', {orgs: rows, message: siteError});
           console.log("hello!");
         }        	
       });

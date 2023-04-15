@@ -1,16 +1,4 @@
 <header>
-  <style>
-
-  div .hero {
-  width: 100%;
-  }
-
-  header .hero .branding {
-    position: absolute;
-    bottom: 0;
-  }
-  </style>
-
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -19,24 +7,73 @@
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>  
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCYEiUAFh3-Ca91pCPgn8a-DFX7OEL8GZQ"></script> 
 
-  <div class="hero">
-    <section class="layout">
-      <div class="branding"></div>
-    </section
-  </div>
+  <script>
+    $(document).ready(function() {
+      // Get the current path
+      var currentPath = window.location.pathname;
+      
+      // Add "active" class to the "EVENTS" link if current path is /events
+      if (currentPath === "/events") {$('#navigation a[href="/events"]').addClass('active');}
+      // Add "active" class to the "ORGANIZATIONS" link if current path is /orgs
+      if (currentPath === "/orgs") {$('#navigation a[href="/orgs"]').addClass('active');}
+      // Add "active" class to the "ORGANIZATIONS" link if current path is /universities
+      if (currentPath === "/universities") {$('#navigation a[href="/universities"]').addClass('active');}
+                    // Add "active" class to the "ORGANIZATIONS" link if current path is /super
+      if (currentPath === "/super") {$('#navigation a[href="/super"]').addClass('active');}
+    });
+  </script>
+   
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li><a href="/events">Events</a></li>
-        <li><a href="/orgs">Organizations</a></li>
-        <li><a href="/universities">Universities</a></li>
-        <li><a href="/super">Super Admin</a></li>
-        <li><a href="/">Logout</a></li>
-      </ul>
+  <style>
+    #navigation {
+      align-items: center;
+      background-color: #000000;
+      font-size: 12pt;
+      display: flex;
+    }
+    #navigation .left-links {
+      align-items: left;
+      padding-left: 1em;
+    }
+    #navigation .left-links a {
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+    #navigation .right-links {
+      padding-right: 1em;
+      margin-left: auto;
+    }
+    #navigation .right-links a {
+      margin-left: 1em;
+    }
+    #navigation a {
+      color: #8e8e8e;
+    }
+    #navigation a.active {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+    #navigation a:hover {
+      color: #FFFFFF;
+    }
+    #navigation text {
+      color: #919090;
+    }
+  </style>  
+
+  <nav id="navigation" class="navbar navbar-inverse">
+    <div class="left-links">
+      <a href="/events">EVENTS</a>
+      <text>|</text>
+      <a href="/orgs">ORGANIZATIONS</a>
+      <text>|</text>
+      <a href="/universities">UNIVERSITIES</a>
+      <text>|</text>
+      <a href="/super">SUPER ADMIN</a>
+    </div>
+    <div class="right-links">
+      <a href="/">SIGN OUT</a>
     </div>
   </nav>
 </header>

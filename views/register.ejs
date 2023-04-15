@@ -244,20 +244,36 @@
       <form id="signupForm" class="form"  action="/register" method="post">
         <div id="nameField">
           <text>FULL NAME:</text>
-          <input id="name" type="text" name="name" placeholder="FULL NAME">
+          <% if(fullname != ''){ %>
+            <input id="name" type="text" name="name" placeholder="FULL NAME", value = <%-fullname%>>
+          <%}else{%>
+            <input id="name" type="text" name="name" placeholder="FULL NAME">
+          <%}%>
         </div>
         <div id="emailField">
           <text>EMAIL:</text>
-          <input id="email" name="email" type="text" placeholder="EMAIL">
+          <% if(email != ''){ %>
+            <input id="email" name="email" type="text" placeholder="EMAIL", value = <%-email%>>
+          <%}else{%>
+            <input id="email" name="email" type="text" placeholder="EMAIL">
+          <%}%>
         </div>
         <div id="usernameField">
           <text>USERNAME:</text>
-          <input id="username" name="username" type="text" placeholder="USERNAME">
+          <% if(username != ''){ %>
+            <input id="username" name="username" type="text" placeholder="USERNAME", value = <%-username%>>
+          <%}else{%>
+            <input id="username" name="username" type="text" placeholder="USERNAME">
+          <%}%>
         </div>
         <div id="passwordField">
           <div id="passwordRequirementsBox" className="password-input-container">
             <text>PASSWORD:</text>
-            <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
+            <% if(password != ''){ %>
+              <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD", value = <%-password%>>
+            <%}else{%>
+              <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
+            <%}%>
             <i id="eyeIcon" class="fas fa-eye-slash hide-password"></i>
             <div id="passwordRequirementsText" className="tooltip">
               <p id="passwordRequirementsTitle">PASSWORD REQUIREMENTS:</p>
@@ -273,7 +289,12 @@
         </div>
         <div id="universityDropdown">
           <text>UNIVERSITY:</text>
-          <select id="university" name="uni">
+          <% if(university != ''){ %>
+            <select id="university" name="uni">
+          <%}else{%>   
+            <select id="university" name="uni", selected=<%-university%>>
+          <%}%>
+          
             <%for (var i = 0; i < uni.length; i++)
               {%><option value="<%= uni[i].University_Name %>"><%=uni[i].University_Name%></option><%}%>
           </select>

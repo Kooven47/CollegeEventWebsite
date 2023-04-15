@@ -21,7 +21,7 @@ router.get('/', function(req, res, next)
   var queryString = "SELECT * FROM university";
   connection.query(queryString, function(err, rows, fields) 
   {
-    res.render("register", {message: "", uni : rows});
+    res.render("register", {message: "", uni : rows, fullname: undefined, email: undefined, username: undefined, password: undefined, university: undefined});
   });
 });
 

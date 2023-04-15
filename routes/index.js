@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 /* GET home page. */
 router.get('/', function(req, res, next) 
 {
-  res.render('index', {message: ""});
+  res.render('index', {message: "", username: undefined, password: undefined});
 });
 
 module.exports = router;

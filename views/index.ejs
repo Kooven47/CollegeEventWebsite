@@ -183,11 +183,20 @@
       <form id="signinForm" class="form" action="/" method="post">
         <div id="usernameField">
           <text>USERNAME:</text>
-          <input id="username" name="username" type="text" autocomplete="off" placeholder="USERNAME">
+          <% if(username != ''){ %>
+          <input id="username" name="username" type="text" autocomplete="off" placeholder="USERNAME", value=<%-username%>>
+          
+          <%}else{%>
+            <input id="username" name="username" type="text" autocomplete="off" placeholder="USERNAME">
+            <%}%>
         </div>
         <div id="passwordField">
           <text>PASSWORD:</text>
-          <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
+          <% if(password != ''){ %>
+            <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD", value=<%-password%>>
+          <%}else{%>
+            <input id="password" name="password" type="password" autocomplete="off" placeholder="PASSWORD">
+          <%}%>
           <i id="eyeIcon" class="fas fa-eye-slash hide-password"></i>
        </div>
         <div id="noAccount">

@@ -236,7 +236,7 @@ app.post('/register', function(req, res, next)
           req.session.username = req.body.username;
           req.session.password = req.body.password;
           req.session.type = req.body.type;
-
+      
           console.log("New user added");
 
           res.redirect("events");
@@ -284,37 +284,49 @@ app.post('/events', function(req, res, next)
   var getRSO = "SELECT * FROM rso WHERE admin = '" + req.session.username + "' AND Name = '" + req.body.RSO + "';";
 
   var lastEvent = "SELECT LAST_INSERT_ID() AS LE;";
-  
+  var checkOverlap = "SELECT * FROM event WHERE startTime <= '" + req.body.endTime + "' AND endTime >= '" + req.body.startTime + "' AND approved = 1 AND location = '" + req.body.location + "';";
+
   var LID;
 
-  
+  connection.query(checkOverlap, function(err, rows, fields) 
+    {
+      if(rows[0] != null)
+      {
+        app.locals.site.error = "* There is already an event at this location during this time! *"
+        res.render("events", {message: "* There is already an event at this location during this time! *", events: undefined, RSO:undefined, uni: undefined}); 
+        return;
+      }
+    else{
   connection.query(checkadmin, function(err, rows, fields) 
   {
+    
       if (rows[0].TOTAL > 0)
       {
         connection.query(addEvent1, function(err, rows, fields) 
         {
-          if (err) 
-          {
-            console.error(err);
-            return;
-          }
-
-          connection.query(lastEvent, function(err, rows, fields)
-          {
-            LID = rows[0].LE;
-            console.log(LID);
-        
-            connection.query(getRSO, function(err, rsorows, fields)
+          
+            connection.query(lastEvent, function(err, rows, fields)
             {
-              var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
-
-              connection.query(rsoHosts,function(err,rows,fields)
+              LID = rows[0].LE;
+              console.log(LID);
+          
+              connection.query(getRSO, function(err, rsorows, fields)
               {
-
+                if (req.body.type == "org"){
+                  if (!(rsorows && rsorows.length > 0)) {
+                    app.locals.site.error = "* Must select an RSO *"
+                    res.render("events", {message: "* Must select an RSO *", events: undefined, RSO:rsorows, uni: undefined}); 
+                  }
+                  else{
+                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')"; 
+                    connection.query(rsoHosts,function(err,rows,fields)
+                    {
+  
+                    });
+                  }
+                }
               });
             });
-          });
         });
       }
       else
@@ -327,24 +339,28 @@ app.post('/events', function(req, res, next)
         
           connection.query(addEvent0, function(err, rows, fields) 
           {
-            if (err) 
-            {
-              console.error(err);
-              return;
-            }
+            
             connection.query(lastEvent, function(err, rows, fields)
             {
               LID = rows[0].LE;
               console.log(LID);
           
               connection.query(getRSO, function(err, rsorows, fields)
-              {
-                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+              {      
+                if (req.body.type == "org"){
+                  if (!(rsorows && rsorows.length > 0)) {
+                    app.locals.site.error = "* Must select an RSO *"
+                    res.render("events", {message: "* Must select an RSO *", events: undefined, RSO:rsorows, uni: undefined}); 
+                  }
+                  else{
+                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+            
+                    connection.query(rsoHosts,function(err,rows,fields)
+                    {
   
-                connection.query(rsoHosts,function(err,rows,fields)
-                {
-  
-                });
+                   });
+                  }
+                }
               });
             });
           });
@@ -356,11 +372,7 @@ app.post('/events', function(req, res, next)
         
           connection.query(addEvent0, function(err, rows, fields) 
           {
-            if (err) 
-            {
-              console.error(err);
-              return;
-            }
+            
             connection.query(lastEvent, function(err, rows, fields)
             {
               LID = rows[0].LE;
@@ -368,12 +380,19 @@ app.post('/events', function(req, res, next)
           
               connection.query(getRSO, function(err, rsorows, fields)
               {
-                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+                if (req.body.type == "org"){
+                  if (!(rsorows && rsorows.length > 0)) {
+                    app.locals.site.error = "* Must select an RSO *"
+                    res.render("events", {message: "* Must select an RSO *", events: rows, RSO:rsorows, uni: undefined}); 
+                  }
+                  else{              
+                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";           
+                    connection.query(rsoHosts,function(err,rows,fields)
+                    {
   
-                connection.query(rsoHosts,function(err,rows,fields)
-                {
-  
-                });
+                    });
+                  }
+                }
               });
             });
           });
@@ -384,32 +403,37 @@ app.post('/events', function(req, res, next)
 
           connection.query(addEvent0, function(err, rows, fields) 
           {
-            if (err) 
-            {
-              console.error(err);
-              return;
-            }
+            
             connection.query(lastEvent, function(err, rows, fields)
             {
               LID = rows[0].LE;
               console.log(LID);
-          
+              
               connection.query(getRSO, function(err, rsorows, fields)
               {
-                var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
   
-                connection.query(rsoHosts,function(err,rows,fields)
-                {
-  
-                });
+                if (req.body.type == "org"){
+                  if (!(rsorows && rsorows.length > 0)) {
+                    app.locals.site.error = "* Must select an RSO *"
+                    console.log(app.locals.site.error);                  
+                  }
+                  else{
+                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+                
+                    connection.query(rsoHosts,function(err,rows,fields)
+                    {
+                    
+                    });
+                  }
+                }
               });
             });
           });
           console.log("rso");
         }
       }
-  });
-
+  });}
+});
   console.log(req.body);
   res.redirect('/events');
 });
@@ -566,9 +590,8 @@ app.post('/orgs', function(req, res, next)
     if (rows.length == 0)
     {
       console.log("admin email not found");
+      app.locals.site.error = "admin email not found"
       return res.render('orgs', {orgs: rows, message: "admin email not found"});
-      console.log("poop lol");
-      return;
     }
 
     console.log("here");
@@ -601,6 +624,7 @@ app.post('/orgs', function(req, res, next)
       if (!((adminEmailDomain == user2EmailDomain) && (adminEmailDomain == user3EmailDomain) && (adminEmailDomain == user4EmailDomain) && (adminEmailDomain == user5EmailDomain)))
       {
         console.log("email domains don't match");
+        app.locals.site.error = "email domains don't match"
         return res.render('orgs', {orgs: rows, message: "email domains don't match or don't exist"});
       }    
       console.log("emails match");
@@ -619,12 +643,13 @@ app.post('/orgs', function(req, res, next)
           if (rows.length == 0)
           {
             console.log("email " + email + " not found");
+            app.locals.site.error = "email not found";
             return res.render('orgs', {orgs: rows, message:"email not found"});
           }
         });
       });
 
-      var addOrg = "INSERT INTO rso (Name, Admin, Approved) VALUES ('" + req.body.name + "','" + adminUserID + "', 1);";
+      var addOrg = "INSERT INTO rso (Name, Admin, Approved, Active) VALUES ('" + req.body.name + "','" + adminUserID + "', 1, 1);";
       
       connection.query(addOrg, function(err, rows, fields) 
       {
@@ -849,5 +874,5 @@ app.post('/universities', function(req, res, next)
     }
   });
 });
-
+app.locals = { site: { error: '' } }
 module.exports = app;

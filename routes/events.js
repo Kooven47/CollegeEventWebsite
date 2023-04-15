@@ -19,6 +19,8 @@ var connection = mysql.createConnection(
 /* GET users listing. */
 router.get('/', function(req, res, next) 
 {
+  var siteError = req.app.locals.site.error
+  req.app.locals = { site: { error: '' } }
   if (req.session.username)
   {
     console.log(req.url);
@@ -81,7 +83,8 @@ router.get('/', function(req, res, next)
           {
             connection.query(RSOString, function(err, rows, fields) 
             {
-              res.render("events", {events: erows, RSO:rows, uni: university.University_Name});  
+              console.log("message: " + siteError);
+              res.render("events", {message: siteError, events: erows, RSO:rows, uni: university.University_Name});  
             });             
           }          
         });

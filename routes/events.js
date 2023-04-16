@@ -53,7 +53,7 @@ router.get('/', function(req, res, next)
 
         if (req.url == "/?selection=Private")
         {
-          queryString = "SELECT *, (SELECT rso.name FROM hosts JOIN rso ON hosts.RSO_RSO_ID = rso.RSO_ID WHERE E1.Event_ID = hosts.Event_ID) AS hostRso FROM event WHERE University_Name = '" + university.University_Name + "' AND Level = 1;";
+          queryString = "SELECT *, (SELECT rso.name FROM hosts JOIN rso ON hosts.RSO_RSO_ID = rso.RSO_ID WHERE E1.Event_ID = hosts.Event_ID) AS hostRso FROM event as E1 WHERE University_Name = '" + university.University_Name + "' AND Level = 1;";
           console.log("filter:private");
         }    
         else if (req.url == "/?selection=RSO")

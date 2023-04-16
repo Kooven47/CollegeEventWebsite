@@ -351,7 +351,7 @@ app.post('/events', function(req, res, next)
           
               connection.query(getRSO, function(err, rsorows, fields)
               {
-                if (req.body.type == "org")
+                if (req.body.type == "org" || req.body.type == "priv")
                 {
                   if (!(rsorows && rsorows.length > 0)) {
                     app.locals.site.error = "* Must select an RSO *"
@@ -387,7 +387,7 @@ app.post('/events', function(req, res, next)
             
                 connection.query(getRSO, function(err, rsorows, fields)
                 {      
-                  if (req.body.type == "org")
+                  if (req.body.type == "org" || req.body.type == "priv")
                   {
                     if (!(rsorows && rsorows.length > 0)) 
                     {
@@ -423,7 +423,7 @@ app.post('/events', function(req, res, next)
             
                 connection.query(getRSO, function(err, rsorows, fields)
                 {
-                  if (req.body.type == "org")
+                  if (req.body.type == "org" || req.body.type == "priv")
                   {
                     if (!(rsorows && rsorows.length > 0)) 
                     {
@@ -456,7 +456,7 @@ app.post('/events', function(req, res, next)
                 
                 connection.query(getRSO, function(err, rsorows, fields)
                 {
-                  if (req.body.type == "org")
+                  if (req.body.type == "org" || req.body.type == "priv")
                   {
                     if (!(rsorows && rsorows.length > 0)) 
                     {

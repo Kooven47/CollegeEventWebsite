@@ -352,7 +352,7 @@
         </div>
         <div id="emailAddressField">
           <text>EMAIL:</text>
-          <input id="emailAddress" type="text" name="email" placeholder="EMAIL">
+          <input id="emailAddress" type="text" name="email" placeholder="EMAIL" required>
         </div>
         <div id="hostRSOField" style="display:block">
           <text>HOST RSO:</text>
@@ -374,17 +374,20 @@
               hostRSOField.style.display = 'block'; 
               // Show University
               universityField.style.display = 'block';
+              university.required = true;
             } else if(selectedValue === 'priv'){
               // Shows RSO option
               hostRSOField.style.display = 'block'; 
               // Show University
               universityField.style.display = 'block';
+              university.required = true;
 
             } else {
               // Hides RSO option
               hostRSOField.style.display = 'none'; 
               // Hides University
               universityField.style.display = 'none';
+              university.required = false;
 
             }
           });

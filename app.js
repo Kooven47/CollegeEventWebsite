@@ -72,9 +72,9 @@ app.use('/super', superA);
 app.post('/', function(req, res, next) 
 {
   // Check for any empty fields
-  if (!req.body.username && !req.body.password) {res.render("index", {message: "* Please enter your username and password *"}); return;}
-  if (!req.body.username) {res.render("index", {message: "* Please enter your username *"}); return;}
-  if (!req.body.password) {res.render("index", {message: "* Please enter your password *"}); return;}
+  if (!req.body.username && !req.body.password) {res.render("index", {message: "* Please enter your username and password *", username: undefined, password: undefined}); return;}
+  if (!req.body.username) {res.render("index", {message: "* Please enter your username *", username: undefined, password: req.body.password}); return;}
+  if (!req.body.password) {res.render("index", {message: "* Please enter your password *", username: req.body.username, password: undefined}); return;}
 
   var queryString = "SELECT * FROM user WHERE User_ID = '" + req.body.username + "'";
   var currUser = {username: req.body.username, password: md5(req.body.password)};
@@ -84,7 +84,7 @@ app.post('/', function(req, res, next)
     // Check if there is a database error
     if (err)
     {
-      res.render("index", {message: "* database error *"}); return;
+      res.render("index", {message: "* database error *", username: undefined, password: undefined}); return;
     }
     // Check if username and password match
     else if (rows != "")
@@ -99,13 +99,13 @@ app.post('/', function(req, res, next)
       // Username and password do not match
       else
       {
-        res.render("index", {message: "* Username or password is incorrect *"});
+        res.render("index", {message: "* Username or password is incorrect *", username: req.body.username, password: req.body.password});
       }
     }
     // Username and password do not match
     else
     {
-      res.render("index", {message: "* Username or password is incorrect *"});
+      res.render("index", {message: "* Username or password is incorrect *", username: req.body.username, password: req.body.password});
     }
   });
 });
@@ -153,7 +153,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Please fill out all the fields *", uni: rows});  
+          res.render("register", {message: "* Please fill out all the fields *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
         });
       }
       // Check that a university is selected
@@ -162,7 +162,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Please select a university *", uni: rows});  
+          res.render("register", {message: "* Please select a university *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
         });
         return;
       }
@@ -172,7 +172,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Password does not meet requirements *", uni: rows});  
+          res.render("register", {message: "* Password does not meet requirements *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
         });
       }
       else if (rows[0].User_ID == 0)
@@ -248,7 +248,7 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* This username or email is taken *", uni: rows});  
+          res.render("register", {message: "* This username or email is taken *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
         });
       }
     }

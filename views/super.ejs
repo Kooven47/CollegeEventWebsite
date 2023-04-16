@@ -34,23 +34,7 @@
     margin-bottom: 80px;
   }
   .aContainer{
-        color: red;
-      }
-  #unapprovedEventsFormat{
-    align-items: center;
-    background-color: #FEF3B3;
-    border-radius: 6px;
-    color: #000000;
-    display: flex;
-    font-size: 20pt;
-    font-weight: bold;
-    justify-content: center;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    transform: translateX(-50%, -50%);
-
-    height: 50px;
-    width: 80%;
+    color: red;
   }
   #superAdminFormat{
     align-items: center;
@@ -73,23 +57,89 @@
 
   }
   #approveButton {
-      background-color: #FEF3B3;
-      border: none;
-      border-radius: 8px;
-      color: #000000;
-      cursor: pointer;
-      font-size: 15pt;
-      margin-top: 10px;
-      text-align: center;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    line-height: 0px;
+    margin-bottom: 0.8em;
+    margin-top: 0.5em;
+    text-align: center;
 
-      height: 40px;
-      width: 150px;
-      
-    }
-    /* Changing the "SIGN IN" button color when hovered over */
-    #approveButton:hover {
-      background-color: #F1E6AD ;
-    }
+    height: 30px;
+    width: 90px;
+  }
+  #approveButton:hover {
+    background-color: #51a151;
+  }
+  #approveButton:focus {
+    outline: none;
+  }
+  #unapprovedEventsBackground {
+    align-items: center;
+    background-color: #C5C7C8;
+    border: 3px solid #FEF3B3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2em;
+    
+    text-align: center;
+
+    height: 600px;
+    width: 450px;
+
+    left: 50%;
+    top: 50%;
+
+    overflow: auto;
+  }
+  #eventsTitle {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 18pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+
+    height: 50px;
+    width: 380px;
+  }
+  
+  #postedName {
+    color: #000000;
+    background-color: #FEF3B3;
+    display: block;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  #grid-container {
+    display: grid;
+    grid-template-columns: 142px auto;
+  }
+  #grid-item-fields {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left: 1.5em;
+  }
+  #individualEventOutline {
+    border: 3px solid #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    margin-bottom: 0.5em;
+    text-align: left;
+
+    width: 380px;
+  }
 </style>
 
 
@@ -102,32 +152,34 @@
                 <%=    message   %>
           </h1>
   </div>
-  
+  <center>
     <div class = "container">
-      <div class = "unapprovedEvents" class="Center">
+      <div id="unapprovedEventsBackground">
+        <text id="eventsTitle">CURRENT EVENTS</text>
+        <!-- Code for "FILTER EVENTS" -->
         
-        <center><h1><text id="unapprovedEventsFormat">Unapproved Events</text></h1><center></br>
-          <ul>
-                  <% for(var i=0; i < events.length; i++) { %>
-                    
-                    <div style="text-align:left;">
-                      <h3><li><b>Name:</b> <%= events[i].Name %></li></h3>
-                      <ul><h4>
-                        <le><b>Description:</b> <%= events[i].Description %></le><br>                  
-                        <le><b>Start:</b> <%= events[i].startTime.toLocaleString() %></le><br>
-                        <le><b>End:</b> <%= events[i].endTime.toLocaleString() %></le><br>                                   
-                        <le><b>Location:</b> <%= events[i].Location %></le><br>                                           
-                        <le><b>Contact Phone:</b> <%= events[i].Phone %></le><br>                
-                        <le><b>Contact Email:</b> <%= events[i].Email %></le>
-                      </h4></ul>
-                    </div>
-
-                      <input id="approveButton" type="button" name="theButton" class = "btn btn-info" value="Approve" onclick="window.location='/super/Event/<%= events[i].Event_ID %>'" >
-
-                      <br>   
-                  <% } %>                    
-              </ul>
-      </div>
-    </div>
+        <% for (var i = 0; i < events.length; i++) { %>
+          <div id="individualEventOutline">
+            <div id="postedName"><%= events[i].Name %></div>
+            <div id="grid-container">
+              <div id="grid-item-fields">START TIME:</div>
+              <div><%= events[i].startTime.toLocaleString() %></div>
+              <div id="grid-item-fields">END TIME:</div>
+              <div><%= events[i].endTime.toLocaleString() %></div>
+              <div id="grid-item-fields">LOCATION:</div>
+              <div><%= events[i].Location %></div>
+              <div id="grid-item-fields">EMAIL:</div>
+              <div><%= events[i].Email %></div>
+              <div id="grid-item-fields">PHONE #:</div>
+              <div><%= events[i].Phone %></div>
+              <div id="grid-item-fields">DESCRIPTION: </div>
+              <div><%= events[i].Description%></div>
+            </div>
+            <div style="display:flex; justify-content:center;"><input id="approveButton" type="button" name="theButton" class = "btn btn-info" value="Approve" onclick="window.location='/super/Event/<%= events[i].Event_ID %>'" ></div>
+          </div>
+        <%}%>
+      <div id="fakeSpace"></div>
+      </div> 
+    </div></center>
   </body>
 </html>

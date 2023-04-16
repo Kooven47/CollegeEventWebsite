@@ -113,11 +113,15 @@
   }
 
   /* Setting and styling the organization photo */
-  #University img {
-    margin-top: 0.6em;
-
-    height: 225px;
-  }
+  #organization img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin: 3em;
+    margin-top: 0.5em;
+    height: 180px;
+  }  
 
   /* Setting and styling the "CREATE" button */
   #createButton {
@@ -287,14 +291,9 @@
           <text>USER #4 EMAIL: </text>
           <input id="user4Email" type="text" name="user5Email" placeholder="USER #4 EMAIL">
         </div>
-        <!-- please help "BetterConnectedTogether.png" -->
-        <!-- <div id="Organization">
-          <img src="images/BetterConnectedTogether.png" alt="OrganizationPhoto">
-        </div> -->
-        <div id="University">
-          <img src="images/University.png" alt="UniversityPhoto">
+        <div id="Organization">
+          <img src="../images/BetterConnectedTogether.png" alt="OrganizationPhoto">
         </div>
-
         <button id="createButton" type="submit">CREATE</button>
         <a href="#"
           onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">

@@ -5,38 +5,8 @@
     background-image: url("../images/EventDetailsBackground.jpg");
     background-size: cover;
   }
-  input, label,button,textarea 
-  {
-    width: 40%;
-  }  
-  
-  .unapprovedEvents{    
-    width: 40%;
-    height: 425px;
-    min-width: 450px;
-    
 
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 5px;
-    
-
-    border: 3px;
-    border-style: solid;
-    border-color: #FEF3B3;
-    border-radius: 10px;
-
-    background-color: #C5C7C8;
-
-    overflow: auto;
-  }
-  .container{
-    margin-bottom: 80px;
-  }
-  .aContainer{
-    color: red;
-  }
-  #superAdminFormat{
+  #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
@@ -50,12 +20,34 @@
     transform: translateX(-50%, -50%);
 
     height: 70px;
-    width: 575px;
+    width: 450px;
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
-
   }
+
+  /* Setting dimensions and styling the "UNAPPROVED EVENTS" background */
+  #unapprovedEventsBackground {
+    align-items: center;
+    background-color: #C5C7C8;
+    border: 3px solid #FEF3B3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    text-align: center;
+    transform: translate(-50%, -50%);
+
+    height: 600px;
+    width: 450px;
+
+    left: 50%;
+    top: 50%;
+
+    overflow: auto;
+  }
+
   #approveButton {
     background-color: #5cb85c;
     border: none;
@@ -69,31 +61,14 @@
     height: 30px;
     width: 90px;
   }
+
   #approveButton:hover {
     background-color: #51a151;
   }
   #approveButton:focus {
     outline: none;
   }
-  #unapprovedEventsBackground {
-    align-items: center;
-    background-color: #C5C7C8;
-    border: 3px solid #FEF3B3;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 2em;
-    
-    text-align: center;
 
-    height: 600px;
-    width: 450px;
-
-    left: 50%;
-    top: 50%;
-
-    overflow: auto;
-  }
   #eventsTitle {
     align-items: center;
     background-color: #FEF3B3;
@@ -122,15 +97,18 @@
     text-align: center;
     text-transform: uppercase;
   }
+
   #grid-container {
     display: grid;
     grid-template-columns: 142px auto;
   }
+
   #grid-item-fields {
     font-weight: bold;
     font-size: 10pt;
     margin-left: 1.5em;
   }
+
   #individualEventOutline {
     border: 3px solid #FEF3B3;
     border-radius: 6px;
@@ -140,46 +118,44 @@
 
     width: 380px;
   }
+
+  .aContainer{
+    color: red;
+  }
 </style>
 
 
 <%= include partials/header.ejs %>
 
- <body>
-  <center><h1><text id="superAdminFormat">Super Admin Portal</text></h1><center></br>
-  <div class = "aContainer" >
-          <h1> <% if (message.length > 1) %>
-                <%=    message   %>
-          </h1>
-  </div>
-  <center>
-    <div class = "container">
-      <div id="unapprovedEventsBackground">
-        <text id="eventsTitle">CURRENT EVENTS</text>
-        <!-- Code for "FILTER EVENTS" -->
-        
-        <% for (var i = 0; i < events.length; i++) { %>
-          <div id="individualEventOutline">
-            <div id="postedName"><%= events[i].Name %></div>
-            <div id="grid-container">
-              <div id="grid-item-fields">START TIME:</div>
-              <div><%= events[i].startTime.toLocaleString() %></div>
-              <div id="grid-item-fields">END TIME:</div>
-              <div><%= events[i].endTime.toLocaleString() %></div>
-              <div id="grid-item-fields">LOCATION:</div>
-              <div><%= events[i].Location %></div>
-              <div id="grid-item-fields">EMAIL:</div>
-              <div><%= events[i].Email %></div>
-              <div id="grid-item-fields">PHONE #:</div>
-              <div><%= events[i].Phone %></div>
-              <div id="grid-item-fields">DESCRIPTION: </div>
-              <div><%= events[i].Description%></div>
-            </div>
-            <div style="display:flex; justify-content:center;"><input id="approveButton" type="button" name="theButton" class = "btn btn-info" value="Approve" onclick="window.location='/super/Event/<%= events[i].Event_ID %>'" ></div>
+  <body>
+    <center><h1><text id="maintitleFormat">SUPER ADMIN</text></h1><center></br>
+    <div id="wrappingBackground"></div>
+    <div id="unapprovedEventsBackground">
+      <text id="eventsTitle">UNAPPROVED EVENTS</text>
+      <div class = "aContainer">
+        <text> <% if (message && message.length > 1)%><%=message%></text>
+      </div>
+      <% for (var i = 0; i < events.length; i++) { %>
+        <div id="individualEventOutline">
+          <div id="postedName"><%= events[i].Name %></div>
+          <div id="grid-container">
+            <div id="grid-item-fields">START TIME:</div>
+            <div><%= events[i].startTime.toLocaleString() %></div>
+            <div id="grid-item-fields">END TIME:</div>
+            <div><%= events[i].endTime.toLocaleString() %></div>
+            <div id="grid-item-fields">LOCATION:</div>
+            <div><%= events[i].Location %></div>
+            <div id="grid-item-fields">EMAIL:</div>
+            <div><%= events[i].Email %></div>
+            <div id="grid-item-fields">PHONE #:</div>
+            <div><%= events[i].Phone %></div>
+            <div id="grid-item-fields">DESCRIPTION: </div>
+            <div><%= events[i].Description%></div>
           </div>
-        <%}%>
+          <div style="display:flex; justify-content:center;"><input id="approveButton" type="button" name="theButton" class="btn btn-info" value="APPROVE" onclick="window.location='/super/Event/<%= events[i].Event_ID %>'"></div>
+        </div>
+      <%}%>
       <div id="fakeSpace"></div>
-      </div> 
-    </div></center>
+    </div>
   </body>
 </html>

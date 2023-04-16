@@ -21,7 +21,18 @@ router.get('/', function(req, res, next)
   var queryString = "SELECT * FROM university";
   connection.query(queryString, function(err, rows, fields) 
   {
-    res.render("register", {message: "", uni : rows, fullname: undefined, email: undefined, username: undefined, password: undefined, university: undefined});
+    if (rows.length == 0)
+    {
+      var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('University of Central Florida', 'Orlando, FL', 'The best university in Florida!', '66183', 'https://ucffoundation.org/wp-content/uploads/2021/06/UCF-Millican-Hall.jpeg');";
+      connection.query(addUni, function(err, rows, fields)
+      {
+
+      });
+    }
+    connection.query(queryString, function(err, rows, fields)
+    {
+      res.render("register", {message: "", uni : rows, fullname: undefined, email: undefined, username: undefined, password: undefined, university: undefined});
+    });
   });
 });
 

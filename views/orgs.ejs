@@ -1,60 +1,64 @@
 <html>
+<title>CEM: Organizations</title>
+
+<!-- Using the twitter icon, don't delete -->
+<script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
+
+<head>
+  <meta property="og:title" content="I just created an RSO on College Event Manager!"/>
+  <meta property="og:site_name" content="College Event Manager"/>
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
+</head>
+
 <style>
+
+  /* Setting the events background */
   body {
-    background-image: url("../images/EventDetailsBackground.jpg");
+    background-image: url("../images/OrganizationBackground.jpg");
     background-size: cover;
   }
 
-  input, label, button {
-    width: 40%;
-  }
-
-  .newOrg {
-    width: 45%;
-    height: 450px;
-    min-width: 450px;
-    float: left;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 5px;
-    margin-left: 30px;
-
-    border: 3px;
-    border-style: solid;
-    border-color: #FEF3B3;
-    border-radius: 10px;
-
+  /* Setting dimensions and styling the "CREATE ORGANIZATION" background */
+  #createOrganizationBackground {
+    align-items: center;
     background-color: #C5C7C8;
-  }
-  .viewOrgs {    
-    width: 45%;
-    height: 450px;
-    min-width: 450px;
-    float: right;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-top: 5px;
-    margin-right: 30px;
-
-    border: 3px;
-    border-style: solid;
-    border-color: #FEF3B3;
+    border: 3px solid #FEF3B3;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    text-align: center;
+    transform: translate(-103%, -46%);
 
-    background-color: #C5C7C8;
+    height: 600px;
+    width: 450px;
+
+    left: 50%;
+    top: 50%;
 
     overflow: auto;
   }
-  .container {
-    margin-bottom: 80px;
+
+  /* Setting and styling the "CREATE ORGANIZATION" and "CURRENT ORGANIZATIONS" titles */
+  #organizationTitle {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 18pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+
+    height: 50px;
+    width: 380px;
   }
-  .aContainer {
-    color: red;
-    font-size: 10pt;
-    white-space: nowrap;
-  }
+    
   #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
@@ -69,35 +73,21 @@
     transform: translateX(-50%, -50%);
 
     height: 70px;
-    width: 400px;
+    width: 500px;
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
   }
-  #titleFormat{
-    align-items: center;
-    background-color: #FEF3B3;
-    border-radius: 6px;
-    color: #000000;
-    display: flex;
-    font-size: 20pt;
-    font-weight: bold;
-    justify-content: center;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    transform: translateX(-50%, -50%);
 
-    height: 50px;
-    width: 80%;
-  }
-  #organizationField text, #user1Field text, #user2Field text, #user3Field text, #user4Field text, #user5Field text {
+  #organizationField text, #adminField text, #user1Field text, #user2Field text, #user3Field text, #user4Field text {
     color: #000000;
     display: inline-block;
+    font-size: 11pt;
     text-align: right;
-    width: 25%;
+    width: 140px;
     white-space: nowrap;
   }        
-  #organization, #user1, #user2, #user3, #user4, #user5 {
+  #organization, #adminEmail, #user1Email, #user2Email, #user3Email, #user4Email {
     color: #656565;
     border: none;
     border-radius: 4px;
@@ -107,12 +97,12 @@
     text-indent: 6px;
 
     height: 30px;
-    width: 290px;
+    width: 250px;
   }
-  #organization:focus, #user1:focus, #user2:focus, #user3:focus, #user4:focus, #user5:focus {
+  #organizationEmail:focus, #adminEmail:focus, #user1Email:focus, #user2Email:focus, #user3Email:focus, #user4Email:focus {
     outline: none;
   }
-  #organization::placeholder, #user1::placeholder, #user2::placeholder, #user3::placeholder, #user4::placeholder, #user5::placeholder {
+  #organizationEmail::placeholder, #adminEmail::placeholder, #user1Email::placeholder, #user2Email::placeholder, #user3Email::placeholder, #user4Email::placeholder {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -121,84 +111,210 @@
     margin-right: 1em;
     text-align: left;
   }
+
+  /* Setting and styling the organization photo */
+  #University img {
+    margin-top: 0.6em;
+
+    height: 225px;
+  }
+
+  /* Setting and styling the "CREATE" button */
   #createButton {
-    background-color: #FEF3B3;
+    background-color: #5cb85c;
     border: none;
     border-radius: 8px;
-    color: #000000;
-    cursor: pointer;
+    color: #FFFFFF;
     font-size: 18pt;
+    margin-bottom: 1.5em;
     margin-top: 0.5em;
+    position: absolute;
     text-align: center;
+    transform: translateX(-50%);
 
-    height: 37px;
-    width: 299px; 
+    left: 196px;
+    top: 510px;
+
+    height: 35px;
+    width: 330px;
   }
   /* Changing the "SIGN IN" button color when hovered over */
   #createButton:hover {
-    background-color: #F1E6AD ;
+    background-color: #51a151;
   }
+
+  /* Setting and Styling the Twitter button */
+  #twitterButton {
+    background-color: #1DA1F2;
+    border-radius: 8px;
+    font-size: 14pt;
+    margin-top: 0.5em;
+    outline: none;
+    position: absolute;
+    transform: translateX(-50%);
+
+    left: 390px;
+    top: 512px;
+
+    height: 37px;
+  }
+  /* Changing the Twitter button color when hovered over */
+  #twitterButton:hover {
+    background-color: #1a98e6;
+  }
+
+  /* Setting dimensions and styling the "CURRENT ORGANIZATIONS" background */
+  #currentOrganizationsBackground {
+    align-items: center;
+    background-color: #C5C7C8;
+    border: 3px solid #FEF3B3;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2em;
+    position: absolute;
+    text-align: center;
+    transform: translate(3%, -46%);
+
+    height: 600px;
+    width: 450px;
+
+    left: 50%;
+    top: 50%;
+
+    overflow: auto;
+  }
+
+  /* Styling the individual events title in the "CURRENT UNIVERSITIES" */
+  #postedName {
+    color: #000000;
+    background-color: #FEF3B3;
+    display: block;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* Styling the individual events in the "CURRENT ORGANIZATIONS" */
+  #individualEventOutline {
+    border: 3px solid #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    margin-bottom: 0.5em;
+    text-align: left;
+
+    width: 380px;
+  }
+
+  /* Adding spaces in between individual events in the "CURRENT ORGANIZATIONS" */
+  #grid-container {
+    display: grid;
+    grid-template-columns: 142px auto;
+  }
+
+  /* Styling the "CURRENT ORGANIZATIONS" fields */
+  #grid-item-fields {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left: 1.5em;
+  }
+
+  /* Styling the "DETAILS" button */
+  #detailsButton {
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    line-height: 0px;
+    margin-bottom: 0.8em;
+    margin-top: 0.5em;
+    text-align: center;
+
+    height: 30px;
+    width: 90px;
+  }
+  #detailsButton:hover {
+    background-color: #51a151;
+  }
+  #detailsButton:focus {
+    outline: none;
+  }
+
+  .aContainer {
+    color: red;
+    font-size: 10pt;
+    white-space: nowrap;
+  }
+
 </style>
 
 <%= include partials/header.ejs %>
 
-<head>
-  <meta property="og:title" content="I just created an RSO on College Event Manager!"/>
-  <meta property="og:site_name" content="College Event Manager"/>
-  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
-</head>
+<body>
+  <center><h1><text id="maintitleFormat">ORGANIZATIONS</text></h1><center><br>
 
- <body>
-  <center><h1><text id="maintitleFormat">Organizations</text></h1><center><br>
-  <div class = "aContainer" >
-    <text> <% if (message && message.length > 1)%><%=message%></text>
-  </div>
-  <div class="container">
-    <div class="newOrg">
-      <center><h2><text id="titleFormat">New Organization</text></h2></center>
-        <form class="form"  action="/orgs" method="post">              
-          <div class="form-group">
-            <div id="organizationField">
-              <text>Organization Name: </text>
-              <input id="organization" type="text" name="name" id="name" placeholder="RSO NAME"><br>
+  <div id="wrappingBackground">
+    <!-- Code for "CREATE ORGANIZATIONS" -->
+    <div id="createOrganizationBackground">
+      <text id="organizationTitle">CREATE ORGANIZATION</text>
+      <form class="form"  action="/orgs" method="post">              
+        <div class = "aContainer">
+          <text> <% if (message && message.length > 1)%><%=message%></text>
+        </div>
+        <div id="organizationField">
+          <text>NAME:</text>
+          <input id="organization" type="text" name="name" id="name" placeholder="NAME"><br>
+        </div>
+        <div id="adminField">
+          <text>ADMIN EMAIL:</text>
+          <input id="adminEmail" type="text" name="user1Email" placeholder="ADMIN EMAIL">
+        </div>
+        <div id="user1Field">
+          <text>USER #1 EMAIL:</text>
+          <input id="user1Email" type="text" name="user2Email" placeholder="USER #1 EMAIL">
+        </div>
+        <div id="user2Field">
+          <text>USER #2 EMAIL:</text>
+          <input id="user2Email" type="text" name="user3Email" placeholder="USER #2 EMAIL">
+        </div>
+        <div id="user3Field">
+          <text>USER #3 EMAIL: </text>
+          <input id="user3Email" type="text" name="user4Email" placeholder="USER #3 EMAIL">
+        </div>
+        <div id="user4Field">
+          <text>USER #4 EMAIL: </text>
+          <input id="user4Email" type="text" name="user5Email" placeholder="USER #4 EMAIL">
+        </div>
+        <!-- please help "BetterConnectedTogether.png" -->
+        <!-- <div id="Organization">
+          <img src="images/BetterConnectedTogether.png" alt="OrganizationPhoto">
+        </div> -->
+        <div id="University">
+          <img src="images/University.png" alt="UniversityPhoto">
+        </div>
+
+        <button id="createButton" type="submit">CREATE</button>
+        <a href="#"
+          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
+          <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+        </a>
+      </form>
+    </div>  
+    <div id="currentOrganizationsBackground">        
+      <text id="organizationTitle">CURRENT ORGANIZATIONS</text>            
+        <% for(var i = 0; i < orgs.length; i++) { %>
+          <div id="individualEventOutline">
+            <div id="postedName"><%= orgs[i].Name %></div>
+            <div id="grid-container">
+              <div id="grid-item-fields">ADMIN:</div>
+              <div><%= orgs[i].Admin %></div>
             </div>
-            <div id="user1Field">
-              <text>User 1 (Admin): </text>
-              <input id="user1" type="text" name="adminEmail" id="adminEmail" placeholder="ADMIN EMAIL"><br>
-            </div>
-            <div id="user2Field">
-              <text>User 2: </text>
-              <input id="user2" type="text" name="user2Email" id="user2Email" placeholder="USER 2 EMAIL"><br>
-            </div>
-            <div id="user3Field">
-              <text>User 3: </text>
-              <input id="user3" type="text" name="user3Email" id="user3Email" placeholder="USER 3 EMAIL"><br>
-            </div>
-            <div id="user4Field">
-              <text>User 4: </text>
-              <input id="user4" type="text" name="user4Email" id="user4Email" placeholder="USER 4 EMAIL"><br>
-            </div>
-            <div id="user5Field">
-              <text>User 5: </text>
-              <input id="user5" type="text" name="user5Email" id="user5Email" placeholder="USER 5 EMAIL"><br>
-            </div>
+            <div style="display:flex; justify-content:center;"><input id="detailsButton" type="button" class="btn btn-info" value="DETAILS" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'"></div>
           </div>
-          <button id="createButton" type="submit">Create</button>
-          <div class="sharethis-inline-share-buttons"></div>               
-        </form>
-      </div>
-      <div class="viewOrgs">        
-        <aside>
-          <h2><text id="titleFormat">Posted Organizations</text></h2>              
-            <div class = "organizations">
-              <ul><% for(var i=0; i < orgs.length; i++) { %>
-                <h3><li>Name: <%= orgs[i].Name %></li></h3>
-                <h4><le>Admin: <%= orgs[i].Admin %><br><br></le></h4>
-                <input type="button" class="btn btn-info" name="theButton" value="Details" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'"><%}%>
-              </ul>
-            </div>
-        </aside>
-      </div>
+        <%}%>
     </div>
-  </body>
+  </div>
+</body>
 </html>

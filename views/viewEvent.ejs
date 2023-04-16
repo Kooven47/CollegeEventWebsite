@@ -376,28 +376,28 @@
 
               <div class="center">
                 <div id="individualEventOutline">
-                  <div id="eventFormat"><%= events[i].Name %></div>
+                  <div id="eventFormat"><%= events[0].Name %></div>
                   <div id="grid-container">
                     <div id="grid-item-fields">PERMISSION:</div>
-                    <%= events[i].Level == 0 ? "Public" : events[i].Level == 1 ? "Private" : "RSO" %>
-                    <% if(events[i].Level != 0) {%>              
+                    <%= events[0].Level == 0 ? "Public" : events[0].Level == 1 ? "Private" : "RSO" %>
+                    <% if(events[0].Level != 0) {%>              
                       <div id="grid-item-fields">UNIVERSITY:</div>
-                      <div><%= events[i].University_Name %></div>
+                      <div><%= events[0].University_Name %></div>
                     <%}%>
                     <div id="grid-item-fields">START TIME:</div>
-                    <div><%= events[i].startTime.toLocaleString() %></div>
+                    <div><%= events[0].startTime.toLocaleString() %></div>
                     <div id="grid-item-fields">END TIME:</div>
-                    <div><%= events[i].endTime.toLocaleString() %></div>
+                    <div><%= events[0].endTime.toLocaleString() %></div>
                     <div id="grid-item-fields">LOCATION:</div>
-                    <div><%= events[i].Location %></div>
+                    <div><%= events[0].Location %></div>
                     <div id="grid-item-fields">EMAIL:</div>
-                    <div><%= events[i].Email %></div>
+                    <div><%= events[0].Email %></div>
                     <div id="grid-item-fields">PHONE #:</div>
-                    <div><%= events[i].Phone %></div>
+                    <div><%= events[0].Phone %></div>
                     <div id="grid-item-fields">DESCRIPTION: </div>
-                    <div><%= events[i].Description%></div>
+                    <div><%= events[0].Description%></div>
                     <div id="grid-item-fields">CATEGORY:</div>
-                    <div><%= events[i].Type %></div>
+                    <div><%= events[0].Type %></div>
                   </div>
                 </div>
                 <div id="GarageSale">

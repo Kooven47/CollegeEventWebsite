@@ -1,49 +1,111 @@
 <html>
+  <!-- Using the twitter icon, don't delete -->
+<script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
+<style>
+    body {
+      background-image: url("../images/EventDetailsBackground.jpg");
+      background-size: cover;
+    }
+    #maintitleFormat {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 40pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    transform: translateX(-50%, -50%);
+
+    height: 70px;
+    width: 400px;
+    border: 2px solid #C5C7C8;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #individualEventOutline {
+    border: 3px solid #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    margin-bottom: 0.5em;
+    text-align: left;
+    background-color: #C5C7C8;
+
+    width: 380px;
+  }
+  #postedName {
+    color: #000000;
+    background-color: #FEF3B3;
+    display: block;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  #grid-container {
+    display: grid;
+    grid-template-columns: 142px auto;
+    margin-bottom: 1em;
+  }
+  #grid-item-fields {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left: 1.5em;
+  }
+  #twitterButton {
+    background-color: #1DA1F2;
+    height: 35px;
+    width: 50px;
+  }
+  #twitterButton:hover {
+    background-color: #1a98e6;
+  }
+</style>
 
 <%= include partials/header.ejs %>
 
-<head>
-  <% if(joinStatus == 1) { %>
-
-    <meta property="og:title" content="I just joined an RSO on College Event Manager!"/>
-
-  <% } %>   
-  <% if(joinStatus == 0) { %>
-
-    <meta property="og:title" content="I just left an RSO on College Event Manager!"/>
-    
-  <% } %> 
-  <meta property="og:site_name" content="College Event Manager"/>
-  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
-</head>
  <body>
-  <center><u><h1>Org Details</h1></u><center></br>
+  <center><text id="maintitleFormat">RSO Details</text><center></br>
+          <div id="individualEventOutline">
+              <form method = "post" action = " ">             
+              <div id="postedName"> <%= orgs[0].Name %></div>
+              <div id="grid-container">
+                <div id="grid-item-fields">ADMIN:</div>
+                <div><%= orgs[0].Admin %></div>
+                <% adminDisplayed = false %>
+                <% for (var i = 0; i < members.length; i++) { %>
+                  <% if (members[i].name == orgs[0].Admin) { %>
+                    <% adminDisplayed = true; continue; %>
+                  <% } %>
+                  <div id="grid-item-fields"> MEMBER <%= adminDisplayed ? i : i+1 %>:</div>
+                  <div><%= members[i].name %></div>
+                <% } %>
+                <div id="grid-item-fields">ACTIVE:</div>
+                <div><%= orgs[0].Active == 1 ? "True" : "False" %></div>
+              </div>
 
-          <div class = "viewRSO">
-                    
-              <form method = "post" action = " ">
-                    
-              <h3>
-                Name: <%= orgs[0].Name %>
-              </h3>
-              <h5>
-                Admin: <%= orgs[0].Admin %>
-              </h5>
-
-              <% if(joinStatus == 1) { %>
-
-                <input type="submit" name="theButton" value="Join">
-
+              <% if (joinStatus == 0) { %>
+                <div style="display:flex; justify-content:center;">
+                  <input type="submit" class="btn btn-success" name="theButton" value="Join">
+                  <a href="#"
+                  onclick="window.open('https://twitter.com/intent/tweet?text=I+just+left+an+RSO+on+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Forgs%2F', 'newwindow', 'width=600, height=250'); return false;">
+                  <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+                </div>
+                </a>
               <% } %>   
-              <% if(joinStatus == 0) { %>
-
-                <input type="submit" name="theButton" value="Leave">
-                
-              <% } %> 
-
+              <% if (joinStatus == 1) { %>
+                <div style="display:flex; justify-content:center;">
+                  <input type="submit" class="btn btn-danger" name="theButton" value="Leave">
+                  <a href="#"
+                  onclick="window.open('https://twitter.com/intent/tweet?text=I+just+left+an+RSO+on+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Forgs%2F', 'newwindow', 'width=600, height=250'); return false;">
+                  <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+                  </a>
+              </div>
+              <% } %>
               <br>
-              <div class="sharethis-inline-share-buttons"></div>
- 
             </form>  
           </div> 
   </body>

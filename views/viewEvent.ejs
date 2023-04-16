@@ -27,44 +27,41 @@
     font-size:14pt;
     color:#000000;
   }
- 
   .rating {
-    
-    
     float:left;
     border:none;
-}
-.rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0, 0, 0, 0);
-}
-.rating:not(:checked) > label {
-    float:right;
-    width:1em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
-    color:#646464;
-}
-.rating:not(:checked) > label:before {
-    content:'★ ';
-}
-.rating > input:checked ~ label {
-    color: #f70;
-}
-.rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
-    color: gold;
-}
-.rating > input:checked + label:hover, .rating > input:checked + label:hover ~ label, .rating > input:checked ~ label:hover, .rating > input:checked ~ label:hover ~ label, .rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
-}
-.rating > label:active {
-    position:relative;
-}
+  }
+  .rating:not(:checked) > input {
+      position:absolute;
+      top:-9999px;
+      clip:rect(0, 0, 0, 0);
+  }
+  .rating:not(:checked) > label {
+      float:right;
+      width:1em;
+      padding:0 .1em;
+      overflow:hidden;
+      white-space:nowrap;
+      cursor:pointer;
+      font-size:200%;
+      line-height:1.2;
+      color:#646464;
+  }
+  .rating:not(:checked) > label:before {
+      content:'★ ';
+  }
+  .rating > input:checked ~ label {
+      color: #f70;
+  }
+  .rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
+      color: gold;
+  }
+  .rating > input:checked + label:hover, .rating > input:checked + label:hover ~ label, .rating > input:checked ~ label:hover, .rating > input:checked ~ label:hover ~ label, .rating > label:hover ~ input:checked ~ label {
+      color: #ea0;
+  }
+  .rating > label:active {
+      position:relative;
+  }
   .left{
     margin-left: 150px;
     margin-top: 50px;
@@ -78,17 +75,14 @@
     margin-bottom: 150px;
     float: right;
   }
-
-  .center{
-    
+  .center{ 
     margin-top: 35px;
     margin-bottom: 150px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-right: 15px;
-    
+    padding-right: 15px;  
   }
   .top{
     min-width: 350px;
@@ -98,8 +92,6 @@
     margin-top: 5px;
     margin-left: 40px;
     margin-right: 40px;
-
-   
   }
   .left{
     width: 31%;
@@ -121,9 +113,7 @@
 
     overflow: auto;
   }
-
-  .center{
-    
+  .center { 
     width: 31%;
     height: auto;
     min-width: 225px;
@@ -141,7 +131,7 @@
 
     background-color: #C5C7C8;
   }
-  .right{    
+  .right {    
     width: 31%;
     height: 700px;
     min-width: 225px;
@@ -152,15 +142,12 @@
     margin-top: 5px;
     margin-right: 30px;
 
-
-
     border: 3px;
     border-style: solid;
     border-color: #FEF3B3;
     border-radius: 10px;
 
     background-color: #C5C7C8;
-  
   }
   .rating-container {
     display: flex;
@@ -168,11 +155,11 @@
     padding-bottom: 30px;
   }
   .star {
-  color: gold;
-  font-size: 25;
-  -webkit-text-stroke: .5px black;
-}
-#titleFormat{
+    color: gold;
+    font-size: 25;
+    -webkit-text-stroke: .5px black;
+  }
+  #titleFormat{
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
@@ -188,23 +175,28 @@
     height: 50px;
     width: 80%;
   }
-#EventFormat{
+  #EventFormat {
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
+
     color: #000000;
     display: flex;
     font-size: 20pt;
     font-weight: bold;
     justify-content: center;
+    margin: 0 auto;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
     transform: translateX(-50%, -50%);
+    text-align: center;
+    vertical-align: middle;
+    
+    text-transform: uppercase;
 
     height: 50px;
-    width: 80%;
   }
-  #EventDetailsFormat{
+  #EventDetailsFormat {
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
@@ -222,9 +214,47 @@
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
-
   }
+  #individualEventOutline {
+    /* border: 3px solid #FEF3B3; */
+    /* border-radius: 6px; */
+    color: #000000;
+    margin-bottom: 0.5em;
+    text-align: left;
 
+    width: 380px;
+  }
+  /* Adding spaces in between individual events in the "CURRENT EVENTS" */
+  #grid-container {
+    display: grid;
+    grid-template-columns: 142px auto;
+  }
+  /* Styling the "CURRENT EVENTS" fields */
+  #grid-item-fields {
+    font-weight: bold;
+    font-size: 10pt;
+    margin-left: 1.5em;
+  }
+  /* Styling the individual events title in the "CURRENT EVENTS" */
+  #postedName {
+    color: #000000;
+    background-color: #FEF3B3;
+    display: block;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  #GarageSale img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin: 3em;
+    margin-top: 0.5em;
+    height: 200px;
+  }  
 </style>
 
 <%= include partials/header.ejs %>
@@ -235,17 +265,11 @@
 </head>
     <body>
        <center><h1><text id="EventDetailsFormat">Event Details</text></h1><center></br>
-
           <div class = "viewEvent">
-
             <div class="top">
-
             </div>
-
               <div class="left">
-                
                 <center><h1><text id="titleFormat">Reviews</text></h1><center></br>
-
                   <ul>
                     <% for (var i = 0; i < comments.length; i++) { %>
                       <% if (comments[i].owner == currentUser) { %>
@@ -314,8 +338,6 @@
                       <label for="star1">1 star</label>
                     </div>
                     </div>
-                    
-                  
                     <textarea name="comments" cols="50" rows="7" class="html-text-box" placeholder = "Comment here..." style="resize: none;"></textarea>
                     <br><br>
                     <input type="submit" value="Submit" class="btn btn-success" style="margin-bottom:8px">
@@ -353,24 +375,35 @@
               </div>
 
               <div class="center">
-                <div style="text-align:left;">
-                  <h3>
-                    <center> <text id="eventFormat"><b>Name:</b>&nbsp;&nbsp;<%= events[0].Name %></text><center></center><br> 
-                  </h3>
-
-                  <ul>               
-                    <h4>
-                      <le><b>Description:</b> <%= events[0].Description %></le><br><br>                   
-                      <le><b>Time:</b> <%= events[0].startTime %></le><br><br> 
-                      <le><b>Date:</b> <%= events[0].endTime %></le><br><br>                                    
-                      <le><b>Location:</b> <%= events[0].Location %></le><br><br>                                            
-                      <le><b>Contact Phone:</b> <%= events[0].Phone %></le><br><br>                 
-                      <le><b>Contact Email:</b> <%= events[0].Email %></le><br><br><br>   
-                    </h4>
-                  </ul>
+                <div id="individualEventOutline">
+                  <div id="eventFormat"><%= events[i].Name %></div>
+                  <div id="grid-container">
+                    <div id="grid-item-fields">PERMISSION:</div>
+                    <%= events[i].Level == 0 ? "Public" : events[i].Level == 1 ? "Private" : "RSO" %>
+                    <% if(events[i].Level != 0) {%>              
+                      <div id="grid-item-fields">UNIVERSITY:</div>
+                      <div><%= events[i].University_Name %></div>
+                    <%}%>
+                    <div id="grid-item-fields">START TIME:</div>
+                    <div><%= events[i].startTime.toLocaleString() %></div>
+                    <div id="grid-item-fields">END TIME:</div>
+                    <div><%= events[i].endTime.toLocaleString() %></div>
+                    <div id="grid-item-fields">LOCATION:</div>
+                    <div><%= events[i].Location %></div>
+                    <div id="grid-item-fields">EMAIL:</div>
+                    <div><%= events[i].Email %></div>
+                    <div id="grid-item-fields">PHONE #:</div>
+                    <div><%= events[i].Phone %></div>
+                    <div id="grid-item-fields">DESCRIPTION: </div>
+                    <div><%= events[i].Description%></div>
+                    <div id="grid-item-fields">CATEGORY:</div>
+                    <div><%= events[i].Type %></div>
+                  </div>
+                </div>
+                <div id="GarageSale">
+                  <img src="../images/GarageSale.png" alt="GarageSalePhoto">
                 </div>
               </div>
-
           </div> 
       </body>
 </html>

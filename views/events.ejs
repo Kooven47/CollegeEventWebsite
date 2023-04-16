@@ -61,7 +61,7 @@
 
   /* Setting and styling the fields of "CREATE EVENTS" */
   #nameField text, #startField text, #endField text, #phoneNumberField text, #emailAddressField text,
-  #permissionLevelField text, #hostRSOField text, #universityField text, #descriptionField text, #latitudeField text, #longitudeField text {
+  #permissionLevelField text, #hostRSOField text, #universityField text, #descriptionField text, #categoryField text, #latitudeField text, #longitudeField text {
     color: #000000;
     display: inline-block;
     font-size: 11pt;
@@ -71,7 +71,7 @@
     white-space: nowrap;
   }
   #name, #startTime, #endTime, #phoneNumber, #emailAddress,
-  #permissionLevel, #hostRSO, #university, #description, #latitude, #longitude {
+  #permissionLevel, #hostRSO, #university, #description, #category, #latitude, #longitude {
     color: #656565;
     border: none;
     border-radius: 4px;
@@ -85,12 +85,12 @@
   }
   /* Removing the "focus ring" when the fields of "CREATE EVENTS" is clicked */
   #name:focus, #startTime:focus, #endTime:focus, #phoneNumber:focus, #emailAddress:focus,
-  #permissionLevel:focus, #hostRSO:focus, #universityField:focus, #description:focus, #latitude:focus, #longitude:focus {
+  #permissionLevel:focus, #hostRSO:focus, #university:focus, #description:focus, #category:focus, #latitude:focus, #longitude:focus {
     outline: none;
   }
   /* Setting and styling inside the "CREATE EVENTS" field*/
   #name::placeholder, #startTime::placeholder, #endTime::placeholder, #phoneNumber::placeholder, #emailAddress::placeholder,
-  #permissionLevel::placeholder, #hostRSO::placeholder, #universityField::placeholder, #description::placeholder, #latitude::placeholder, #longitude::placeholder {
+  #permissionLevel::placeholder, #hostRSO::placeholder, #university::placeholder, #description::placeholder, #category::placeholder, #latitude::placeholder, #longitude::placeholder {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -411,6 +411,10 @@
           <text>DESCRIPTION:</text>
           <input id="description" type="text" name="description" placeholder="DESCRIPTION">
         </div>
+        <div id="categoryField">
+          <text>CATEGORY:</text>
+          <input id="category" type="text" name="category" placeholder="CATEGORY">
+        </div>
         <div id="latitudeField">
           <text>LATITUDE:</text>
           <input id="latitude" type="text" name="latitude" placeholder="LATITUDE">
@@ -424,8 +428,7 @@
         <div id="buttonContainer">
           <button id="createButton" type="submit">CREATE</button>
           <a href="#"
-            onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
-            <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+made+an+event+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fevents', 'newwindow', 'width=600, height=250'); return false;">            <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
           </a>
         </div>
         <!-- DO NOT DELETE: A cheating way to make more room at the bottom -->
@@ -447,9 +450,15 @@
         <div id="individualEventOutline">
           <div id="postedName"><%= events[i].Name %></div>
           <div id="grid-container">
-            <div id="grid-item-fields">DATE:</div>
+            <div id="grid-item-fields">PERMISSION:</div>
+            <%= events[i].Level == 0 ? "Public" : events[i].Level == 1 ? "Private" : "RSO" %>
+            <% if(events[i].Level != 0) {%>              
+              <div id="grid-item-fields">UNIVERSITY:</div>
+              <div><%= events[i].University_Name %></div>
+            <%}%>
+            <div id="grid-item-fields">START TIME:</div>
             <div><%= events[i].startTime.toLocaleString() %></div>
-            <div id="grid-item-fields">TIME:</div>
+            <div id="grid-item-fields">END TIME:</div>
             <div><%= events[i].endTime.toLocaleString() %></div>
             <div id="grid-item-fields">LOCATION:</div>
             <div><%= events[i].Location %></div>
@@ -459,6 +468,8 @@
             <div><%= events[i].Phone %></div>
             <div id="grid-item-fields">DESCRIPTION: </div>
             <div><%= events[i].Description%></div>
+            <div id="grid-item-fields">CATEGORY:</div>
+            <div><%= events[i].Type %></div>
           </div>
           <div style="display:flex; justify-content:center;"><input id="reviewButton" type="button" class="btn btn-info" value="REVIEWS" onclick="window.location='/events/<%= events[i].Event_ID %>'"></div>
         </div>

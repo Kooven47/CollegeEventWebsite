@@ -24,8 +24,7 @@ router.get('/', function(req, res, next)
   if (req.session.username)
   {
     console.log("User: " + req.session.username + " logged in");
-    var queryString = "SELECT * FROM rso AS r1 WHERE (r1.Approved = 1) AND ((SELECT University_Name FROM enrolled WHERE User_ID = '" + req.session.username + "') = (SELECT University_University_Name FROM University_has_RSO WHERE r1.RSO_ID = RSO_RSO_ID));";
-
+    var queryString = "SELECT *, (SELECT COUNT(*) FROM member_of WHERE RSO_ID = r1.RSO_ID) AS memberCount FROM rso AS r1 WHERE (r1.Approved = 1) AND ((SELECT University_Name FROM enrolled WHERE User_ID = '" + req.session.username + "') = (SELECT University_University_Name FROM University_has_RSO WHERE r1.RSO_ID = RSO_RSO_ID));";
     setTimeout(function()
     {
       connection.query(queryString, function(err, rows, fields) 
@@ -58,7 +57,7 @@ router.get('/:rsoid', function(req, res, next) {
 
   var rsoID = str.replace("/","");
 
-  var joinStatus = 1;
+  var joinStatus = 0;
 
   console.log(rsoID);
 
@@ -74,16 +73,16 @@ router.get('/:rsoid', function(req, res, next) {
       }
       else
       {
-        for(var i = 0; i < rows.length; i++)
+        for (var i = 0; i < rows.length; i++)
         {
           if (rows[i].User_ID == req.session.username)
           {
             console.log("already a member");
-            joinStatus = 0;
+            joinStatus = 1;
           }
         }  
 
-        if(joinStatus == 1)
+        if (joinStatus == 0)
         {            
           console.log("join rso");  
         }    
@@ -91,7 +90,7 @@ router.get('/:rsoid', function(req, res, next) {
     });
     
     console.log("User: " + req.session.username + " logged in");
-    var queryString = "SELECT * FROM rso WHERE RSO_ID='" + rsoID + "'";
+    var queryString = "SELECT * FROM rso WHERE RSO_ID = '" + rsoID + "'";
 
     setTimeout(function()
     {
@@ -104,7 +103,13 @@ router.get('/:rsoid', function(req, res, next) {
         }
         else
         {
-          res.render('viewRSO', {orgs: rows, joinStatus:joinStatus});          
+          var getNames = "SELECT name FROM user WHERE User_ID IN (SELECT User_ID FROM member_of WHERE RSO_ID = '" + rsoID + "');";
+          connection.query(getNames, function(err, memberrows, fields)
+          {
+            console.log(memberrows);
+            res.render('viewRSO', {orgs: rows, joinStatus: joinStatus, members: memberrows}); 
+          });
+                   
         }          
       });
     }, 200);

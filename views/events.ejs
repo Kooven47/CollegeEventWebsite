@@ -381,32 +381,38 @@
           <text>HOST RSO:</text>
           <select id="hostRSO" name="RSO"><%for (var i = 0; i < RSO.length; i++){%><option name="rsoName" value="<%=RSO[i].Name%>"> <%=RSO[i].Name%> <%}%></select>
         </div>
+        <div id="universityField" style="display:block">
+          <text>UNIVERSITY:</text>
+          <% if(uni) {%><select id="university" name="uni"><option value = "<%= uni %>"> <%= uni %> </option> </select><%}%>
+        </div>
 
         <script>
           // This whole script section allows us to listen for changes to the event type and show/hide RSO option depending on that
-          const permissionLevelSelect = document.getElementById('permissionLevel');
-          const myDiv = document.getElementById('hostRSOField');
-          
+          const permissionLevelSelect = document.getElementById('permissionLevel'); 
           permissionLevelSelect.addEventListener('change', () => {
             const selectedValue = permissionLevelSelect.value;
             
             if (selectedValue === 'org') {
               // Shows RSO option
               hostRSOField.style.display = 'block'; 
+              // Show University
+              universityField.style.display = 'block';
             } else if(selectedValue === 'priv'){
               // Shows RSO option
               hostRSOField.style.display = 'block'; 
+              // Show University
+              universityField.style.display = 'block';
+
             } else {
               // Hides RSO option
               hostRSOField.style.display = 'none'; 
+              // Hides University
+              universityField.style.display = 'none';
+
             }
           });
         </script>
 
-        <div id="universityField">
-          <text>UNIVERSITY:</text>
-          <% if(uni) {%><select id="university" name="uni"><option value = "<%= uni %>"> <%= uni %> </option> </select><%}%>
-        </div>
         <div id="descriptionField">
           <text>DESCRIPTION:</text>
           <input id="description" type="text" name="description" placeholder="DESCRIPTION">

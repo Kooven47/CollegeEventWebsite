@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `CEWDB`.`University` (
   `Location` VARCHAR(45) NOT NULL,
   `Description` VARCHAR(200) NOT NULL,
   `Student_Population` INT NOT NULL,
-  `Picture` BLOB NULL,
+  `Picture` TEXT NULL,
   PRIMARY KEY (`University_Name`),
   UNIQUE INDEX `University Name_UNIQUE` (`University_Name` ASC))
 ENGINE = InnoDB;
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `CEWDB`.`enrolled` (
   INDEX `where_idx` (`University_Name` ASC),
   CONSTRAINT `who`
     FOREIGN KEY (`User_ID`)
-    REFERENCES `CEWDB`.`Student` (`User_ID`)
+    REFERENCES `CEWDB`.`User` (`User_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `where`

@@ -34,7 +34,7 @@ router.get('/', function(req, res, next)
         }      
         else
         {
-          res.render('universities', {message: "",unis: rows});
+          res.render('universities', {message: "", unis: rows});
         }        
       });
     }, 200);

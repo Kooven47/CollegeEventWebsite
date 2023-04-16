@@ -130,7 +130,7 @@ app.post('/register', function(req, res, next)
 
   // Set user level
   if (newUser.type == "Student") {newUser.level = 0;}
-  else if (newUser.type == "superAdmin") {newUser.level = 2;}
+  else if (newUser.type == "Super Admin") {newUser.level = 2;}
 
   var checkquery = "SELECT COUNT(*) AS User_ID FROM user WHERE User_ID = '" + req.body.username + "' OR email = '" + req.body.email + "';";
   var regins1 = "INSERT INTO User (User_ID, name, password, level, email) VALUES ('" + newUser.username + "','" + newUser.name + "','" + newUser.password + "','" + newUser.level + "','" + newUser.email + "');";
@@ -153,7 +153,18 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Please fill out all the fields *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          if (rows.length == 0)
+          {
+            var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('University of Central Florida', 'Orlando, FL', 'The best university in Florida!', '66183', 'https://ucffoundation.org/wp-content/uploads/2021/06/UCF-Millican-Hall.jpeg');";
+            connection.query(addUni, function(err, rows, fields)
+            {
+
+            });
+          }
+          connection.query(queryString, function(err, rows, fields)
+          {
+            res.render("register", {message: "* Please fill out all the fields *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          });
         });
       }
       // Check that a university is selected
@@ -162,7 +173,18 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Please select a university *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          if (rows.length == 0)
+          {
+            var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('University of Central Florida', 'Orlando, FL', 'The best university in Florida!', '66183', 'https://ucffoundation.org/wp-content/uploads/2021/06/UCF-Millican-Hall.jpeg');";
+            connection.query(addUni, function(err, rows, fields)
+            {
+
+            });
+          }
+          connection.query(queryString, function(err, rows, fields)
+          {
+            res.render("register", {message: "* Please select a university *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          });
         });
         return;
       }
@@ -170,9 +192,17 @@ app.post('/register', function(req, res, next)
       else if (!regex.test(req.body.password))
       {
         var queryString = "SELECT * FROM university";
+        if (rows.length == 0)
+        {
+          var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('University of Central Florida', 'Orlando, FL', 'The best university in Florida!', '66183', 'https://ucffoundation.org/wp-content/uploads/2021/06/UCF-Millican-Hall.jpeg');";
+          connection.query(addUni, function(err, rows, fields)
+          {
+
+          });
+        }
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* Password does not meet requirements *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          res.render("register", {message: "* Password does not meet requirements *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
         });
       }
       else if (rows[0].User_ID == 0)
@@ -200,9 +230,9 @@ app.post('/register', function(req, res, next)
           req.session.password = req.body.password;
           req.session.type = req.body.type;
           
-          connection.query(enrollquery,function(err,rows,fields)
+          connection.query(enrollquery, function(err, rows, fields)
           {
-            if(err) 
+            if (err) 
             {
               throw err;
             }
@@ -223,21 +253,20 @@ app.post('/register', function(req, res, next)
             {
               throw err;
             }
-            connection.query(enrollquery,function(err, rows, fields)
-            {
-              if (err) 
-              {
-                throw err;
-              }
-            });
           });
-
           req.session.name = req.body.name;
           req.session.username = req.body.username;
           req.session.password = req.body.password;
           req.session.type = req.body.type;
-      
-          console.log("New user added");
+
+          connection.query(enrollquery, function(err, rows, fields)
+          {
+            if (err) 
+            {
+              throw err;
+            }
+          });
+          console.log("New super admin added");
 
           res.redirect("events");
         }    
@@ -248,7 +277,18 @@ app.post('/register', function(req, res, next)
         var queryString = "SELECT * FROM university";
         connection.query(queryString, function(err, rows, fields) 
         {
-          res.render("register", {message: "* This username or email is taken *", uni: rows, uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university});  
+          if (rows.length == 0)
+          {
+            var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('University of Central Florida', 'Orlando, FL', 'The best university in Florida!', '66183', 'https://ucffoundation.org/wp-content/uploads/2021/06/UCF-Millican-Hall.jpeg');";
+            connection.query(addUni, function(err, rows, fields)
+            {
+
+            });
+          }
+          connection.query(queryString, function(err, rows, fields)
+          {
+            res.render("register", {message: "* This username or email is taken *", uni: rows, fullname: req.body.name, email: req.body.email, username: req.body.username, password: req.body.password, university: req.body.university}); 
+          }); 
         });
       }
     }
@@ -289,20 +329,21 @@ app.post('/events', function(req, res, next)
   var LID;
 
   connection.query(checkOverlap, function(err, rows, fields) 
-    {
-      if(rows[0] != null)
-      {
-        app.locals.site.error = "* There is already an event at this location during this time! *"
-        res.render("events", {message: "* There is already an event at this location during this time! *", events: undefined, RSO:undefined, uni: undefined}); 
-        return;
-      }
-    else{
-  connection.query(checkadmin, function(err, rows, fields) 
   {
-      if (rows[0].TOTAL > 0)
+    if (rows[0] != null)
+    {
+      // app.locals.site.error = "* There is already an event at this location during this time! *"
+      app.locals.site.error = "* The " + rows[0].Name + " event is already at " + rows[0].Location + ", from " + rows[0].startTime.toLocaleString() + " to " + rows[0].endTime.toLocaleString() + "! *"
+      return;
+    }
+    else 
+    {
+      connection.query(checkadmin, function(err, rows, fields) 
       {
-        connection.query(addEvent1, function(err, rows, fields) 
+        if (rows[0].TOTAL > 0)
         {
+          connection.query(addEvent1, function(err, rows, fields) 
+          {
             connection.query(lastEvent, function(err, rows, fields)
             {
               LID = rows[0].LE;
@@ -310,12 +351,14 @@ app.post('/events', function(req, res, next)
           
               connection.query(getRSO, function(err, rsorows, fields)
               {
-                if (req.body.type == "org"){
+                if (req.body.type == "org")
+                {
                   if (!(rsorows && rsorows.length > 0)) {
                     app.locals.site.error = "* Must select an RSO *"
-                    res.render("events", {message: "* Must select an RSO *", events: undefined, RSO:rsorows, uni: undefined}); 
+                    res.render("events", {message: "* Must select an RSO *", events: undefined, RSO: rsorows, uni: undefined}); 
                   }
-                  else{
+                  else
+                  {
                     var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')"; 
                     connection.query(rsoHosts,function(err,rows,fields)
                     {
@@ -325,113 +368,120 @@ app.post('/events', function(req, res, next)
                 }
               });
             });
-        });
-      }
-      else
-      {
-        console.log("%%%%%%%%%%%%%%% in");
-        if (perm == 0)
-        {
-          console.log("****************public");
-          var addEvent0 = "INSERT INTO event (Name, Description, Type, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0);";
-        
-          connection.query(addEvent0, function(err, rows, fields) 
-          {
-            
-            connection.query(lastEvent, function(err, rows, fields)
-            {
-              LID = rows[0].LE;
-              console.log(LID);
-          
-              connection.query(getRSO, function(err, rsorows, fields)
-              {      
-                if (req.body.type == "org"){
-                  if (!(rsorows && rsorows.length > 0)) {
-                    app.locals.site.error = "* Must select an RSO *"
-                    res.render("events", {message: "* Must select an RSO *", events: undefined, RSO:rsorows, uni: undefined}); 
-                  }
-                  else{
-                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
-            
-                    connection.query(rsoHosts,function(err,rows,fields)
-                    {
-  
-                   });
-                  }
-                }
-              });
-            });
           });
         }
-        else if (perm == 1)
+        else
         {
-          console.log("*******************uni: " + req.body.uni);
-          var addEvent0 = "INSERT INTO event (Name, Description, Type, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
-        
-          connection.query(addEvent0, function(err, rows, fields) 
+          console.log("%%%%%%%%%%%%%%% in");
+          if (perm == 0)
           {
-            
-            connection.query(lastEvent, function(err, rows, fields)
-            {
-              LID = rows[0].LE;
-              console.log(LID);
+            console.log("****************public");
+            var addEvent0 = "INSERT INTO event (Name, Description, Type, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude + "','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 0);";
           
-              connection.query(getRSO, function(err, rsorows, fields)
+            connection.query(addEvent0, function(err, rows, fields) 
+            { 
+              connection.query(lastEvent, function(err, rows, fields)
               {
-                if (req.body.type == "org"){
-                  if (!(rsorows && rsorows.length > 0)) {
-                    app.locals.site.error = "* Must select an RSO *"
-                    res.render("events", {message: "* Must select an RSO *", events: rows, RSO:rsorows, uni: undefined}); 
-                  }
-                  else{              
-                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";           
-                    connection.query(rsoHosts,function(err,rows,fields)
-                    {
-  
-                    });
-                  }
-                }
-              });
-            });
-          });
-        }
-        else if (perm == 2)
-        {
-          var addEvent0 = "INSERT INTO event (Name, Description, Type, startTIme, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
-
-          connection.query(addEvent0, function(err, rows, fields) 
-          {
+                LID = rows[0].LE;
+                console.log(LID);
             
-            connection.query(lastEvent, function(err, rows, fields)
-            {
-              LID = rows[0].LE;
-              console.log(LID);
+                connection.query(getRSO, function(err, rsorows, fields)
+                {      
+                  if (req.body.type == "org")
+                  {
+                    if (!(rsorows && rsorows.length > 0)) 
+                    {
+                      app.locals.site.error = "* Must select an RSO *"
+                      res.render("events", {message: "* Must select an RSO *", events: undefined, RSO:rsorows, uni: undefined}); 
+                    }
+                    else
+                    {
+                      var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
               
-              connection.query(getRSO, function(err, rsorows, fields)
-              {
-  
-                if (req.body.type == "org"){
-                  if (!(rsorows && rsorows.length > 0)) {
-                    app.locals.site.error = "* Must select an RSO *"
-                    console.log(app.locals.site.error);                  
+                      connection.query(rsoHosts,function(err,rows,fields)
+                      {
+    
+                      });
+                    }
                   }
-                  else{
-                    var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
-                
-                    connection.query(rsoHosts,function(err,rows,fields)
-                    {
-                    
-                    });
-                  }
-                }
+                });
               });
             });
-          });
-          console.log("rso");
+          }
+          else if (perm == 1)
+          {
+            console.log("*******************uni: " + req.body.uni);
+            var addEvent0 = "INSERT INTO event (Name, Description, Type, startTime, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('"+ req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+          
+            connection.query(addEvent0, function(err, rows, fields) 
+            {
+              
+              connection.query(lastEvent, function(err, rows, fields)
+              {
+                LID = rows[0].LE;
+                console.log(LID);
+            
+                connection.query(getRSO, function(err, rsorows, fields)
+                {
+                  if (req.body.type == "org")
+                  {
+                    if (!(rsorows && rsorows.length > 0)) 
+                    {
+                      app.locals.site.error = "* Must select an RSO *"
+                      res.render("events", {message: "* Must select an RSO *", events: rows, RSO:rsorows, uni: undefined}); 
+                    }
+                    else
+                    {              
+                      var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";           
+                      connection.query(rsoHosts, function (err,rows,fields)
+                      {
+    
+                      });
+                    }
+                  }
+                });
+              });
+            });
+          }
+          else if (perm == 2)
+          {
+            var addEvent0 = "INSERT INTO event (Name, Description, Type, startTIme, endTime, Location, Latitude, Longitude, Phone, Email, Level, approved, University_Name) VALUES ('" + req.body.name + "','" + req.body.description + "','" + req.body.category + "','" + req.body.startTime + "','" + req.body.endTime + "','" + req.body.location + "','" + req.body.latitude+"','" + req.body.longitude + "','" + req.body.phone + "','" + req.body.email + "','" + perm + "', 1,'" + req.body.uni + "');";
+
+            connection.query(addEvent0, function(err, rows, fields) 
+            {
+              connection.query(lastEvent, function(err, rows, fields)
+              {
+                LID = rows[0].LE;
+                console.log(LID);
+                
+                connection.query(getRSO, function(err, rsorows, fields)
+                {
+                  if (req.body.type == "org")
+                  {
+                    if (!(rsorows && rsorows.length > 0)) 
+                    {
+                      app.locals.site.error = "* Must select an RSO *"
+                      console.log(app.locals.site.error);                  
+                    }
+                    else
+                    {
+                      var rsoHosts = "INSERT INTO hosts (RSO_RSO_ID, Event_ID) VALUES ('" + rsorows[0].RSO_ID + "','" + LID + "')";
+                  
+                      connection.query(rsoHosts,function(err,rows,fields)
+                      {
+                      
+                      });
+                    }
+                  }
+                });
+              });
+            });
+            console.log("rso");
+          }
         }
-      }
-  });}
-});
+      });
+    }
+  });
   console.log(req.body);
   res.redirect('/events');
 });
@@ -830,7 +880,7 @@ app.post('/orgs/:orgid', function(req, res, next)
 
 app.post('/universities', function(req, res, next) 
 {
-  var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population) VALUES ('" + req.body.name + "','" + req.body.location + "','" + req.body.description + "','" + req.body.population + "');";
+  var addUni = "INSERT INTO university (University_Name, Location, Description, Student_Population, Picture) VALUES ('" + req.body.name + "','" + req.body.location + "','" + req.body.description + "','" + req.body.population + "','" + req.body.imageLink + "');";
   var checkPriv = "SELECT COUNT(*) AS User_ID FROM super_admin WHERE User_ID = '" + req.session.username + "';";
   var queryString = "SELECT * FROM university";
 
@@ -841,7 +891,7 @@ app.post('/universities', function(req, res, next)
       console.log("error");
     } 
 
-    if (rows[0].User_ID > 0)
+    if (rows.length > 0)
     {
       connection.query(addUni, function(err, rows, fields) 
       {
@@ -876,7 +926,7 @@ app.post('/universities', function(req, res, next)
         }
         else
         {
-          res.render("universities",{message: "* You require Super Admin Privileges to create a new University *", unis: rows});
+          res.render("universities", {message: "* You require Super Admin Privileges to create a new University *", unis: rows});
         }         
       });       
     }

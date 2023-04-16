@@ -84,7 +84,7 @@
     }
 
     /* Setting and styling the name, email, username, and password field */
-    #nameField text, #emailField text, #usernameField text, #passwordField text, #universityDropdown text{
+    #nameField text, #emailField text, #usernameField text, #passwordField text, #universityDropdown text, #superAdminDropdown text{
       color: #000000;
       display: inline-block;
       margin-left: 1em;
@@ -92,7 +92,7 @@
       text-align: right;
       width: 85px;
     }
-    #name, #email, #username, #password, #university {
+    #name, #email, #username, #password, #university, #superAdmin {
       color: #656565;
       background-color: #FBFBFB;
       border: none;
@@ -106,11 +106,11 @@
       width: 210px;
     }
     /* Removing the "focus ring" when the name, email, username and password field is clicked */
-    #name:focus, #email:focus, #username:focus, #password:focus, #university:focus {
+    #name:focus, #email:focus, #username:focus, #password:focus, #university:focus, #superAdmin:focus {
       outline: none;
     }
     /* Setting and styling inside the name, email, username, and password field */
-    #name::placeholder, #email::placeholder, #username::placeholder, #password::placeholder, #university::placeholder {
+    #name::placeholder, #email::placeholder, #username::placeholder, #password::placeholder, #university::placeholder #superAdmin::placeholder {
       color: #656565;
       background-color: #FBFBFB;
       border: none;
@@ -289,14 +289,16 @@
         </div>
         <div id="universityDropdown">
           <text>UNIVERSITY:</text>
-          <% if(university != ''){ %>
             <select id="university" name="uni">
-          <%}else{%>   
-            <select id="university" name="uni", selected=<%-university%>>
-          <%}%>
-          
             <%for (var i = 0; i < uni.length; i++)
               {%><option value="<%= uni[i].University_Name %>"><%=uni[i].University_Name%></option><%}%>
+          </select>
+        </div>
+        <div id="superAdminDropdown">
+          <text>LEVEL:</text>
+          <select id="superAdmin" name="type">
+            <option value="Student">Student</option>
+            <option value="Super Admin">Super Admin</option>
           </select>
         </div>
         <div id="alreadyHaveAccount">
@@ -308,6 +310,7 @@
         <div id="errorMessage" class="aContainer">
           <text><% if (message.length > 0) %><%=message%></text>
         </div>
+        <br><br><br><br><br>
         <button id="signupButton" type="submit">SIGN UP</button>
         <a href="#"
           onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">

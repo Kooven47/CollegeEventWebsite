@@ -4,20 +4,13 @@
 <!-- Using the twitter icon, don't delete -->
 <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
 
-<head>
-  <meta property="og:title" content="I just made an event for College Event Manager!"/>
-  <meta property="og:site_name" content="College Event Manager"/>
-  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
-</head>
-
 <style>
 
   /* Setting the events background */
   body {
     background-image: url("../images/EventsBackground.jpg");
     background-size: cover;
-  }
-    
+  }  
   /* Setting dimensions and styling the create background */
   #createEventsBackground {
     align-items: center;
@@ -39,7 +32,6 @@
 
     overflow: auto;
   }
-
   /* Setting and styling the "CREATE EVENTS" and "CURRENT EVENTS" titles */
   #eventsTitle {
     align-items: center;
@@ -58,7 +50,6 @@
     height: 50px;
     width: 380px;
   }
-
   /* Setting and styling the fields of "CREATE EVENTS" */
   #nameField text, #startField text, #endField text, #phoneNumberField text, #emailAddressField text,
   #permissionLevelField text, #hostRSOField text, #universityField text, #descriptionField text, #categoryField text, #latitudeField text, #longitudeField text {
@@ -131,7 +122,9 @@
   .aContainer {
     color: red;
     font-size: 10pt;
-    white-space: nowrap;
+    /* white-space: nowrap; */
+    padding-left: 10px;
+    padding-right: 10px;
     padding-bottom: 11px;
   }
   /* Setting and styling the "SEARCH LOCATIONS" search bar */
@@ -160,7 +153,6 @@
     margin: auto;
     margin-bottom: 0.5em;
   }
-
   /* Styling the error message (if there is one) */
   #errorMessage {
     color: rgb(255, 0, 0);
@@ -169,11 +161,10 @@
     white-space: nowrap;
   }
   #buttonContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
   #createButton, #twitterButton {
     border-radius: 8px;
     font-size: 14pt;
@@ -181,7 +172,6 @@
     outline: none;
     text-align: center;
   }
-
   #createButton {
     background-color: #5cb85c;
     border: none;
@@ -189,11 +179,9 @@
     height: 35px;
     width: 324px;
   }
-
   #createButton:hover {
     background-color: #51a151;
   }
-
   #twitterButton {
     background-color: #1DA1F2;
     height: 35px;
@@ -203,7 +191,6 @@
   #twitterButton:hover {
     background-color: #1a98e6;
   }
-
   /* Setting dimensions and styling the "CURRENT EVENTS" background */
   #currentEventsBackground {
     align-items: center;
@@ -225,7 +212,6 @@
 
     overflow: auto;
   }
-
   /* Styling the filter background */
   #filterBackground {
     color: #000000;
@@ -234,7 +220,6 @@
 
     width: 380px;
   }
-
   /* Styling the filter buttons */
   #filter {
     background-color: #48a0cd;
@@ -253,7 +238,6 @@
   #filter:hover {
     background-color: #1e90c9;
   }
-
   /* Styling the individual events title in the "CURRENT EVENTS" */
   #postedName {
     color: #000000;
@@ -265,11 +249,9 @@
     text-align: center;
     text-transform: uppercase;
   }
-
   #startTime, #endTime {
     margin: left;
   }
-
   /* Styling the individual events in the "CURRENT EVENTS" */
   #individualEventOutline {
     border: 3px solid #FEF3B3;
@@ -280,20 +262,17 @@
 
     width: 380px;
   }
-
   /* Adding spaces in between individual events in the "CURRENT EVENTS" */
   #grid-container {
     display: grid;
     grid-template-columns: 142px auto;
   }
-
   /* Styling the "CURRENT EVENTS" fields */
   #grid-item-fields {
     font-weight: bold;
     font-size: 10pt;
     margin-left: 1.5em;
   }
-
   /* Styling the "DETAILS" button */
   #reviewButton {
     background-color: #5cb85c;
@@ -314,7 +293,6 @@
   #reviewButton:focus {
     outline: none;
   }
-
   #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
@@ -334,7 +312,6 @@
     white-space: nowrap;
     overflow: hidden;
   }
-
 </style>
 
 <%= include partials/header.ejs %>
@@ -346,7 +323,7 @@
     <div id="createEventsBackground">
       <text id="eventsTitle">CREATE EVENTS</text>
       <form class="form" action="/events" method="post">
-        <div class = "aContainer">
+        <div class="aContainer">
           <text> <% if (message && message.length > 1)%><%=message%></text>
         </div>
         <div id="permissionLevelField">
@@ -434,7 +411,8 @@
         <div id="buttonContainer">
           <button id="createButton" type="submit">CREATE</button>
           <a href="#"
-          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+made+an+event+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fevents', 'newwindow', 'width=600, height=250'); return false;">            <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
+          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+made+an+event+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fevents', 'newwindow', 'width=600, height=250'); return false;">            
+          <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
           </a>
         </div>
         <!-- DO NOT DELETE: A cheating way to make more room at the bottom -->
@@ -458,7 +436,9 @@
           <div id="grid-container">
             <div id="grid-item-fields">PERMISSION:</div>
             <%= events[i].Level == 0 ? "Public" : events[i].Level == 1 ? "Private" : "RSO" %>
-            <% if(events[i].Level != 0) {%>              
+            <% if (events[i].Level != 0) {%>
+              <div id="grid-item-fields">HOST RSO:</div>
+              <div><%= events[i].hostRso %></div>              
               <div id="grid-item-fields">UNIVERSITY:</div>
               <div><%= events[i].University_Name %></div>
             <%}%>

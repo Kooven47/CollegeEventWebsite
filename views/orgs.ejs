@@ -4,12 +4,6 @@
 <!-- Using the twitter icon, don't delete -->
 <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
 
-<head>
-  <meta property="og:title" content="I just created an RSO on College Event Manager!"/>
-  <meta property="og:site_name" content="College Event Manager"/>
-  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=64227370ff8036001a234afc&product=inline-share-buttons&source=platform" async="async"></script>
-</head>
-
 <style>
 
   /* Setting the events background */
@@ -296,7 +290,7 @@
         </div>
         <button id="createButton" type="submit">CREATE</button>
         <a href="#"
-          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
+          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+made+an+RSO+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Forgs', 'newwindow', 'width=600, height=250'); return false;">
           <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
         </a>
       </form>
@@ -309,6 +303,8 @@
             <div id="grid-container">
               <div id="grid-item-fields">ADMIN:</div>
               <div><%= orgs[i].Admin %></div>
+              <div id="grid-item-fields"># OF MEMBERS:</div>
+              <div><%= orgs[i].memberCount %></div>
             </div>
             <div style="display:flex; justify-content:center;"><input id="detailsButton" type="button" class="btn btn-info" value="DETAILS" onclick="window.location='/orgs/<%= orgs[i].RSO_ID %>'"></div>
           </div>

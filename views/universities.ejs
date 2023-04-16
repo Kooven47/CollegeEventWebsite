@@ -89,7 +89,7 @@
     white-space: nowrap;
     overflow: hidden;
   }
-  #nameField text, #locationField text, #descriptionField text, #populationField text {
+  #nameField text, #locationField text, #descriptionField text, #populationField text, #imageField text {
     color: #000000;
     display: inline-block;
     font-size: 11pt;
@@ -97,7 +97,7 @@
     width: 120px;
     white-space: nowrap;
   }        
-  #name, #location, #description, #population {
+  #name, #location, #description, #population, #imageLink {
     color: #656565;
     border: none;
     border-radius: 4px;
@@ -109,10 +109,10 @@
     height: 30px;
     width: 270px;
   }
-  #name:focus, #location:focus, #description:focus, #population:focus {
+  #name:focus, #location:focus, #description:focus, #population:focus, #imageLink:focus {
     outline: none;
   }
-  #name::placeholder, #location::placeholder, #description::placeholder, #population::placeholder{
+  #name::placeholder, #location::placeholder, #description::placeholder, #population::placeholder, #imageLink::placeholder {
     color: #656565;
     background-color: #FBFBFB;
     border: none;
@@ -126,7 +126,7 @@
   #University img {
     margin-top: 0.6em;
 
-    height: 225px;
+    height: 200px;
   }
 
   /* Setting and styling the "CREATE" button */
@@ -253,26 +253,30 @@
         </div>
         <div id="nameField">
           <text>NAME:</text>
-          <input id="name" type="text" name="name" placeholder="NAME">
+          <input id="name" type="text" name="name" placeholder="NAME" required>
         </div>
         <div id="locationField">
           <text>LOCATION:</text>
-          <input id="location" type="text" name="location" placeholder="LOCATION">
+          <input id="location" type="text" name="location" placeholder="LOCATION" required>
         </div>
         <div id="descriptionField">
           <text>DESCRIPTION:</text>
-          <input id="description" type="text" name="description" placeholder="DESCRIPTION">
+          <input id="description" type="text" name="description" placeholder="DESCRIPTION" required>
         </div>
         <div id="populationField">
           <text>STUDENT POP:</text>
-          <input id="population" type="text" name="population" placeholder="STUDENT POP">
+          <input id="population" type="number" name="population" placeholder="STUDENT POPULATION" required>
+        </div>
+        <div id="imageField">
+          <text>IMAGE URL:</text>
+          <input id="imageLink" type="text" name="imageLink" placeholder="IMAGE URL">
         </div>
         <div id="University">
           <img src="images/University.png" alt="UniversityPhoto">
         </div>
         <button id="createButton" type="submit">CREATE</button>
         <a href="#"
-          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+registered+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Fregister', 'newwindow', 'width=600, height=250'); return false;">
+          onclick="window.open('https://twitter.com/intent/tweet?text=I+just+created+a+university+for+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Funiversities', 'newwindow', 'width=600, height=250'); return false;">
           <button id="twitterButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
         </a>
       </form> 
@@ -289,6 +293,10 @@
             <div><%= unis[i].Description%></div>
             <div id="grid-item-fields">STUDENT POP: </div>
             <div><%= unis[i].Student_Population%></div>
+            <% if (unis[i].Picture) { %>
+              <div id="grid-item-fields">IMAGE: </div>
+              <div><img src="<%= unis[i].Picture %>" alt="UniversityPhoto" height="100" width="100"></div>
+            <% } %>
           </div>          
         </div>                                             
       <%}%>

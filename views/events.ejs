@@ -314,6 +314,7 @@
   #reviewButton:focus {
     outline: none;
   }
+
   #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
@@ -328,7 +329,7 @@
     transform: translateX(-50%, -50%);
 
     height: 70px;
-    width: 400px;
+    width: 500px;
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
@@ -339,13 +340,13 @@
 <%= include partials/header.ejs %>
 
 <body>
-  <center><h1><text id="maintitleFormat">Events</text></h1><center></br>
+  <center><h1><text id="maintitleFormat">EVENTS</text></h1><center></br>
   <div id="wrappingBackground">
     <!-- Code for "CREATE EVENTS" -->
     <div id="createEventsBackground">
       <text id="eventsTitle">CREATE EVENTS</text>
       <form class="form" action="/events" method="post">
-        <div class = "aContainer" >
+        <div class = "aContainer">
           <text> <% if (message && message.length > 1)%><%=message%></text>
         </div>
         <div id="permissionLevelField">

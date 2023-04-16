@@ -32,7 +32,7 @@
     overflow: auto;
   }
 
-  /* Setting and styling the "CREATE EVENTS" and "CURRENT EVENTS" titles */
+  /* Setting and styling the "CREATE EVENTS" titles */
   #eventsTitle {
     align-items: center;
     background-color: #FEF3B3;
@@ -44,6 +44,25 @@
     justify-content: center;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+
+    height: 50px;
+    width: 380px;
+  }
+
+  /* Setting and styling the "CURRENT EVENTS" titles */
+  #eventsTitles {
+    align-items: center;
+    background-color: #FEF3B3;
+    border-radius: 6px;
+    color: #000000;
+    display: flex;
+    font-size: 18pt;
+    font-weight: bold;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 0.95em;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
 
@@ -259,7 +278,7 @@
       </form> 
     </div>
     <div id="currentUniversitiesBackground">
-      <text id="eventsTitle">CURRENT UNIVERSITIES</text>
+      <text id="eventsTitles">CURRENT UNIVERSITIES</text>
       <% for(var i = 0; i < unis.length; i++) { %>
         <div id="individualEventOutline">
           <div id="postedName"><%= unis[i].University_Name %></div>

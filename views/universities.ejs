@@ -131,7 +131,7 @@
   }
   /* Changing the "SIGN IN" button color when hovered over */
   #createButton:hover {
-    background-color: #51a151 ;
+    background-color: #51a151;
   }
 
   /* Setting and Styling the Twitter button */
@@ -154,7 +154,7 @@
     background-color: #1a98e6;
   }
 
-  /* Setting dimensions and styling the "CURRENT EVENTS" background */
+  /* Setting dimensions and styling the "CURRENT UNIVERSITIES" background */
   #currentUniversitiesBackground {
     align-items: center;
     background-color: #C5C7C8;
@@ -176,7 +176,7 @@
     overflow: auto;
   }
 
-  /* Styling the individual events title in the "CURRENT EVENTS" */
+  /* Styling the individual events title in the "CURRENT UNIVERSITIES" */
   #postedName {
     color: #000000;
     background-color: #FEF3B3;
@@ -188,7 +188,7 @@
     text-transform: uppercase;
   }
 
-  /* Styling the individual events in the "CURRENT EVENTS" */
+  /* Styling the individual events in the "CURRENT UNIVERSITIES" */
   #individualEventOutline {
     border: 3px solid #FEF3B3;
     border-radius: 6px;
@@ -199,13 +199,13 @@
     width: 380px;
   }
 
-  /* Adding spaces in between individual events in the "CURRENT EVENTS" */
+  /* Adding spaces in between individual events in the "CURRENT UNIVERSITIES" */
   #grid-container {
     display: grid;
     grid-template-columns: 142px auto;
   }
 
-  /* Styling the "CURRENT EVENTS" fields */
+  /* Styling the "CURRENT UNIVERSITIES" fields */
   #grid-item-fields {
     font-weight: bold;
     font-size: 10pt;
@@ -224,12 +224,12 @@
  <body>
   <center><h1><text id="maintitleFormat">UNIVERSITIES</text></h1><center>
   
-  
   <div id="wrappingBackground">
+    <!-- Code for "CREATE UNIVERSITIES" -->
     <div id="createUniversity">
       <text id="eventsTitle">CREATE UNIVERSITY</text>
       <form class="form" action="/universities" method="post">
-        <div class = "aContainer" >
+        <div class = "aContainer">
           <text> <% if (message && message.length > 1)%><%=message%></text>
         </div>
         <div id="nameField">

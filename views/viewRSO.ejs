@@ -1,13 +1,13 @@
 <html>
-<title>CEM: RSO Details</title>
+<title>CEM: RSO DETAILS</title>
   <!-- Using the twitter icon, don't delete -->
 <script src="https://kit.fontawesome.com/962d9b3821.js" crossorigin="anonymous"></script>
 <style>
-    body {
-      background-image: url("../images/EventDetailsBackground.jpg");
-      background-size: cover;
-    }
-    #maintitleFormat {
+  body {
+    background-image: url("../images/RSODetailsBackground.jpg");
+    background-size: cover;
+  }
+  #maintitleFormat {
     align-items: center;
     background-color: #FEF3B3;
     border-radius: 6px;
@@ -21,7 +21,7 @@
     transform: translateX(-50%, -50%);
 
     height: 70px;
-    width: 400px;
+    width: 380px;
     border: 2px solid #C5C7C8;
     white-space: nowrap;
     overflow: hidden;
@@ -34,6 +34,7 @@
     text-align: left;
     background-color: #C5C7C8;
 
+    height: 250px;
     width: 380px;
   }
   #postedName {
@@ -55,13 +56,49 @@
     font-weight: bold;
     font-size: 10pt;
     margin-left: 1.5em;
+    top: 100px;
   }
-  #twitterButton {
-    background-color: #1DA1F2;
+  #daJoinButton {
+    left: 200px;
+    margin-right: 1em;
+    margin-top: 1.5em;
     height: 35px;
-    width: 50px;
+    width: 100px;
+    vertical-align: middle;
   }
-  #twitterButton:hover {
+  #daJoinButton:focus {
+    outline: none;
+  }
+  #daLeaveButton {
+    left: 200px;
+    margin-right: 1em;
+    height: 35px;
+    width: 100px;
+    vertical-align: middle;
+  }
+  #daLeaveButton:focus {
+    outline: none;
+  }
+  #twitterJoinButton {
+    background-color: #1DA1F2;
+    left: 250px;
+    height: 35.5px;
+    margin-top: 1.5em;
+    width: 50px;
+    vertical-align: middle;
+  }
+  #twitterJoinButton:hover {
+    background-color: #1a98e6;
+  }
+  #twitterLeaveButton {
+    background-color: #1DA1F2;
+    left: 250px;
+    height: 35px;
+    margin-top: 0.1em;
+    width: 50px;
+    vertical-align: middle;
+  }
+  #twitterLeaveButton:hover {
     background-color: #1a98e6;
   }
 </style>
@@ -100,13 +137,13 @@
           <div style="display:flex; justify-content:center;">
             <input id="daLeaveButton" type="submit" class="btn btn-danger" name="theButton" value="LEAVE">
             <a href="#"
-            onclick="window.open('https://twitter.com/intent/tweet?text=I+just+left+an+RSO+on+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Forgs%2F', 'newwindow', 'width=600, height=250'); return false;">
+            onclick="window.open('https://twitter.com/intent/tweet?text=I+just+joined+an+RSO+on+College+Event+Manager%21+http%3A%2F%2Flocalhost%3A3000%2Forgs%2F', 'newwindow', 'width=600, height=250'); return false;">
             <button id="twitterLeaveButton" class="btn btn-info"><i class="fa fa-twitter"></i></button>
             </a>
         </div>
         <% } %>
         <br>
       </form>  
-    </div> 
+    </div>
   </body>
 </html>
